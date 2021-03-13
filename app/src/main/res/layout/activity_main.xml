@@ -15,11 +15,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="All Experiments"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:backgroundTint="#009688"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:rippleColor="#FFFFFF" />
 
     <Button
         android:id="@+id/button2"
@@ -30,12 +30,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Your experiments"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#009688"
+        app:iconTint="#009688"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.692"
         app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -43,28 +45,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
 
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:backgroundTint="#009688"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_dialer" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="409dp"
-        android:layout_height="679dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
+        app:srcCompat="@android:drawable/ic_dialog_dialer"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="667dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 

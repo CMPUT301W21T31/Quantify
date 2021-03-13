@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Quantify</string>
+    <string name="title">Experiment name</string>
+    <string name="secondary_text">description</string>
+    <string name="supporting_text">user id</string>
+    <string name="action_1">END</string>
+    <string name="action_2">DELETE</string>
 </resources>
