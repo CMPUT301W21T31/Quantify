@@ -31,11 +31,13 @@
             app:tabTextColor="@color/shrine_pink_900">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/my_exps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_my_experiment" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/all_exps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_all_experiment" />
