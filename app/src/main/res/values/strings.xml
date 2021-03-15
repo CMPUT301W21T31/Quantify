@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Quantify</string>
+    <string name="left_side_menu">left side menu</string>
+    <string name="content_description_menu">left side menu</string>
+    <string name="search">search</string>
+    <string name="content_description_search">onClick opens search text</string>
+    <string name="user">user</string>
+    <string name="content_description_user">onClick open user profile</string>
+    <string name="more" />
+    <string name="content_description_more" />
+    <string name="tab_my_experiment">My Experiments</string>
+    <string name="tab_all_experiment">All Experiments</string>
+    <string name="location" />
+    <string name="content_description_location" />
+    <string name="question" />
+    <string name="content_description_question" />
+    <string name="qr_code" />
+    <string name="content_description_qr_code" />
+    <string name="bottomAppBar" />
+    <string name="supporting_text" />
+    <string name="secondary_text" />
+    <string name="title" />
+    <string name="action_1" >action_1</string>
+    <string name="action_2" >action_2</string>
 </resources>
