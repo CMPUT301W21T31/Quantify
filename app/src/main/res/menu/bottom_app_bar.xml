@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/location"
+        android:icon="@drawable/ic_location_24dp"
+        android:title="@string/location"
+        android:contentDescription="@string/content_description_location"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/question_answer"
+        android:icon="@drawable/ic_question_24dp"
+        android:title="@string/question"
+        android:contentDescription="@string/content_description_question"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/qr_code"
+        android:icon="@drawable/ic_qr_24dp"
+        android:title="@string/qr_code"
+        android:contentDescription="@string/content_description_qr_code"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/more"
+        android:title="@string/more"
+        android:contentDescription="@string/content_description_more"
+        app:showAsAction="never"
+        />
+
+
+
+</menu>
