@@ -150,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+
+                        if (item.getTitle() != "Add New"){
+                            Log.d("BOOKSHOP", "BOOM");
+                        }
+
+
                         return true;
                     }
                 });
