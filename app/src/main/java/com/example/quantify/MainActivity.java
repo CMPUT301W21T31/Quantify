@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                              AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
-                             adb.setTitle("Edit?");
+                             adb.setTitle("Add?");
                              adb.setMessage("Are you sure you want to Add Experiment");
                              adb.setView(view_1);
                              adb.setNegativeButton("Cancel", null);
