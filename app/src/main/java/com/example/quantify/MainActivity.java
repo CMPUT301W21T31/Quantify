@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Experiment> experimentAdapter;
     ArrayList<Experiment> experimentDataList;
     MaterialButton delete_button;
+    EditText expDesc;
+    EditText expUser;
+    EditText expStatus;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -65,25 +70,6 @@ public class MainActivity extends AppCompatActivity {
 //        FloatingActionButton fab;
 //        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
-
-
-        experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Log.d("TAG","BLABLA");
-                AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
-                adb.setTitle("Delete?");
-                adb.setMessage("Are you sure you want to delete " + position);
-                final int positionToRemove = position;
-                adb.setNegativeButton("Cancel", null);
-                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        experimentAdapter.remove(experimentAdapter.getItem(positionToRemove));
-                        experimentAdapter.notifyDataSetChanged();
-                    }});
-                adb.show();
-            }
-        });
 
         Toolbar topAppBar;
         topAppBar = (Toolbar) findViewById(R.id.topAppBar);
@@ -150,10 +136,52 @@ public class MainActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        Log.d("BLABLA",(String) item.getTitle());
 
-                        if (item.getTitle() != "Add New"){
-                            Log.d("BOOKSHOP", "BOOM");
-                        }
+                         if(((String) item.getTitle()).equals("Add New")){
+                             View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
+                             expDesc = view_1.findViewById(R.id.exp_desc_fragment);
+                             expUser = view_1.findViewById(R.id.exp_user_fragment);
+                             expStatus = view_1.findViewById(R.id.exp_status_fragment);
+
+
+                             AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
+                             adb.setTitle("Edit?");
+                             adb.setMessage("Are you sure you want to Add Experiment");
+                             adb.setView(view_1);
+                             adb.setNegativeButton("Cancel", null);
+                             adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     String exp_description = expDesc.getText().toString();
+                                     String exp_username = expUser.getText().toString();
+                                     String exp_status = expStatus.getText().toString();
+
+                                     experimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
+
+//                                     current_exp.setExp_desc(exp_description);
+//                                     current_exp.setUser(exp_username);
+//                                     current_exp.setStatus(exp_status);
+//
+//
+//
+//
+//                        Experiment mycity = new Experiment(exp_name, exp_description, null,S_Total,F_Total);
+//                        experimentAdapter.remove(experimentAdapter.getItem(positionToRemove));
+//                        experimentAdapter.insert(mycity, positionToRemove);
+                                     experimentAdapter.notifyDataSetChanged();
+
+
+                                 }});
+                             adb.show();
+
+
+
+
+
+
+
+
+                         }
 
 
                         return true;
