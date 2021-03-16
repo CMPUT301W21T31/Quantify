@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:paddingLeft="25dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="30dp">
 
     <TextView
         android:id="@+id/exp_desc"
@@ -37,18 +39,30 @@
         android:textColor="#FF2D2D"
         android:textSize="20sp"></TextView>
 
-    <Button
-        android:id="@+id/button_end"
-        android:layout_width="152dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:text="End" />
 
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
-        android:text="Delete" />
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_end"
+            android:layout_width="152dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="15dp"
+            android:text="End" />
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="151dp"
+            android:layout_height="37dp"
+            android:text="Delete" />
+
+    </LinearLayout>
+
+
+
+
 
 
 </LinearLayout>
