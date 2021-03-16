@@ -3,13 +3,17 @@ package com.example.quantify;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.Toast;
@@ -18,20 +22,68 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+
+    //ListView listView;
+    RecyclerView listView;
+
+    //ArrayAdapter<Experiment> expAdapter;
+    customList expAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
+
+    ArrayList<Experiment> expList;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        FloatingActionButton fab;
+
+        //listView = findViewById(R.id.exp_list);
+        listView = (RecyclerView) findViewById(R.id.exp_list);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        listView.setLayoutManager(mLayoutManager);
+
+        expList = new ArrayList<>();
+        expList.add(new Experiment("Nahin", "nahin", "Running"));
+        expList.add(new Experiment("Nahin", "nahin", "Running"));
+        expList.add(new Experiment("Nahin", "nahin", "Running"));
+        expList.add(new Experiment("Nahin", "nahin", "Running"));
+
+
+        //expAdapter = new customList(this, expList);
+        expAdapter = new customList(this, expList);
+        listView.setAdapter(expAdapter);
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(MainActivity.this,"You Clicked : " + view.toString(), Toast.LENGTH_SHORT).show();
+//                Experiment value = (Experiment) parent.getItemAtPosition(position);
+//                expAdapter.remove(value);
+//                expAdapter.notifyDataSetChanged();
+//            }
+//        });
+
+
+
+
+
+
+        //        FloatingActionButton fab;
 //        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
         Toolbar topAppBar;
@@ -51,14 +103,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.search:
-                        // Handle search icon press
-
+                         //Handle search icon press
+                        return true;
                     case R.id.user:
                         // Handle user icon press
-
+                        return true;
                     case R.id.more:
                         // Handle more icon press
-
+                        return true;
                 }
                 return false;
             }
@@ -99,6 +151,25 @@ public class MainActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+
+                        switch(item.getItemId()){
+                            case R.id.add:
+                                //Handle search icon press
+                                return true;
+                            case R.id.subscribed:
+                                // Handle user icon press
+                                return true;
+                            case R.id.questions:
+                                // Handle more icon press
+                                return true;
+                            case R.id.qrcodes:
+                                // Handle more icon press
+                                return true;
+                            case R.id.profile:
+                                // Handle more icon press
+                                return true;
+                        }
+
                         return true;
                     }
                 });
@@ -114,5 +185,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + expAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
 }

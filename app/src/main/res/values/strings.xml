@@ -20,6 +20,6 @@
     <string name="supporting_text" />
     <string name="secondary_text" />
     <string name="title" />
-    <string name="action_1" >action_1</string>
-    <string name="action_2" >action_2</string>
+    <string name="action_1">action_1</string>
+    <string name="action_2">action_2</string>
 </resources>
