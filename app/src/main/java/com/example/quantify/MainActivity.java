@@ -29,6 +29,7 @@ import androidx.core.widget.NestedScrollView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ListView experimentList;
+    MaterialCardView cardList;
     ArrayAdapter<Experiment> experimentAdapter;
     ArrayList<Experiment> experimentDataList;
     MaterialButton delete_button;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         experimentList = findViewById(R.id.exp_list);
 
-        delete_button = findViewById(R.id.delete_button);
+//        delete_button = findViewById(R.id.delete_button);
         experimentDataList = new ArrayList<>();
 
         experimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
@@ -66,16 +68,20 @@ public class MainActivity extends AppCompatActivity {
 
 
         experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Toast.makeText(MainActivity.this,"You Clicked : ", Toast.LENGTH_SHORT).show();
-                Log.e("myTag", "Item Clicked");
-//                delete_button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        experimentAdapter.remove(experimentAdapter.getItem(position));
-//                        experimentAdapter.notifyDataSetChanged();
-//                    }
-//                });
+                Log.d("TAG","BLABLA");
+                AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete " + position);
+                final int positionToRemove = position;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        experimentAdapter.remove(experimentAdapter.getItem(positionToRemove));
+                        experimentAdapter.notifyDataSetChanged();
+                    }});
+                adb.show();
             }
         });
 

@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,13 +37,39 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
 
         Experiment experiment = experiments.get(position);
 
-        TextView expDesc = view.findViewById(R.id.exp_Desc);
-        TextView expUser = view.findViewById(R.id.exp_User);
-        TextView expStatus = view.findViewById(R.id.exp_Status);
+        TextView expDesc = view.findViewById(R.id.exp_desc);
+        TextView expUser = view.findViewById(R.id.exp_user);
+        TextView expStatus = view.findViewById(R.id.exp_status);
+        Button expEnd = view.findViewById(R.id.button_end);
+        Button expDelete = view.findViewById(R.id.button_delete);
 
         expDesc.setText(experiment.getDescription());
         expUser.setText(experiment.getUser());
         expStatus.setText(experiment.getStatus());
+
+        expDelete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                experiments.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
+        expEnd.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                experiment.setStatus("End");
+                notifyDataSetChanged();
+            }
+        });
+
+
+
+
 
         return view;
     }
