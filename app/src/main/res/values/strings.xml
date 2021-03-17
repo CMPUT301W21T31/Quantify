@@ -20,12 +20,9 @@
     <string name="supporting_text" />
     <string name="secondary_text" />
     <string name="title" />
-<<<<<<< Updated upstream
-    <string name="action_1">action_1</string>
-    <string name="action_2">action_2</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-=======
     <string name="action_1" >action_1</string>
     <string name="action_2" >action_2</string>
     <string name="userid_text">UserID:</string>
@@ -49,5 +46,5 @@
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
     <string name="enter_your_number_in_decimal">Enter your number in decimal</string>
->>>>>>> Stashed changes
+
 </resources>
