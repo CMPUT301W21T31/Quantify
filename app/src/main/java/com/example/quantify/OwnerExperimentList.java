@@ -13,12 +13,12 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ExperimentList extends ArrayAdapter<Experiment> {
+public class OwnerExperimentList extends ArrayAdapter<Experiment> {
 
     private ArrayList<Experiment> experiments;
     private Context context;
 
-    public ExperimentList(Context context, ArrayList<Experiment> experiments){
+    public OwnerExperimentList(Context context, ArrayList<Experiment> experiments){
         super(context, 0, experiments);
         this.experiments = experiments;
         this.context = context;
@@ -36,9 +36,9 @@ public class ExperimentList extends ArrayAdapter<Experiment> {
 
         Experiment experiment = experiments.get(position);
 
-        TextView expDesc = view.findViewById(R.id.exp_desc);
-        TextView expUser = view.findViewById(R.id.exp_user);
-        TextView expStatus = view.findViewById(R.id.exp_status);
+        TextView expDesc = view.findViewById(R.id.owner_exp_desc);
+        TextView expUser = view.findViewById(R.id.owner_exp_user);
+        TextView expStatus = view.findViewById(R.id.owner_exp_status);
         Button expEnd = view.findViewById(R.id.button_end);
         Button expDelete = view.findViewById(R.id.button_delete);
 

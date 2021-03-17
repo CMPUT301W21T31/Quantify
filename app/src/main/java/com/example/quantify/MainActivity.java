@@ -2,34 +2,25 @@ package com.example.quantify;
 
 
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     ListView experimentList;
     MaterialCardView cardList;
-    ArrayAdapter<Experiment> experimentAdapter;
-    ArrayList<Experiment> experimentDataList;
+    ArrayAdapter<Experiment> ownerExperimentAdapter;
+    ArrayAdapter<Experiment> experimenterExperimentAdapter;
+    ArrayList<Experiment> ownerExperimentDataList;
+    ArrayList<Experiment> experimenterExperimentDataList;
+
     MaterialButton delete_button;
     EditText expDesc;
     EditText expUser;
@@ -54,18 +48,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         experimentList = findViewById(R.id.exp_list);
 
-//        delete_button = findViewById(R.id.delete_button);
-        experimentDataList = new ArrayList<>();
+        //        delete_button = findViewById(R.id.delete_button);
+        ownerExperimentDataList = new ArrayList<>();
+        experimenterExperimentDataList = new ArrayList<>();
 
-        experimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        experimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        experimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-
-        experimentAdapter = new ExperimentList(this, experimentDataList);
-
-        experimentList.setAdapter(experimentAdapter);
+        ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
+        experimenterExperimentAdapter = new ExperimenterExperimentList(MainActivity.this, experimenterExperimentDataList);
 
 //        FloatingActionButton fab;
 //        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
@@ -107,6 +98,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Toast.makeText(MainActivity.this,"You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
+
+                if( tab.getPosition() == 0){
+
+                    ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+                    ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+                    ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+
+
+                    experimentList.setAdapter(ownerExperimentAdapter);
+                    ownerExperimentAdapter.notifyDataSetChanged();
+                }
+                else{
+                    experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+                    experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+                    experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+
+                    experimentList.setAdapter(experimenterExperimentAdapter);
+                    experimenterExperimentAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -156,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
                                      String exp_username = expUser.getText().toString();
                                      String exp_status = expStatus.getText().toString();
 
-                                     experimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
+                                     ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
+                                     experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
 
 //                                     current_exp.setExp_desc(exp_description);
 //                                     current_exp.setUser(exp_username);
@@ -168,18 +179,11 @@ public class MainActivity extends AppCompatActivity {
 //                        Experiment mycity = new Experiment(exp_name, exp_description, null,S_Total,F_Total);
 //                        experimentAdapter.remove(experimentAdapter.getItem(positionToRemove));
 //                        experimentAdapter.insert(mycity, positionToRemove);
-                                     experimentAdapter.notifyDataSetChanged();
+                                     ownerExperimentAdapter.notifyDataSetChanged();
 
 
                                  }});
                              adb.show();
-
-
-
-
-
-
-
 
                          }
 

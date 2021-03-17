@@ -10,7 +10,7 @@
     android:paddingBottom="30dp">
 
     <TextView
-        android:id="@+id/exp_desc"
+        android:id="@+id/owner_exp_desc"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
@@ -19,7 +19,7 @@
         android:textSize="30sp"></TextView>
 
     <TextView
-        android:id="@+id/exp_user"
+        android:id="@+id/owner_exp_user"
         android:layout_width="135dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
@@ -30,7 +30,7 @@
 
 
     <TextView
-        android:id="@+id/exp_status"
+        android:id="@+id/owner_exp_status"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
