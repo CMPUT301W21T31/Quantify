@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
-        <activity android:name=".CountTrialActivity"></activity>
+        <activity android:name=".SubscribedActivity"></activity>
+        <activity android:name=".CountTrialActivity" />
         <activity android:name=".NonNegativeCountTrialActivity" />
         <activity android:name=".MeasurementTrialActivity" />
         <activity android:name=".BinomialTrialActivity" />

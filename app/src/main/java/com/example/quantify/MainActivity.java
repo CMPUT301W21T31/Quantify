@@ -4,6 +4,7 @@ package com.example.quantify;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,16 +33,21 @@ public class MainActivity extends AppCompatActivity {
 
     ListView experimentList;
     MaterialCardView cardList;
+
     ArrayAdapter<Experiment> ownerExperimentAdapter;
     ArrayAdapter<Experiment> experimenterExperimentAdapter;
+
     ArrayList<Experiment> ownerExperimentDataList;
     ArrayList<Experiment> experimenterExperimentDataList;
+    ArrayList<Experiment> subscribedExperimentDataList;
 
     MaterialButton delete_button;
     EditText expDesc;
     EditText expUser;
     EditText expStatus;
+    FloatingActionButton floatingActionButton;
 
+    int tabPos = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -49,11 +55,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        floatingActionButton = findViewById(R.id.floatingActionButton);
         experimentList = findViewById(R.id.exp_list);
 
         //        delete_button = findViewById(R.id.delete_button);
         ownerExperimentDataList = new ArrayList<>();
         experimenterExperimentDataList = new ArrayList<>();
+        subscribedExperimentDataList = new ArrayList<>();
 
 
         ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
@@ -66,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
-        experimenterExperimentAdapter = new ExperimenterExperimentList(MainActivity.this, experimenterExperimentDataList);
+        experimenterExperimentAdapter = new ExperimenterExperimentList(MainActivity.this, experimenterExperimentDataList, subscribedExperimentDataList);
 
         // initially, we see the owner view
         experimentList.setAdapter(ownerExperimentAdapter);
@@ -114,10 +122,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
 
                 if( tab.getPosition() == 0){
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                    tabPos = 0;
                     experimentList.setAdapter(ownerExperimentAdapter);
                     ownerExperimentAdapter.notifyDataSetChanged();
                 }
                 else{
+                    floatingActionButton.setVisibility(View.INVISIBLE);
+                    tabPos = 1;
                     experimentList.setAdapter(experimenterExperimentAdapter);
                     experimenterExperimentAdapter.notifyDataSetChanged();
                 }
@@ -150,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        Log.d("BLABLA",(String) item.getTitle());
+                        //Log.d("BLABLA",(String) item.getTitle());
 
                          if(((String) item.getTitle()).equals("Add New")){
                              View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
@@ -189,6 +201,12 @@ public class MainActivity extends AppCompatActivity {
                                  }});
                              adb.show();
 
+                         }
+                         else if(((String) item.getTitle()).equals("Subscribed")){
+                             Log.d("BLABLA",subscribedExperimentDataList.toString());
+                             Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
+                             intent.putExtra("subscribed",subscribedExperimentDataList );
+                             startActivity(intent);
                          }
 
 

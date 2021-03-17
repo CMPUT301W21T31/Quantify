@@ -7,7 +7,9 @@
     android:paddingLeft="25dp"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    android:paddingBottom="30dp">
+    android:paddingBottom="30dp"
+    android:clickable="true"
+    android:id="@+id/exp_card">
 
     <TextView
         android:id="@+id/experimenter_exp_desc"

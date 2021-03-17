@@ -1,9 +1,10 @@
 package com.example.quantify;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Experiment {
+public class Experiment implements Serializable {
     private String description;
     private String user;
     private String status;

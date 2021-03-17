@@ -83,7 +83,8 @@
         app:layout_anchor="@id/bottomAppBar"
         app:layout_anchorGravity="right"
         app:srcCompat="@drawable/ic_add_24dp"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:visibility="visible"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
