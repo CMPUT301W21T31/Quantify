@@ -136,10 +136,13 @@
         android:layout_width="90dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:text="@string/space"
+        android:text="0"
+        android:textSize="35dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/successText" />
+        app:layout_constraintTop_toBottomOf="@+id/successText"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/addOneButton"
