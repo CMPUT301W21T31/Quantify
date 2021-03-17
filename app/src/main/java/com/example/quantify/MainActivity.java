@@ -55,8 +55,22 @@ public class MainActivity extends AppCompatActivity {
         ownerExperimentDataList = new ArrayList<>();
         experimenterExperimentDataList = new ArrayList<>();
 
+
+        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+
+        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+
+
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
         experimenterExperimentAdapter = new ExperimenterExperimentList(MainActivity.this, experimenterExperimentDataList);
+
+        // initially, we see the owner view
+        experimentList.setAdapter(ownerExperimentAdapter);
+
 
 //        FloatingActionButton fab;
 //        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
@@ -100,20 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
 
                 if( tab.getPosition() == 0){
-
-                    ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-                    ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-                    ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-
-
                     experimentList.setAdapter(ownerExperimentAdapter);
                     ownerExperimentAdapter.notifyDataSetChanged();
                 }
                 else{
-                    experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-                    experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-                    experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-
                     experimentList.setAdapter(experimenterExperimentAdapter);
                     experimenterExperimentAdapter.notifyDataSetChanged();
                 }
