@@ -46,5 +46,5 @@
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
     <string name="enter_your_number_in_decimal">Enter your number in decimal</string>
-
+    <string name="UniqueUsername">@username</string>
 </resources>

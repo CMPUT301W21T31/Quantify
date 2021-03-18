@@ -159,12 +159,13 @@ public class MainActivity extends AppCompatActivity {
 //
         FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton finalFab1 = fab;
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, fab);
+                PopupMenu popup = new PopupMenu(MainActivity.this, finalFab1);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
@@ -233,15 +234,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton finalFab = fab;
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, fab);
+                PopupMenu popup = new PopupMenu(MainActivity.this, finalFab);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
