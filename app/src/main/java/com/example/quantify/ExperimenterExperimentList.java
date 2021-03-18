@@ -56,7 +56,9 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
             public boolean onLongClick(View v) {
                 //Log.d("BLABLA",subscribed.toString());
                 Toast.makeText(context ,"Subscribed", Toast.LENGTH_SHORT).show();
-                subscribed.add(experiments.get(position));
+                if(!subscribed.contains(experiments.get(position))) {
+                    subscribed.add(experiments.get(position));
+                }
                 notifyDataSetChanged();
                 return false;
             }
