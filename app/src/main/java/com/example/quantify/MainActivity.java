@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -32,7 +33,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ListView experimentList;
-    MaterialCardView cardList;
 
     ArrayAdapter<Experiment> ownerExperimentAdapter;
     ArrayAdapter<Experiment> experimenterExperimentAdapter;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     EditText expDesc;
     EditText expUser;
     EditText expStatus;
+    EditText expType;
     FloatingActionButton floatingActionButton;
 
     int tabPos = 0;
@@ -64,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
         subscribedExperimentDataList = new ArrayList<>();
 
 
-        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+        ownerExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
+        ownerExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
+        ownerExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
-        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+        experimenterExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
+        experimenterExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
+        experimenterExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
 
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                              expDesc = view_1.findViewById(R.id.exp_desc_fragment);
                              expUser = view_1.findViewById(R.id.exp_user_fragment);
                              expStatus = view_1.findViewById(R.id.exp_status_fragment);
+                             expType = view_1.findViewById(R.id.exp_type_fragment);
 
 
                              AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
@@ -181,9 +183,10 @@ public class MainActivity extends AppCompatActivity {
                                      String exp_description = expDesc.getText().toString();
                                      String exp_username = expUser.getText().toString();
                                      String exp_status = expStatus.getText().toString();
+                                     String exp_type = expType.getText().toString();
 
-                                     ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
-                                     experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
+                                     ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                                     experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
 
 //                                     current_exp.setExp_desc(exp_description);
 //                                     current_exp.setUser(exp_username);
@@ -205,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                          else if(((String) item.getTitle()).equals("Subscribed")){
                              Log.d("BLABLA",subscribedExperimentDataList.toString());
                              Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
-                             intent.putExtra("subscribed",subscribedExperimentDataList );
+                             intent.putExtra("subscribed",subscribedExperimentDataList);
                              startActivity(intent);
                          }
 
@@ -218,6 +221,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });//closing the setOnClickListener method
 
+
+        experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                String experiment_type = (String) experimenterExperimentAdapter.getItem(position).getType();
+
+                if (experiment_type.equals("Binomial")){
+                    Log.d("BLABLA","Binomial Clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, BinomialTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+                else if(experiment_type.equals("Count")){
+                    Log.d("BLABLA","Count Clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, CountTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+                else if(experiment_type.equals("Temperature")){
+                    Log.d("BLABLA","Temperature clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, MeasurementTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+                else if(experiment_type.equals("Non-neg")){
+                    Log.d("BLABLA","Non-neg clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, NonNegativeCountTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+
+
+
+            }
+        });
 
 
 

@@ -50,13 +50,15 @@
             android:layout_width="152dp"
             android:layout_height="35dp"
             android:layout_marginRight="15dp"
-            android:text="End" />
+            android:text="End"
+            android:focusable="false"/>
 
         <Button
             android:id="@+id/button_delete"
             android:layout_width="151dp"
             android:layout_height="37dp"
-            android:text="Delete" />
+            android:text="Delete"
+            android:focusable="false"/>
 
     </LinearLayout>
 

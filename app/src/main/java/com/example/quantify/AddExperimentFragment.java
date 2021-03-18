@@ -18,6 +18,7 @@ public class AddExperimentFragment extends DialogFragment {
     private EditText expDesc;
     private EditText expUser;
     private EditText expStatus;
+    private EditText expType;
 
 
     private OnFragmentInteractionListener listener;
@@ -45,6 +46,7 @@ public class AddExperimentFragment extends DialogFragment {
         expDesc = view.findViewById(R.id.exp_desc_fragment);
         expUser = view.findViewById(R.id.exp_user_fragment);
         expStatus = view.findViewById(R.id.exp_status_fragment);
+        expType = view.findViewById(R.id.exp_type_fragment);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
@@ -57,6 +59,7 @@ public class AddExperimentFragment extends DialogFragment {
                         String experiment = expDesc.getText().toString();
                         String user = expUser.getText().toString();
                         String status = expStatus.getText().toString();
+                        String type = expType.getText().toString();
 
 //                        https://stackoverflow.com/a/15314227
 //                        username: Ahmed Aeon Axan
@@ -65,7 +68,7 @@ public class AddExperimentFragment extends DialogFragment {
 
 //                        Reference ends. I just learned parseInt from this guy
 
-                        listener.onOkPressed(new Experiment(experiment, user, status));
+                        listener.onOkPressed(new Experiment(experiment, user, status, type));
                     }
                 }).create();
     }

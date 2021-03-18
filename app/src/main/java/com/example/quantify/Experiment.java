@@ -8,12 +8,14 @@ public class Experiment implements Serializable {
     private String description;
     private String user;
     private String status;
+    private String type;
 
 
-    Experiment(String description, String user, String status){
+    Experiment(String description, String user, String status, String type){
         this.description = description;
         this.user = user;
         this.status = status;
+        this.type = type;
     }
 
     public String getDescription() {
@@ -38,6 +40,14 @@ public class Experiment implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 
