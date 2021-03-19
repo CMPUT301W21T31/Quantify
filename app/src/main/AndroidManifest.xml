@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
-        <activity android:name=".SubscribedActivity"></activity>
+        <activity
+            android:name=".ShowUserProfile"
+            android:label="@string/title_activity_show_user_profile"
+            android:theme="@style/Theme.Quantify.NoActionBar"></activity>
+        <activity android:name=".SubscribedActivity" />
         <activity android:name=".CountTrialActivity" />
         <activity android:name=".NonNegativeCountTrialActivity" />
         <activity android:name=".MeasurementTrialActivity" />

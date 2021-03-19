@@ -35,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -150,6 +151,11 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.user:
                         // Handle user icon press
+                        Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
+//
+//                        intent.putExtra("city", (Serializable) cityName);
+//
+                        startActivity(intent);
 
                     case R.id.more:
                         // Handle more icon press
