@@ -28,6 +28,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -116,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.user:
                         // Handle user icon press
+                        Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
+//
+//                        intent.putExtra("city", (Serializable) cityName);
+//
+                        startActivity(intent);
 
                     case R.id.more:
                         // Handle more icon press
