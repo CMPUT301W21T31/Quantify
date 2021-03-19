@@ -2,6 +2,7 @@ package com.example.quantify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -23,17 +24,28 @@ public class Question extends AppCompatActivity {
         setContentView(R.layout.activity_question);
 
         // Setting up a basic array to try out with local data
-        ArrayList<String> questions = new ArrayList<String>();
-        questions.add("question 1");
-        questions.add("question 2");
-        questions.add("question 3");
+        QuestionDataManagement quesObject = new QuestionDataManagement();
 
         // ArrayAdapter take the array and sets up the whole list
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, questions);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, quesObject.questions);
         ListView listQuestions = (ListView) findViewById(R.id.questionList);
         listQuestions.setAdapter(listAdapter);
 
+        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                Intent intent = new Intent(Question.this, QuestionDetails.class);
+                intent.putExtra("qid",(int)id);
+                startActivity(intent);
+            }
+        };
 
+        listQuestions.setOnItemClickListener(itemClickListener);
 
+    }
+
+    public void askQuestionButton(View view) {
+        Intent intent = new Intent(this, AskQuestion.class);
+        startActivity(intent);
     }
 }

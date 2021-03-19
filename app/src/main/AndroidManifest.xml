@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
+        <activity android:name=".AskQuestion"/>
+        <activity android:name=".QuestionDetails" />
         <activity android:name=".Question" />
         <activity android:name=".SubscribedActivity" />
         <activity android:name=".CountTrialActivity" />
