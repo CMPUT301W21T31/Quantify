@@ -20,6 +20,7 @@
     <string name="supporting_text" />
     <string name="secondary_text" />
     <string name="title" />
+    <string name="questionCall">Questions</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -47,5 +48,6 @@
     <string name="minus_sign">-</string>
     <string name="enter_your_number_in_decimal">Enter your number in decimal</string>
     <string name="zero">0</string>
+
 
 </resources>
