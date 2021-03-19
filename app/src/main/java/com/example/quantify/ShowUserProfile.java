@@ -9,10 +9,16 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class ShowUserProfile extends AppCompatActivity {
+public class ShowUserProfile extends AppCompatActivity implements UserProfileEditFragment.OnFragmentInteractionListener {
+
+    String nameText = "User Unknown";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,61 @@ public class ShowUserProfile extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-//        ImageView
 
 
+        TextView nameTextView = findViewById(R.id.tv_name);
+        nameTextView.setText(nameText);
+
+        ImageView iv;
+        iv = (ImageView)findViewById(R.id.user_profile_setting);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(ShowUserProfile.this, iv);
+                popup.getMenuInflater().inflate(R.menu.user_profile_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(ShowUserProfile.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+
+    public void editName(View v) {
+        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditName");
+    }
+
+    public void editEmail(View v) {
+        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void editPhone(View v) {
+        Toast.makeText(this, "Phone", Toast.LENGTH_SHORT).show();
+    }
+
+    public void editTwitter(View v) {
+        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void editFacebook(View v) {
+        Toast.makeText(this, "Phone", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onOkPressed(String new_text) {
+        setContentView(R.layout.activity_show_user_profile);
+        TextView nameTextView = findViewById(R.id.tv_name);
+        nameTextView.setText(new_text);
+//        nameText = new_text;
     }
 }
