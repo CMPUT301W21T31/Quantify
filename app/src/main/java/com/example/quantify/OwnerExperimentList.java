@@ -11,12 +11,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 public class OwnerExperimentList extends ArrayAdapter<Experiment> {
 
     private ArrayList<Experiment> experiments;
     private Context context;
+
+
 
     public OwnerExperimentList(Context context, ArrayList<Experiment> experiments){
         super(context, 0, experiments);
@@ -27,6 +32,9 @@ public class OwnerExperimentList extends ArrayAdapter<Experiment> {
     @Override
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("Experiments");
 
         View view = convertView;
 
@@ -46,12 +54,18 @@ public class OwnerExperimentList extends ArrayAdapter<Experiment> {
         expUser.setText(experiment.getUser());
         expStatus.setText(experiment.getStatus());
 
+
+
+
         expDelete.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+
+                Experiment exp_to_delete = experiments.get(position);
                 experiments.remove(position);
+                collectionReference.document(exp_to_delete.getDescription()).delete();
                 notifyDataSetChanged();
             }
         });
