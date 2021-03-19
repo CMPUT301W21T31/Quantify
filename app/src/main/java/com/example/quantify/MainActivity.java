@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,16 +19,27 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -42,7 +54,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     ListView experimentList;
-    MaterialCardView cardList;
 
     ArrayAdapter<Experiment> ownerExperimentAdapter;
     ArrayAdapter<Experiment> experimenterExperimentAdapter;
@@ -55,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     EditText expDesc;
     EditText expUser;
     EditText expStatus;
+    EditText expType;
     FloatingActionButton floatingActionButton;
 
     int tabPos = 0;
@@ -74,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         subscribedExperimentDataList = new ArrayList<>();
 
 
-        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        ownerExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+//        ownerExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
+//        ownerExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
+//        ownerExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
-        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
-        experimenterExperimentDataList.add(new Experiment("HELLO", "USER1", "RUNNING"));
+//        experimenterExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
+//        experimenterExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
+//        experimenterExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
 
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
@@ -88,6 +100,32 @@ public class MainActivity extends AppCompatActivity {
 
         // initially, we see the owner view
         experimentList.setAdapter(ownerExperimentAdapter);
+
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("Experiments");
+
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                experimenterExperimentDataList.clear();
+                ownerExperimentDataList.clear();
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                    String experiment_description = doc.getId();
+                    String experiment_username = (String) doc.getData().get("Experiment User");
+                    String experiment_status = (String) doc.getData().get("Experiment Status");
+                    String experiment_type = (String) doc.getData().get("Experiment Type");
+                    experimenterExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type)); // Adding the cities and provinces from FireStore
+                    ownerExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type));
+                }
+                experimenterExperimentAdapter.notifyDataSetChanged();
+                ownerExperimentAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+
 
 
 //        FloatingActionButton fab;
@@ -180,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                              expDesc = view_1.findViewById(R.id.exp_desc_fragment);
                              expUser = view_1.findViewById(R.id.exp_user_fragment);
                              expStatus = view_1.findViewById(R.id.exp_status_fragment);
+                             expType = view_1.findViewById(R.id.exp_type_fragment);
 
 
                              AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
@@ -192,9 +231,41 @@ public class MainActivity extends AppCompatActivity {
                                      String exp_description = expDesc.getText().toString();
                                      String exp_username = expUser.getText().toString();
                                      String exp_status = expStatus.getText().toString();
+                                     String exp_type = expType.getText().toString();
 
-                                     ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
-                                     experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status));
+//  FIREBASE STUFF BEGINS
+                                     HashMap<String, String> data = new HashMap<>();
+                                     if (exp_description.length()>0 && exp_username.length()>0) {
+                                            data.put("Experiment User", exp_username);
+                                            data.put("Experiment Status", exp_status);
+                                            data.put("Experiment Type", exp_type);
+                                     }
+
+                                     collectionReference
+                                             .document(exp_description)
+                                             .set(data)
+                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                 @Override
+                                                 public void onSuccess(Void aVoid) {
+                                                    // These are a method which gets executed when the task is succeeded
+                                                     Log.d("TAG", "Data has been added successfully!");
+                                                 }
+                                             })
+                                             .addOnFailureListener(new OnFailureListener() {
+                                                 @Override
+                                                 public void onFailure(@NonNull Exception e) {
+                                                        // These are a method which gets executed if there’s any problem
+                                                     Log.d("TAG", "Data could not be added!" + e.toString());
+                                                 }
+                                             });
+
+
+
+
+//  FIREBASE STUFF ENDS
+
+                                     ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                                     experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
 
 //                                     current_exp.setExp_desc(exp_description);
 //                                     current_exp.setUser(exp_username);
@@ -216,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                          else if(((String) item.getTitle()).equals("Subscribed")){
                              Log.d("BLABLA",subscribedExperimentDataList.toString());
                              Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
-                             intent.putExtra("subscribed",subscribedExperimentDataList );
+                             intent.putExtra("subscribed",subscribedExperimentDataList);
                              startActivity(intent);
                          }
 
@@ -229,6 +300,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });//closing the setOnClickListener method
 
+
+        experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                String experiment_type = (String) experimenterExperimentAdapter.getItem(position).getType();
+
+                if (experiment_type.equals("Binomial")){
+                    Log.d("BLABLA","Binomial Clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, BinomialTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+                else if(experiment_type.equals("Count")){
+                    Log.d("BLABLA","Count Clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, CountTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+                else if(experiment_type.equals("Temperature")){
+                    Log.d("BLABLA","Temperature clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, MeasurementTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+                else if(experiment_type.equals("Non-neg")){
+                    Log.d("BLABLA","Non-neg clicked");
+                    Intent intent_1 = new Intent(MainActivity.this, NonNegativeCountTrialActivity.class);
+                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    startActivity(intent_1);
+                }
+            }
+        });
 
 
 
