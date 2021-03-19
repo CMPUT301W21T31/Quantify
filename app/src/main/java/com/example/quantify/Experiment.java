@@ -2,9 +2,8 @@ package com.example.quantify;
 
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
-public class Experiment implements Serializable {
+public class Experiment implements Serializable, Comparable<Experiment>{
     private String description;
     private String user;
     private String status;
@@ -48,6 +47,11 @@ public class Experiment implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public int compareTo(Experiment exp) {
+        return this.description.compareTo(exp.getDescription());
     }
 }
 
