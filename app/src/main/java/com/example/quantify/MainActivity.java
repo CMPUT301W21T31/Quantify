@@ -19,16 +19,27 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,13 +76,13 @@ public class MainActivity extends AppCompatActivity {
         subscribedExperimentDataList = new ArrayList<>();
 
 
-        ownerExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
-        ownerExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
-        ownerExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
+//        ownerExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
+//        ownerExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
+//        ownerExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
-        experimenterExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
-        experimenterExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
-        experimenterExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
+//        experimenterExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
+//        experimenterExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
+//        experimenterExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
 
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
@@ -79,6 +90,32 @@ public class MainActivity extends AppCompatActivity {
 
         // initially, we see the owner view
         experimentList.setAdapter(ownerExperimentAdapter);
+
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("Experiments");
+
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                experimenterExperimentDataList.clear();
+                ownerExperimentDataList.clear();
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                    Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                    String experiment_description = doc.getId();
+                    String experiment_username = (String) doc.getData().get("Experiment User");
+                    String experiment_status = (String) doc.getData().get("Experiment Status");
+                    String experiment_type = (String) doc.getData().get("Experiment Type");
+                    experimenterExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type)); // Adding the cities and provinces from FireStore
+                    ownerExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type));
+                }
+                experimenterExperimentAdapter.notifyDataSetChanged();
+                ownerExperimentAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+
 
 
 //        FloatingActionButton fab;
@@ -185,6 +222,37 @@ public class MainActivity extends AppCompatActivity {
                                      String exp_status = expStatus.getText().toString();
                                      String exp_type = expType.getText().toString();
 
+//  FIREBASE STUFF BEGINS
+                                     HashMap<String, String> data = new HashMap<>();
+                                     if (exp_description.length()>0 && exp_username.length()>0) {
+                                            data.put("Experiment User", exp_username);
+                                            data.put("Experiment Status", exp_status);
+                                            data.put("Experiment Type", exp_type);
+                                     }
+
+                                     collectionReference
+                                             .document(exp_description)
+                                             .set(data)
+                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                 @Override
+                                                 public void onSuccess(Void aVoid) {
+                                                    // These are a method which gets executed when the task is succeeded
+                                                     Log.d("TAG", "Data has been added successfully!");
+                                                 }
+                                             })
+                                             .addOnFailureListener(new OnFailureListener() {
+                                                 @Override
+                                                 public void onFailure(@NonNull Exception e) {
+                                                        // These are a method which gets executed if there’s any problem
+                                                     Log.d("TAG", "Data could not be added!" + e.toString());
+                                                 }
+                                             });
+
+
+
+
+//  FIREBASE STUFF ENDS
+
                                      ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
                                      experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
 
@@ -250,9 +318,6 @@ public class MainActivity extends AppCompatActivity {
                     intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 }
-
-
-
             }
         });
 
