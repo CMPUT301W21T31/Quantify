@@ -2,6 +2,9 @@ package com.example.quantify;
 
 import java.util.ArrayList;
 
+/**
+ * This is a pure java file which will do all the memory management. Mostly for future uses
+ */
 public class QuestionDataManagement {
     private int qid;
     private String question;

@@ -23,6 +23,7 @@
     <string name="questionCall">Questions</string>
     <string name="cannot_find_question">Cannot find what you were looking for?</string>
     <string name="button_ask_question">Ask a Question!</string>
+    <string name="type_your_question">Type your Question down below</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

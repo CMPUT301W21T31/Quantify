@@ -1,5 +1,19 @@
 package com.example.quantify;
 
+/*
+ * This activity is called when user press the button for question in a experiment page. This
+ * activity shows a list of questions for that experiment and uses QuestionDataManagement to keep
+ * track of its data. Then if user did not find the questions/Answers he was looking for, he can
+ * press to ask his/her own question so then we call Ask Question page.
+ *
+ * If User found a question and is interested in that, they press from the listview and QuestionDetails
+ * activity page opens up showing the details for the question and the answers it has.
+ */
+
+/*
+ * THIS PAGE IS NOT COMPLETE YET.
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -31,11 +45,12 @@ public class Question extends AppCompatActivity {
         ListView listQuestions = (ListView) findViewById(R.id.questionList);
         listQuestions.setAdapter(listAdapter);
 
+        // OnItemClickListener
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
                 Intent intent = new Intent(Question.this, QuestionDetails.class);
-                intent.putExtra("qid",(int)id);
+                intent.putExtra("qid",id);
                 startActivity(intent);
             }
         };
@@ -44,6 +59,7 @@ public class Question extends AppCompatActivity {
 
     }
 
+    // the button to ask question
     public void askQuestionButton(View view) {
         Intent intent = new Intent(this, AskQuestion.class);
         startActivity(intent);

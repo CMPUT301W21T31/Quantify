@@ -1,5 +1,13 @@
 package com.example.quantify;
 
+/*
+ * UNFINISHED
+ */
+
+/*
+ * This page is to show the details for a question that user is interested in.
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,9 +23,9 @@ public class QuestionDetails extends AppCompatActivity {
 
         Intent receiveIntent = getIntent();
         int value = receiveIntent.getIntExtra("qid", 0);
-         /*
+        /*
         TextView text = (TextView) findViewById(R.id.box);
-        text.setText("value");
+        text.setText(value);
         */
 
 
