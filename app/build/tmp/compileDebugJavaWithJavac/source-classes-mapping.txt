@@ -1,0 +1,37 @@
+com/example/quantify/Experiment.java
+ com.example.quantify.Experiment
+com/example/quantify/NonNegativeCountTrialActivity.java
+ com.example.quantify.NonNegativeCountTrialActivity
+com/example/quantify/OwnerExperimentList.java
+ com.example.quantify.OwnerExperimentList
+ com.example.quantify.OwnerExperimentList$1
+ com.example.quantify.OwnerExperimentList$2
+com/example/quantify/SubscribedActivity.java
+ com.example.quantify.SubscribedActivity
+com/example/quantify/AddExperimentFragment.java
+ com.example.quantify.AddExperimentFragment
+ com.example.quantify.AddExperimentFragment$1
+ com.example.quantify.AddExperimentFragment$OnFragmentInteractionListener
+com/example/quantify/BinomialTrialActivity.java
+ com.example.quantify.BinomialTrialActivity
+com/example/quantify/MeasurementTrialActivity.java
+ com.example.quantify.MeasurementTrialActivity
+com/example/quantify/BuildConfig.java
+ com.example.quantify.BuildConfig
+com/example/quantify/ExperimenterExperimentList.java
+ com.example.quantify.ExperimenterExperimentList
+ com.example.quantify.ExperimenterExperimentList$1
+com/example/quantify/CountTrialActivity.java
+ com.example.quantify.CountTrialActivity
+com/example/quantify/MainActivity.java
+ com.example.quantify.MainActivity
+ com.example.quantify.MainActivity$1
+ com.example.quantify.MainActivity$2
+ com.example.quantify.MainActivity$3
+ com.example.quantify.MainActivity$4
+ com.example.quantify.MainActivity$5
+ com.example.quantify.MainActivity$5$1
+ com.example.quantify.MainActivity$5$1$1
+ com.example.quantify.MainActivity$5$1$1$1
+ com.example.quantify.MainActivity$5$1$1$2
+ com.example.quantify.MainActivity$6

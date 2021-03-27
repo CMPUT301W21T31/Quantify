@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Quantify</string>
+    <string name="left_side_menu">left side menu</string>
+    <string name="content_description_menu">left side menu</string>
+    <string name="search">search</string>
+    <string name="content_description_search">onClick opens search text</string>
+    <string name="user">user</string>
+    <string name="content_description_user">onClick open user profile</string>
+    <string name="more" />
+    <string name="content_description_more" />
+    <string name="tab_my_experiment">My Experiments</string>
+    <string name="tab_all_experiment">All Experiments</string>
+    <string name="location" />
+    <string name="content_description_location" />
+    <string name="question" />
+    <string name="content_description_question" />
+    <string name="qr_code" />
+    <string name="content_description_qr_code" />
+    <string name="bottomAppBar" />
+    <string name="supporting_text" />
+    <string name="secondary_text" />
+    <string name="title" />
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_1">action_1</string>
+    <string name="action_2">action_2</string>
+    <string name="userid_text">UserID:</string>
+    <string name="region_text">Region:</string>
+    <string name="minimum_number_of_trials_text">Minimum number of trials:</string>
+    <string name="experiment_title_view">experiment title</string>
+    <string name="userid_view">userID</string>
+    <string name="region_view">regions</string>
+    <string name="trialNumber">trial_number_view</string>
+    <string name="generate_qr_code_button">Generate QR code</string>
+    <string name="binomialDescriptionText">This is a binomial trial, click Success or Fail button to add one succession or failure to your trial.</string>
+    <string name="countDescriptionText">This is a count-based trial, click the plus or minus button to modify your count.</string>
+    <string name="nonNegativeCountDescriptionText">This is a non-negative-count-based trial, click the plus or minus button to modify your count. However, the count number will not below zero.</string>
+    <string name="measurementDescriptionText">This is a measurement trial, record your observed decimal number in the text box below.</string>
+    <string name="save">Save</string>
+    <string name="success">Success</string>
+    <string name="number_of_successions">Number of successions:</string>
+    <string name="fail">Fail</string>
+    <string name="number_of_failures">Number of failures:</string>
+    <string name="space" />
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
+    <string name="enter_your_number_in_decimal">Enter your number in decimal</string>
+    <string name="zero">0</string>
+    <string name="todo">TODO</string>
+    <string name="item">Item</string>
+    <string name="title_activity_maps">Map</string>
+
+</resources>

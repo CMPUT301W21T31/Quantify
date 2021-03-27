@@ -1,0 +1,6 @@
+com/example/quantify/test/BuildConfig.java
+ com.example.quantify.test.BuildConfig
+com/example/quantify/ExampleInstrumentedTest.java
+ com.example.quantify.ExampleInstrumentedTest
+com/example/quantify/MainActivityTest_2.java
+ com.example.quantify.MainActivityTest_2
