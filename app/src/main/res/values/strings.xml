@@ -49,5 +49,6 @@
     <string name="zero">0</string>
     <string name="todo">TODO</string>
     <string name="item">Item</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
