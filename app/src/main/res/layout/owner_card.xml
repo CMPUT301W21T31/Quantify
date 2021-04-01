@@ -7,7 +7,8 @@
     android:paddingLeft="25dp"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    android:paddingBottom="30dp">
+    android:paddingBottom="30dp"
+    android:id="@+id/owner_card">
 
     <TextView
         android:id="@+id/owner_exp_desc"

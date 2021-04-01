@@ -1,7 +1,6 @@
 package com.example.quantify;
 
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,17 +18,20 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
     EditText expType;
     FloatingActionButton floatingActionButton;
 
+    GoogleMap googleMap;
+
     int tabPos = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -78,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         experimentList = findViewById(R.id.exp_list);
@@ -341,13 +347,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Toolbar bottomAppBar;
+        bottomAppBar = findViewById(R.id.bottomAppBar);
+        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the navigation icon press
 
+            }
+        });
 
+        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.location:
+                        // Handle location icon press
+                        Intent intent_2 = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(intent_2);
+
+                    case R.id.question_answer:
+                        // Handle question_answer icon press
+
+                    case R.id.qr_code:
+                        // Handle qr_code icon press
 
 
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         FloatingActionButton finalFab = fab;
         fab.setOnClickListener(new View.OnClickListener(){
+
+                }
+                return false;
+            }
+        });
+    }
+
 
             @Override
             public void onClick(View v) {
