@@ -102,15 +102,15 @@
 
     <TextView
         android:id="@+id/successText"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
+        android:layout_width="383dp"
+        android:layout_height="73dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/binomialDescriptionText"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +118,7 @@
 
     <Button
         android:id="@+id/successButton"
-        android:layout_width="95dp"
+        android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginStart="70dp"
         android:layout_marginLeft="70dp"
@@ -129,7 +129,7 @@
 
     <Button
         android:id="@+id/failButton"
-        android:layout_width="95dp"
+        android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="70dp"
@@ -192,7 +192,7 @@
         android:id="@+id/saveButton"
         android:layout_width="78dp"
         android:layout_height="38dp"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="200dp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

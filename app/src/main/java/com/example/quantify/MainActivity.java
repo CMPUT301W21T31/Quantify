@@ -24,6 +24,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -38,6 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,13 +59,20 @@ public class MainActivity extends AppCompatActivity {
     EditText expType;
     FloatingActionButton floatingActionButton;
 
+
     private int tabPos = 0;
+
+    GoogleMap googleMap;
+
+    int tabPos = 0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         experimentList = findViewById(R.id.exp_list);
@@ -136,12 +145,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.search:
                         // Handle search icon press
+                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
 
                         String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                         Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
 
                     case R.id.user:
                         // Handle user icon press
+                        Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
+//
+//                        intent.putExtra("city", (Serializable) cityName);
+//
+                        startActivity(intent);
 
                     case R.id.more:
                         // Handle more icon press
@@ -185,12 +201,15 @@ public class MainActivity extends AppCompatActivity {
 //
         FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+
+        FloatingActionButton finalFab1 = fab;
+
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, fab);
+                PopupMenu popup = new PopupMenu(MainActivity.this, finalFab1);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
@@ -285,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });//closing the setOnClickListener method
 
+
         experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 //Toast.makeText(MainActivity.this, "You Clicked : " + experimentList.isClickable(), Toast.LENGTH_SHORT).show();
@@ -315,10 +335,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Toolbar bottomAppBar;
+        bottomAppBar = findViewById(R.id.bottomAppBar);
+        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the navigation icon press
+
+            }
+        });
+
+        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.location:
+                        // Handle location icon press
+                        Intent intent_2 = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(intent_2);
 
 
+                    case R.id.question_answer:
+                        // Handle question_answer icon press
+
+                    case R.id.qr_code:
+                        // Handle qr_code icon press
+                }
+                return false;
+            }
+        });
 
     }
-
-
 }
