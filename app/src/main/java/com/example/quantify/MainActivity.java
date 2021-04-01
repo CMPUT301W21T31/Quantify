@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     EditText expType;
     FloatingActionButton floatingActionButton;
 
-    int tabPos = 0;
+    private int tabPos = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 experimenterExperimentDataList.clear();
                 ownerExperimentDataList.clear();
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
                     String experiment_description = doc.getId();
                     String experiment_username = (String) doc.getData().get("Experiment User");
@@ -111,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
 //        FloatingActionButton fab;
@@ -134,9 +133,12 @@ public class MainActivity extends AppCompatActivity {
         topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch(item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.search:
                         // Handle search icon press
+
+                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
 
                     case R.id.user:
                         // Handle user icon press
@@ -154,15 +156,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(MainActivity.this,"You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
 
-                if( tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
                     floatingActionButton.setVisibility(View.VISIBLE);
                     tabPos = 0;
                     experimentList.setAdapter(ownerExperimentAdapter);
                     ownerExperimentAdapter.notifyDataSetChanged();
-                }
-                else{
+                } else {
                     floatingActionButton.setVisibility(View.INVISIBLE);
                     tabPos = 1;
                     experimentList.setAdapter(experimenterExperimentAdapter);
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 //
         FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -196,62 +197,60 @@ public class MainActivity extends AppCompatActivity {
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
                         //Log.d("BLABLA",(String) item.getTitle());
 
-                         if(((String) item.getTitle()).equals("Add New")){
-                             View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
-                             expDesc = view_1.findViewById(R.id.exp_desc_fragment);
-                             expUser = view_1.findViewById(R.id.exp_user_fragment);
-                             expStatus = view_1.findViewById(R.id.exp_status_fragment);
-                             expType = view_1.findViewById(R.id.exp_type_fragment);
+                        if (((String) item.getTitle()).equals("Add New")) {
+                            View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
+                            expDesc = view_1.findViewById(R.id.exp_desc_fragment);
+                            expUser = view_1.findViewById(R.id.exp_user_fragment);
+                            expStatus = view_1.findViewById(R.id.exp_status_fragment);
+                            expType = view_1.findViewById(R.id.exp_type_fragment);
 
 
-                             AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
-                             adb.setTitle("Add?");
-                             adb.setMessage("Are you sure you want to Add Experiment");
-                             adb.setView(view_1);
-                             adb.setNegativeButton("Cancel", null);
-                             adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-                                 public void onClick(DialogInterface dialog, int which) {
-                                     String exp_description = expDesc.getText().toString();
-                                     String exp_username = expUser.getText().toString();
-                                     String exp_status = expStatus.getText().toString();
-                                     String exp_type = expType.getText().toString();
+                            AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+                            adb.setTitle("Add?");
+                            adb.setMessage("Are you sure you want to Add Experiment");
+                            adb.setView(view_1);
+                            adb.setNegativeButton("Cancel", null);
+                            adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String exp_description = expDesc.getText().toString();
+                                    String exp_username = expUser.getText().toString();
+                                    String exp_status = expStatus.getText().toString();
+                                    String exp_type = expType.getText().toString();
 
 //  FIREBASE STUFF BEGINS
-                                     HashMap<String, String> data = new HashMap<>();
-                                     if (exp_description.length()>0 && exp_username.length()>0) {
-                                            data.put("Experiment User", exp_username);
-                                            data.put("Experiment Status", exp_status);
-                                            data.put("Experiment Type", exp_type);
-                                     }
+                                    HashMap<String, String> data = new HashMap<>();
+                                    if (exp_description.length() > 0 && exp_username.length() > 0) {
+                                        data.put("Experiment User", exp_username);
+                                        data.put("Experiment Status", exp_status);
+                                        data.put("Experiment Type", exp_type);
+                                    }
 
-                                     collectionReference
-                                             .document(exp_description)
-                                             .set(data)
-                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                 @Override
-                                                 public void onSuccess(Void aVoid) {
+                                    collectionReference
+                                            .document(exp_description)
+                                            .set(data)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
                                                     // These are a method which gets executed when the task is succeeded
-                                                     Log.d("TAG", "Data has been added successfully!");
-                                                 }
-                                             })
-                                             .addOnFailureListener(new OnFailureListener() {
-                                                 @Override
-                                                 public void onFailure(@NonNull Exception e) {
-                                                        // These are a method which gets executed if there’s any problem
-                                                     Log.d("TAG", "Data could not be added!" + e.toString());
-                                                 }
-                                             });
-
-
+                                                    Log.d("TAG", "Data has been added successfully!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // These are a method which gets executed if there’s any problem
+                                                    Log.d("TAG", "Data could not be added!" + e.toString());
+                                                }
+                                            });
 
 
 //  FIREBASE STUFF ENDS
 
-                                     ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
-                                     experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                                    ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                                    experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
 
 //                                     current_exp.setExp_desc(exp_description);
 //                                     current_exp.setUser(exp_username);
@@ -263,19 +262,19 @@ public class MainActivity extends AppCompatActivity {
 //                        Experiment mycity = new Experiment(exp_name, exp_description, null,S_Total,F_Total);
 //                        experimentAdapter.remove(experimentAdapter.getItem(positionToRemove));
 //                        experimentAdapter.insert(mycity, positionToRemove);
-                                     ownerExperimentAdapter.notifyDataSetChanged();
+                                    ownerExperimentAdapter.notifyDataSetChanged();
 
 
-                                 }});
-                             adb.show();
+                                }
+                            });
+                            adb.show();
 
-                         }
-                         else if(((String) item.getTitle()).equals("Subscribed")){
-                             Log.d("BLABLA",subscribedExperimentDataList.toString());
-                             Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
-                             intent.putExtra("subscribed",subscribedExperimentDataList);
-                             startActivity(intent);
-                         }
+                        } else if (((String) item.getTitle()).equals("Subscribed")) {
+                            Log.d("BLABLA", subscribedExperimentDataList.toString());
+                            Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
+                            intent.putExtra("subscribed", subscribedExperimentDataList);
+                            startActivity(intent);
+                        }
 
 
                         return true;
@@ -286,38 +285,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });//closing the setOnClickListener method
 
-
-        experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                //Toast.makeText(MainActivity.this, "You Clicked : " + experimentList.isClickable(), Toast.LENGTH_SHORT).show();
+                Log.d("BLABLA", "you clicked"+ experimentList.isClickable());
                 String experiment_type = (String) experimenterExperimentAdapter.getItem(position).getType();
 
-                if (experiment_type.equals("Binomial")){
-                    Log.d("BLABLA","Binomial Clicked");
+                if (experiment_type.equals("Binomial")) {
+                    Log.d("BLABLA", "Binomial Clicked");
                     Intent intent_1 = new Intent(MainActivity.this, BinomialTrialActivity.class);
-                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
-                }
-                else if(experiment_type.equals("Count")){
-                    Log.d("BLABLA","Count Clicked");
+                } else if (experiment_type.equals("Count")) {
+                    Log.d("BLABLA", "Count Clicked");
                     Intent intent_1 = new Intent(MainActivity.this, CountTrialActivity.class);
-                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
-                }
-                else if(experiment_type.equals("Temperature")){
-                    Log.d("BLABLA","Temperature clicked");
+                } else if (experiment_type.equals("Temperature")) {
+                    Log.d("BLABLA", "Temperature clicked");
                     Intent intent_1 = new Intent(MainActivity.this, MeasurementTrialActivity.class);
-                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
-                }
-                else if(experiment_type.equals("Non-neg")){
-                    Log.d("BLABLA","Non-neg clicked");
+                } else if (experiment_type.equals("Non-neg")) {
+                    Log.d("BLABLA", "Non-neg clicked");
                     Intent intent_1 = new Intent(MainActivity.this, NonNegativeCountTrialActivity.class);
-                    intent_1.putExtra("typename",experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 }
             }
         });
-
 
 
 
