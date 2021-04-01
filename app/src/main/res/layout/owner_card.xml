@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/owner_exp_user"
-        android:layout_width="135dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
         android:inputType="date"

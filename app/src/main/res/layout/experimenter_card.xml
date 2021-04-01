@@ -28,13 +28,13 @@
 
         <TextView
             android:id="@+id/experimenter_exp_user"
-            android:layout_width="135dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:inputType="date"
             android:paddingTop="10dp"
             android:text="User"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp"/>
 
 
         <TextView
@@ -45,7 +45,7 @@
             android:paddingTop="10dp"
             android:text="Status"
             android:textColor="#FF2D2D"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
