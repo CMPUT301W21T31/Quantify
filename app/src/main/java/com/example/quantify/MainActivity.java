@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -148,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.search:
                         // Handle search icon press
+                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
 
                     case R.id.user:
                         // Handle user icon press

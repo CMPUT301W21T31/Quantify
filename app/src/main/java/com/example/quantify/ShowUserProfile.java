@@ -65,12 +65,14 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
 
 
     public void editName(View v) {
-        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
-        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditName");
+//        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+//        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditName");
     }
 
     public void editEmail(View v) {
-        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditEmail");
     }
 
 
@@ -90,7 +92,7 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
     @Override
     public void onOkPressed(String new_text) {
         setContentView(R.layout.activity_show_user_profile);
-        TextView nameTextView = findViewById(R.id.tv_name);
+        TextView nameTextView = findViewById(R.id.email);
         nameTextView.setText(new_text);
 //        nameText = new_text;
     }
