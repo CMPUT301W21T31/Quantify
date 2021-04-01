@@ -1,12 +1,12 @@
 package com.example.quantify;
 
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,17 +18,20 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
@@ -38,8 +41,19 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
     EditText expType;
     FloatingActionButton floatingActionButton;
 
+    GoogleMap googleMap;
+
     int tabPos = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -66,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         experimentList = findViewById(R.id.exp_list);
@@ -140,9 +158,16 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.search:
                         // Handle search icon press
+                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
 
                     case R.id.user:
                         // Handle user icon press
+                        Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
+//
+//                        intent.putExtra("city", (Serializable) cityName);
+//
+                        startActivity(intent);
 
                     case R.id.more:
                         // Handle more icon press
@@ -187,12 +212,13 @@ public class MainActivity extends AppCompatActivity {
 //
         FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton finalFab1 = fab;
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, fab);
+                PopupMenu popup = new PopupMenu(MainActivity.this, finalFab1);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
@@ -321,11 +347,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Toolbar bottomAppBar;
+        bottomAppBar = findViewById(R.id.bottomAppBar);
+        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the navigation icon press
+
+            }
+        });
+
+        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.location:
+                        // Handle location icon press
+                        Intent intent_2 = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(intent_2);
+
+                    case R.id.question_answer:
+                        // Handle question_answer icon press
+
+                    case R.id.qr_code:
+                        // Handle qr_code icon press
 
 
+        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton finalFab = fab;
+        fab.setOnClickListener(new View.OnClickListener(){
 
-
+                }
+                return false;
+            }
+        });
     }
 
 
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(MainActivity.this, finalFab);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+        });//closing the setOnClickListener method
+    }
 }
