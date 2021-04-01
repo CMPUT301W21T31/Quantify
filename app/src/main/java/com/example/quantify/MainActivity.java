@@ -343,6 +343,8 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.location:
                         // Handle location icon press
+                        Intent intent_2 = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(intent_2);
 
                     case R.id.question_answer:
                         // Handle question_answer icon press
