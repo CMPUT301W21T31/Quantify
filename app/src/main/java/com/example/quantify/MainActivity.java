@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     GoogleMap googleMap;
 
-    int tabPos = 0;
-
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         // Handle search icon press
                         String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                         Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
-
-                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
+                        break;
 
                     case R.id.user:
                         // Handle user icon press
@@ -158,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 //                        intent.putExtra("city", (Serializable) cityName);
 //
                         startActivity(intent);
+                        break;
 
                     case R.id.more:
                         // Handle more icon press
