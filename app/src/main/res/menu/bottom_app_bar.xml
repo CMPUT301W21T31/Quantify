@@ -16,21 +16,11 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/more"
-        android:title="@string/more"
-        android:contentDescription="@string/content_description_more"
-        app:showAsAction="never"
-        />
-    <item
-        android:icon="@drawable/ic_search_24dp"
-        android:title="@string/item"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/qr_code"
         android:contentDescription="@string/content_description_qr_code"
         android:icon="@drawable/ic_qr_24dp"
         android:title="@string/qr_code"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 
 </menu>

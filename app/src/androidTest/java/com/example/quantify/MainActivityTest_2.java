@@ -56,7 +56,7 @@ public class MainActivityTest_2 {
         //solo.clickOnButton("Add New"); //select Add New
         //Get view for EditText and enter the info
         solo.enterText((EditText) solo.getView(R.id.exp_desc_fragment), "FunctionTest1");
-        solo.enterText((EditText) solo.getView(R.id.exp_user_fragment), "Halo");
+        solo.enterText((EditText) solo.getView(R.id.exp_user_fragment), "Halo_test_robot");
         solo.enterText((EditText) solo.getView(R.id.exp_status_fragment), "RUNNING");
         solo.enterText((EditText) solo.getView(R.id.exp_type_fragment), "Binomial");
         //can't find the OK button in AlertDialog
