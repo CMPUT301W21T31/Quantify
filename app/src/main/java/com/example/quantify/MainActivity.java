@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
                         break;
 
+
                     case R.id.user:
                         // Handle user icon press
                         Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 //
                         startActivity(intent);
                         break;
+
 
                     case R.id.more:
                         // Handle more icon press
