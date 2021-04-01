@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
 
+        <activity
+            android:name=".ShowUserProfile"
+            android:label="@string/title_activity_show_user_profile"
+            android:theme="@style/Theme.Quantify.NoActionBar"></activity>
+
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,6 +40,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+
         <activity android:name=".SubscribedActivity" />
         <activity android:name=".CountTrialActivity" />
         <activity android:name=".NonNegativeCountTrialActivity" />

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="topAppBar" type="id" />
+    <item name="exp_list" type="id" />
+    <item name="tabLayout" type="id" />
+</resources>
