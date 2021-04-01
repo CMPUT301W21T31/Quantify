@@ -1,12 +1,12 @@
 package com.example.quantify;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +61,36 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
                 }
                 notifyDataSetChanged();
                 return false;
+            }
+        });
+
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context ,"Clicked", Toast.LENGTH_SHORT).show();
+                String experiment_type = (String) getItem(position).getType();
+
+                if (experiment_type.equals("Binomial")) {
+                    Log.d("BLABLA", "Binomial Clicked");
+                    Intent intent_1 = new Intent(context, BinomialTrialActivity.class);
+                    intent_1.putExtra("typename", getItem(position));
+                    context.startActivity(intent_1);
+                } else if (experiment_type.equals("Count")) {
+                    Log.d("BLABLA", "Count Clicked");
+                    Intent intent_1 = new Intent(context, CountTrialActivity.class);
+                    intent_1.putExtra("typename", getItem(position));
+                    context.startActivity(intent_1);
+                } else if (experiment_type.equals("Temperature")) {
+                    Log.d("BLABLA", "Temperature clicked");
+                    Intent intent_1 = new Intent(context, MeasurementTrialActivity.class);
+                    intent_1.putExtra("typename", getItem(position));
+                    context.startActivity(intent_1);
+                } else if (experiment_type.equals("Non-neg")) {
+                    Log.d("BLABLA", "Non-neg clicked");
+                    Intent intent_1 = new Intent(context, NonNegativeCountTrialActivity.class);
+                    intent_1.putExtra("typename", getItem(position));
+                    context.startActivity(intent_1);
+                }
             }
         });
 

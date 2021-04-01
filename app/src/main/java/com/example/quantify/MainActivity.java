@@ -59,9 +59,13 @@ public class MainActivity extends AppCompatActivity {
     EditText expType;
     FloatingActionButton floatingActionButton;
 
+
+    private int tabPos = 0;
+
     GoogleMap googleMap;
 
     int tabPos = 0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -144,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
                         String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                         Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
 
+                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
+
                     case R.id.user:
                         // Handle user icon press
                         Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
@@ -194,7 +201,9 @@ public class MainActivity extends AppCompatActivity {
 //
         FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+
         FloatingActionButton finalFab1 = fab;
+
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -298,6 +307,8 @@ public class MainActivity extends AppCompatActivity {
 
         experimentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                //Toast.makeText(MainActivity.this, "You Clicked : " + experimentList.isClickable(), Toast.LENGTH_SHORT).show();
+                Log.d("BLABLA", "you clicked"+ experimentList.isClickable());
                 String experiment_type = (String) experimenterExperimentAdapter.getItem(position).getType();
 
                 if (experiment_type.equals("Binomial")) {
@@ -343,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent_2 = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(intent_2);
 
+
                     case R.id.question_answer:
                         // Handle question_answer icon press
 
@@ -352,5 +364,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 }
