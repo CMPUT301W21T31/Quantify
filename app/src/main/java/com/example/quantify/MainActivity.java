@@ -138,8 +138,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.search:
                         // Handle search icon press
 
+
                     case R.id.user:
                         // Handle user icon press
+
 
                     case R.id.more:
                         // Handle more icon press
