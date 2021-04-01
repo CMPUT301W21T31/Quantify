@@ -60,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
         setContentView(R.layout.activity_maps);
-        Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
+        Places.initialize(getApplicationContext(), "AIzaSyCJlHSuzQa1lDg0hcbZAZaOik1m4h_Xvms");
         placesClient = Places.createClient(this);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
