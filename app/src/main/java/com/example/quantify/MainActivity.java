@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -222,29 +223,38 @@ public class MainActivity extends AppCompatActivity {
                         if (((String) item.getTitle()).equals("Add New")) {
                             View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
                             expDesc = view_1.findViewById(R.id.exp_desc_fragment);
-                            expUser = view_1.findViewById(R.id.exp_user_fragment);
-                            expStatus = view_1.findViewById(R.id.exp_status_fragment);
-                            expType = view_1.findViewById(R.id.exp_type_fragment);
+                            //expUser = view_1.findViewById(R.id.exp_user_fragment);
+                            //expStatus = view_1.findViewById(R.id.exp_status_fragment);
 
 
                             AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
                             adb.setTitle("Add?");
                             adb.setMessage("Are you sure you want to Add Experiment");
                             adb.setView(view_1);
+                            Spinner expType = view_1.findViewById(R.id.exp_type_fragment);
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                                    android.R.layout.simple_spinner_item,
+                                    getResources().getStringArray(R.array.expTypes));
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            expType.setAdapter(adapter);
                             adb.setNegativeButton("Cancel", null);
                             adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     String exp_description = expDesc.getText().toString();
-                                    String exp_username = expUser.getText().toString();
-                                    String exp_status = expStatus.getText().toString();
-                                    String exp_type = expType.getText().toString();
+                                    String exp_username = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                                    String exp_status = "Running";
+                                    String exp_type = expType.getSelectedItem().toString();
 
 //  FIREBASE STUFF BEGINS
                                     HashMap<String, String> data = new HashMap<>();
-                                    if (exp_description.length() > 0 && exp_username.length() > 0) {
+                                    if (exp_description.length() > 0) {
                                         data.put("Experiment User", exp_username);
                                         data.put("Experiment Status", exp_status);
                                         data.put("Experiment Type", exp_type);
+                                    }
+                                    else{
+                                        Toast.makeText(MainActivity.this, "UserID and/or Description empty", Toast.LENGTH_SHORT).show();
+                                        return;
                                     }
 
                                     collectionReference
@@ -311,22 +321,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("BLABLA", "you clicked"+ experimentList.isClickable());
                 String experiment_type = (String) experimenterExperimentAdapter.getItem(position).getType();
 
-                if (experiment_type.equals("Binomial")) {
+                if (experiment_type.equals("Binomial Trials")) {
                     Log.d("BLABLA", "Binomial Clicked");
                     Intent intent_1 = new Intent(MainActivity.this, BinomialTrialActivity.class);
                     intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
-                } else if (experiment_type.equals("Count")) {
+                } else if (experiment_type.equals("Count-based Tests")) {
                     Log.d("BLABLA", "Count Clicked");
                     Intent intent_1 = new Intent(MainActivity.this, CountTrialActivity.class);
                     intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
-                } else if (experiment_type.equals("Temperature")) {
+                } else if (experiment_type.equals("Measurement Trials")) {
                     Log.d("BLABLA", "Temperature clicked");
                     Intent intent_1 = new Intent(MainActivity.this, MeasurementTrialActivity.class);
                     intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
                     startActivity(intent_1);
-                } else if (experiment_type.equals("Non-neg")) {
+                } else if (experiment_type.equals("Non-negative Integer Counts")) {
                     Log.d("BLABLA", "Non-neg clicked");
                     Intent intent_1 = new Intent(MainActivity.this, NonNegativeCountTrialActivity.class);
                     intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
