@@ -80,6 +80,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (map != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, lastKnownLocation);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
     public void onMapReady(GoogleMap map) {
         this.map = map;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -183,15 +192,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (map != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
-            outState.putParcelable(KEY_LOCATION, lastKnownLocation);
-        }
-        super.onSaveInstanceState(outState);
-    }
-
-
 }
