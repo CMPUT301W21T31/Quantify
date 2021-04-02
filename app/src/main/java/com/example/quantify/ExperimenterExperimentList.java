@@ -55,7 +55,10 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
             @Override
             public boolean onLongClick(View v) {
                 //Log.d("BLABLA",subscribed.toString());
-                Toast.makeText(context ,"Subscribed", Toast.LENGTH_SHORT).show();
+                if(!(context instanceof SubscribedActivity)){
+                    Toast.makeText(context ,"Subscribed", Toast.LENGTH_SHORT).show();
+                }
+
                 if(!subscribed.contains(experiments.get(position))) {
                     subscribed.add(experiments.get(position));
                 }

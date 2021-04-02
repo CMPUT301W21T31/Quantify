@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -173,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(MainActivity.this, "You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "You Clicked : " + tab.getPosition(), Toast.LENGTH_SHORT).show();
 
                 if (tab.getPosition() == 0) {
                     floatingActionButton.setVisibility(View.VISIBLE);
@@ -242,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                             data.put("Experiment Type", exp_type);
                         }
                         else{
-                            Toast.makeText(MainActivity.this, "UserID and/or Description empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Unable to create experiment.\nDescription empty!", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
