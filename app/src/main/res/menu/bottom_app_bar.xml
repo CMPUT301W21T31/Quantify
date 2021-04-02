@@ -2,6 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
+    <item
+        android:id="@+id/subscribe_ic"
+        android:contentDescription=""
+        android:icon="@drawable/ic_subscribe_24dp"
+        android:title="@string/subscribe"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/location"
         android:contentDescription="@string/content_description_location"
@@ -20,7 +29,7 @@
         android:contentDescription="@string/content_description_qr_code"
         android:icon="@drawable/ic_qr_24dp"
         android:title="@string/qr_code"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 
 </menu>
