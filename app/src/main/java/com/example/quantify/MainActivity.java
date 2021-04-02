@@ -210,76 +210,65 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, finalFab1);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(MainActivity.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        //Log.d("BLABLA",(String) item.getTitle());
-
-                        if (((String) item.getTitle()).equals("Add New")) {
-                            View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
-                            expDesc = view_1.findViewById(R.id.exp_desc_fragment);
-                            //expUser = view_1.findViewById(R.id.exp_user_fragment);
-                            //expStatus = view_1.findViewById(R.id.exp_status_fragment);
+                View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
+                expDesc = view_1.findViewById(R.id.exp_desc_fragment);
+                //expUser = view_1.findViewById(R.id.exp_user_fragment);
+                //expStatus = view_1.findViewById(R.id.exp_status_fragment);
 
 
-                            AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-                            adb.setTitle("Add?");
-                            adb.setMessage("Are you sure you want to Add Experiment");
-                            adb.setView(view_1);
-                            Spinner expType = view_1.findViewById(R.id.exp_type_fragment);
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-                                    android.R.layout.simple_spinner_item,
-                                    getResources().getStringArray(R.array.expTypes));
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            expType.setAdapter(adapter);
-                            adb.setNegativeButton("Cancel", null);
-                            adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    String exp_description = expDesc.getText().toString();
-                                    String exp_username = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                                    String exp_status = "Running";
-                                    String exp_type = expType.getSelectedItem().toString();
+                AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+                adb.setTitle("Add?");
+                adb.setMessage("Are you sure you want to Add Experiment");
+                adb.setView(view_1);
+                Spinner expType = view_1.findViewById(R.id.exp_type_fragment);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                        android.R.layout.simple_spinner_item,
+                        getResources().getStringArray(R.array.expTypes));
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                expType.setAdapter(adapter);
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String exp_description = expDesc.getText().toString();
+                        String exp_username = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        String exp_status = "Running";
+                        String exp_type = expType.getSelectedItem().toString();
 
 //  FIREBASE STUFF BEGINS
-                                    HashMap<String, String> data = new HashMap<>();
-                                    if (exp_description.length() > 0) {
-                                        data.put("Experiment User", exp_username);
-                                        data.put("Experiment Status", exp_status);
-                                        data.put("Experiment Type", exp_type);
-                                    }
-                                    else{
-                                        Toast.makeText(MainActivity.this, "UserID and/or Description empty", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
+                        HashMap<String, String> data = new HashMap<>();
+                        if (exp_description.length() > 0) {
+                            data.put("Experiment User", exp_username);
+                            data.put("Experiment Status", exp_status);
+                            data.put("Experiment Type", exp_type);
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "UserID and/or Description empty", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                                    collectionReference
-                                            .document(exp_description)
-                                            .set(data)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    // These are a method which gets executed when the task is succeeded
-                                                    Log.d("TAG", "Data has been added successfully!");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    // These are a method which gets executed if there’s any problem
-                                                    Log.d("TAG", "Data could not be added!" + e.toString());
-                                                }
-                                            });
+                        collectionReference
+                                .document(exp_description)
+                                .set(data)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // These are a method which gets executed when the task is succeeded
+                                        Log.d("TAG", "Data has been added successfully!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // These are a method which gets executed if there’s any problem
+                                        Log.d("TAG", "Data could not be added!" + e.toString());
+                                    }
+                                });
 
 
 //  FIREBASE STUFF ENDS
 
-                                    ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
-                                    experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                        ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                        experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
 
 //                                     current_exp.setExp_desc(exp_description);
 //                                     current_exp.setUser(exp_username);
@@ -291,26 +280,11 @@ public class MainActivity extends AppCompatActivity {
 //                        Experiment mycity = new Experiment(exp_name, exp_description, null,S_Total,F_Total);
 //                        experimentAdapter.remove(experimentAdapter.getItem(positionToRemove));
 //                        experimentAdapter.insert(mycity, positionToRemove);
-                                    ownerExperimentAdapter.notifyDataSetChanged();
+                        ownerExperimentAdapter.notifyDataSetChanged();
 
-
-                                }
-                            });
-                            adb.show();
-
-                        } else if (((String) item.getTitle()).equals("Subscribed")) {
-                            Log.d("BLABLA", subscribedExperimentDataList.toString());
-                            Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
-                            intent.putExtra("subscribed", subscribedExperimentDataList);
-                            startActivity(intent);
-                        }
-
-
-                        return true;
                     }
                 });
-
-                popup.show();//showing popup menu
+                adb.show();
             }
         });//closing the setOnClickListener method
 
@@ -363,6 +337,14 @@ public class MainActivity extends AppCompatActivity {
                         // Handle location icon press
                         Intent intent_2 = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(intent_2);
+                        break;
+
+                    case R.id.subscribe_ic:
+                        Log.d("BLABLA", subscribedExperimentDataList.toString());
+                        Intent intent = new Intent(MainActivity.this, SubscribedActivity.class);
+                        intent.putExtra("subscribed", subscribedExperimentDataList);
+                        startActivity(intent);
+                        break;
 
 
                     case R.id.question_answer:
