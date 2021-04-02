@@ -70,22 +70,22 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
                 Toast.makeText(context ,"Clicked", Toast.LENGTH_SHORT).show();
                 String experiment_type = (String) getItem(position).getType();
 
-                if (experiment_type.equals("Binomial")) {
+                if (experiment_type.equals("Binomial Trials")) {
                     Log.d("BLABLA", "Binomial Clicked");
                     Intent intent_1 = new Intent(context, BinomialTrialActivity.class);
                     intent_1.putExtra("typename", getItem(position));
                     context.startActivity(intent_1);
-                } else if (experiment_type.equals("Count")) {
+                } else if (experiment_type.equals("Count-based Tests")) {
                     Log.d("BLABLA", "Count Clicked");
                     Intent intent_1 = new Intent(context, CountTrialActivity.class);
                     intent_1.putExtra("typename", getItem(position));
                     context.startActivity(intent_1);
-                } else if (experiment_type.equals("Temperature")) {
+                } else if (experiment_type.equals("Measurement Trials")) {
                     Log.d("BLABLA", "Temperature clicked");
                     Intent intent_1 = new Intent(context, MeasurementTrialActivity.class);
                     intent_1.putExtra("typename", getItem(position));
                     context.startActivity(intent_1);
-                } else if (experiment_type.equals("Non-neg")) {
+                } else if (experiment_type.equals("Non-negative Integer Counts")) {
                     Log.d("BLABLA", "Non-neg clicked");
                     Intent intent_1 = new Intent(context, NonNegativeCountTrialActivity.class);
                     intent_1.putExtra("typename", getItem(position));
