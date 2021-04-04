@@ -14,6 +14,23 @@
         android:hint="Experiment Description"
         android:inputType="textPersonName"  />
 
+    <EditText
+        android:id="@+id/exp_min_trials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Minimum Trials Required"
+        android:inputType="number"  />
+
+    <EditText
+        android:id="@+id/exp_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textPostalAddress"  />
+
+
 <!--    <EditText-->
 <!--        android:id="@+id/exp_user_fragment"-->
 <!--        android:layout_width="match_parent"-->
