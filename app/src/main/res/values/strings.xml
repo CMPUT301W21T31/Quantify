@@ -28,7 +28,7 @@
     <string name="userid_text">UserID:</string>
     <string name="region_text">Region:</string>
     <string name="minimum_number_of_trials_text">Minimum number of trials:</string>
-    <string name="experiment_title_view">experiment title</string>
+    <string name="experiment_title_view">Experiment title</string>
     <string name="userid_view">userID</string>
     <string name="region_view">regions</string>
     <string name="trialNumber">trial_number_view</string>
@@ -64,6 +64,24 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="subscribe" />
+    <string name="quartiles_text">Quartiles:</string>
+    <string name="location_text">Location:</string>
+    <string name="createhistogram">Create Histogram</string>
+    <string name="resultsOverTime">Results Over Time</string>
+    <string name="start_button">Start</string>
+    <string name="location_view">Enter location</string>
+    <string name="quartile_one">Q1</string>
+    <string name="quartile_one_view">quartile_one_view</string>
+    <string name="quartile_two_view">quartile_two_view</string>
+    <string name="quartile_two">Q2</string>
+    <string name="MedianText">Median:</string>
+    <string name="meanText">Mean:</string>
+    <string name="std_dev_text">Std. Dev:</string>
+    <string name="save_button">Save</string>
+    <string name="question_button">Questions</string>
+    <string name="mean_view">mean_value</string>
+    <string name="median_value">median_value</string>
+    <string name="std_dev_value">std_dev_value</string>
 
     <string-array name="expTypes">
         <item>Binomial Trials</item>

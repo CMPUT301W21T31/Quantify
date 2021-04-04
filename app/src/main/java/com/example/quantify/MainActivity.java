@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialButton delete_button;
     EditText expDesc;
+
     EditText expMinTrials;
     EditText expLocation;
+
     FloatingActionButton floatingActionButton;
     String id;
 
@@ -244,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         String exp_type = expTypes.getSelectedItem().toString();
                         String exp_location = expLocation.getText().toString();
-                        Toast.makeText(MainActivity.this, "Type: " + exp_type, Toast.LENGTH_SHORT).show();
+
 
 //  FIREBASE STUFF BEGINS
                         HashMap<String, String> data = new HashMap<>();
