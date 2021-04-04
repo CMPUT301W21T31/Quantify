@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/shrine_pink_50">
@@ -69,13 +70,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/quartiles"
+        android:id="@+id/Count"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="116dp"
-        android:text="@string/quartiles_text"
+        android:text="@string/count_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/experimentTitleView" />
@@ -86,11 +87,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="128dp"
         android:text="@string/location_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quartiles" />
+        app:layout_constraintTop_toBottomOf="@id/Count" />
 
     <TextView
         android:id="@+id/locationView"
@@ -102,78 +103,6 @@
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@+id/LocationText"
         app:layout_constraintTop_toTopOf="@+id/LocationText" />
-
-    <TextView
-        android:id="@+id/mean_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="220dp"
-        android:text="@string/mean_view"
-        android:textColor="@color/shrine_pink_900"
-        app:layout_constraintStart_toEndOf="@id/meanView"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
-
-    <TextView
-        android:id="@+id/medianView"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="252dp"
-        android:text="@string/MedianText"
-        android:textColor="@color/shrine_pink_900"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
-
-    <TextView
-        android:id="@+id/medianValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/median_value"
-        android:textColor="@color/shrine_pink_900"
-        app:layout_constraintStart_toEndOf="@id/medianView"
-        app:layout_constraintTop_toBottomOf="@+id/mean_value" />
-
-    <TextView
-        android:id="@+id/meanView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="220dp"
-        android:text="@string/meanText"
-        android:textColor="@color/shrine_pink_900"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
-
-    <TextView
-        android:id="@+id/stdDevView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="284dp"
-        android:text="@string/std_dev_text"
-        android:textColor="@color/shrine_pink_900"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
-
-    <TextView
-        android:id="@+id/StdDevValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/std_dev_value"
-        android:textColor="@color/shrine_pink_900"
-        app:layout_constraintStart_toEndOf="@id/stdDevView"
-        app:layout_constraintTop_toBottomOf="@+id/medianValue" />
 
     <Button
         android:id="@+id/QuestionButton"
@@ -194,7 +123,7 @@
 
     <Button
         android:id="@+id/CreateHistogramButton"
-        android:layout_width="0dp"
+        android:layout_width="185dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
@@ -205,11 +134,11 @@
         app:backgroundTint="@color/shrine_pink_900"
         app:layout_constraintEnd_toStartOf="@+id/ResultsOverTimeButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quartile2Text" />
+        app:layout_constraintTop_toBottomOf="@id/Count" />
 
     <Button
         android:id="@+id/ResultsOverTimeButton"
-        android:layout_width="0dp"
+        android:layout_width="185dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -223,58 +152,57 @@
         app:layout_constraintTop_toTopOf="@+id/CreateHistogramButton" />
 
     <TextView
-        android:id="@+id/quartile1Text"
+        android:id="@+id/Success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
-        android:text="@string/quartile_one"
+        android:text="@string/success_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quartiles" />
+        app:layout_constraintTop_toBottomOf="@+id/Count" />
 
     <TextView
-        android:id="@+id/quartile2Text"
+        android:id="@+id/FailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
-        android:text="@string/quartile_two"
+        android:text="@string/fail_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quartile1Text" />
+        app:layout_constraintTop_toBottomOf="@+id/Success" />
 
     <TextView
-        android:id="@+id/quartile1View"
-        android:layout_width="0dp"
+        android:id="@+id/successView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginEnd="180dp"
         android:layout_marginRight="180dp"
-        android:text="@string/quartile_one_view"
+        android:text="@string/success_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/quartile1Text"
-        app:layout_constraintTop_toTopOf="@+id/quartile1Text" />
+        app:layout_constraintStart_toEndOf="@+id/Success"
+        app:layout_constraintTop_toTopOf="@+id/Success" />
 
     <TextView
-        android:id="@+id/quartile2View"
-        android:layout_width="0dp"
+        android:id="@+id/failView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="180dp"
         android:layout_marginRight="180dp"
-        android:text="@string/quartile_two_view"
+        android:text="@string/fail_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/quartile2Text"
-        app:layout_constraintTop_toBottomOf="@+id/quartile1View" />
+        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintStart_toEndOf="@+id/FailText"
+        app:layout_constraintTop_toBottomOf="@+id/successView" />
 
     <Button
         android:id="@+id/startButton"
@@ -288,6 +216,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/QuestionButton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.686" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
