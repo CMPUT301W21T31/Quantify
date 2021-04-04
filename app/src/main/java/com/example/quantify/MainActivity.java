@@ -55,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialButton delete_button;
     EditText expDesc;
-
     EditText expMinTrials;
-    EditText expLocation;
 
     FloatingActionButton floatingActionButton;
     String id;
@@ -208,8 +206,6 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab;
         fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
-        FloatingActionButton finalFab1 = fab;
-
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -218,19 +214,28 @@ public class MainActivity extends AppCompatActivity {
                 View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
                 expDesc = view_1.findViewById(R.id.exp_desc_fragment);
                 expMinTrials = view_1.findViewById(R.id.exp_min_trials);
-                expLocation= view_1.findViewById(R.id.exp_location);
+                Spinner expLocation= view_1.findViewById(R.id.exp_location);
 
+                ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(MainActivity.this,
+                        android.R.layout.simple_spinner_item,
+                        getResources().getStringArray(R.array.locationChoice));
+                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                expLocation.setAdapter(adapter2);
 
-                AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-                adb.setTitle("Add?");
-                adb.setMessage("Are you sure you want to Add Experiment");
-                adb.setView(view_1);
                 Spinner expTypes = view_1.findViewById(R.id.exp_type_fragment);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
                         android.R.layout.simple_spinner_item,
                         getResources().getStringArray(R.array.expTypes));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 expTypes.setAdapter(adapter);
+
+
+
+                AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+                adb.setTitle("Add?");
+                adb.setMessage("Are you sure you want to Add Experiment");
+                adb.setView(view_1);
+
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -245,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                             exp_min_trials = 0;
                         }
                         String exp_type = expTypes.getSelectedItem().toString();
-                        String exp_location = expLocation.getText().toString();
+                        String exp_location = expLocation.getSelectedItem().toString();
 
 
 //  FIREBASE STUFF BEGINS

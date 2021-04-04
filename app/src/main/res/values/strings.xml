@@ -90,4 +90,8 @@
         <item>Non-negative Integer Counts</item>
     </string-array>
 
+    <string-array name="locationChoice">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 </resources>
