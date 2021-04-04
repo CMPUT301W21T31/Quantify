@@ -50,14 +50,14 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
                     String user_id = doc.getId();
 
                     if (user_id.equals(nameText)){
-                        String user_email = (String) doc.getData().get("User email");
                         String user_contact = (String) doc.getData().get("User contact");
+                        //String user_contact = (String) doc.getData().get("User contact");
 
                         TextView nameTextView = findViewById(R.id.tv_name);
                         nameTextView.setText(user_id);
 
-                        TextView email_View = findViewById(R.id.email);
-                        email_View.setText(user_email);
+                        TextView content_View = findViewById(R.id.contact);
+                        content_View.setText(user_contact);
                         flag = 1;
                         break;
                     }
@@ -102,24 +102,24 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
         TextView nameTextView = findViewById(R.id.tv_name);
         nameTextView.setText(nameText);
 
-        ImageView iv;
-        iv = (ImageView)findViewById(R.id.user_profile_setting);
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(ShowUserProfile.this, iv);
-                popup.getMenuInflater().inflate(R.menu.user_profile_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(ShowUserProfile.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
-
-
-            }
-        });
+//        ImageView iv;
+//        iv = (ImageView)findViewById(R.id.user_profile_setting);
+//        iv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                PopupMenu popup = new PopupMenu(ShowUserProfile.this, iv);
+//                popup.getMenuInflater().inflate(R.menu.user_profile_menu, popup.getMenu());
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        Toast.makeText(ShowUserProfile.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//                        return false;
+//                    }
+//                });
+//
+//
+//            }
+//        });
 
     }
 
@@ -129,30 +129,30 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
 //        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditName");
     }
 
-    public void editEmail(View v) {
+    public void editContact(View v) {
 //        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
-        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditEmail");
+        new UserProfileEditFragment().show(getSupportFragmentManager(), "EditContact");
     }
 
 
-    public void editPhone(View v) {
-        Toast.makeText(this, "Phone", Toast.LENGTH_SHORT).show();
-    }
-
-    public void editTwitter(View v) {
-        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
-    }
-
-
-    public void editFacebook(View v) {
-        Toast.makeText(this, "Phone", Toast.LENGTH_SHORT).show();
-    }
+//    public void editPhone(View v) {
+//        Toast.makeText(this, "Phone", Toast.LENGTH_SHORT).show();
+//    }
+//
+//    public void editTwitter(View v) {
+//        Toast.makeText(this, "Email", Toast.LENGTH_SHORT).show();
+//    }
+//
+//
+//    public void editFacebook(View v) {
+//        Toast.makeText(this, "Phone", Toast.LENGTH_SHORT).show();
+//    }
 
     @Override
     public void onOkPressed(String new_text) {
         setContentView(R.layout.activity_show_user_profile);
-        TextView nameTextView_1 = findViewById(R.id.email);
+        TextView nameTextView_1 = findViewById(R.id.contact);
         nameTextView_1.setText(new_text);
 //        nameText = new_text;
 
@@ -163,8 +163,8 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
 
         HashMap<String, String> data = new HashMap<>();
         if (nameText.length() > 0) {
-            data.put("User email", new_text);
-            data.put("User contact", "");
+            data.put("User email", "");
+            data.put("User contact", new_text);
         }
         else{
             Toast.makeText(ShowUserProfile.this, "Unable to create USER.\nUSER empty!", Toast.LENGTH_SHORT).show();

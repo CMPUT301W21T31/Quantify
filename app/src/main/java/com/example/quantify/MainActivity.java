@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     EditText expDesc;
     EditText expUser;
     EditText expStatus;
-    EditText expType;
     FloatingActionButton floatingActionButton;
     String id;
 
@@ -214,19 +213,19 @@ public class MainActivity extends AppCompatActivity {
                 adb.setTitle("Add?");
                 adb.setMessage("Are you sure you want to Add Experiment");
                 adb.setView(view_1);
-                Spinner expType = view_1.findViewById(R.id.exp_type_fragment);
+                Spinner expTypes = view_1.findViewById(R.id.exp_type_fragment);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
                         android.R.layout.simple_spinner_item,
                         getResources().getStringArray(R.array.expTypes));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                expType.setAdapter(adapter);
+                expTypes.setAdapter(adapter);
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String exp_description = expDesc.getText().toString();
                         String exp_username = id;
                         String exp_status = "Running";
-                        String exp_type = expType.getSelectedItem().toString();
+                        String exp_type = expTypes.getSelectedItem().toString();
 
 //  FIREBASE STUFF BEGINS
                         HashMap<String, String> data = new HashMap<>();
@@ -287,27 +286,27 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 //Toast.makeText(MainActivity.this, "You Clicked : " + experimentList.isClickable(), Toast.LENGTH_SHORT).show();
                 Log.d("BLABLA", "you clicked"+ experimentList.isClickable());
-                String experiment_type = (String) experimenterExperimentAdapter.getItem(position).getType();
+                String experiment_type = (String) ownerExperimentAdapter.getItem(position).getType();
 
                 if (experiment_type.equals("Binomial Trials")) {
                     Log.d("BLABLA", "Binomial Clicked");
                     Intent intent_1 = new Intent(MainActivity.this, BinomialTrialActivity.class);
-                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 } else if (experiment_type.equals("Count-based Tests")) {
                     Log.d("BLABLA", "Count Clicked");
                     Intent intent_1 = new Intent(MainActivity.this, CountTrialActivity.class);
-                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 } else if (experiment_type.equals("Measurement Trials")) {
                     Log.d("BLABLA", "Temperature clicked");
                     Intent intent_1 = new Intent(MainActivity.this, MeasurementTrialActivity.class);
-                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 } else if (experiment_type.equals("Non-negative Integer Counts")) {
                     Log.d("BLABLA", "Non-neg clicked");
                     Intent intent_1 = new Intent(MainActivity.this, NonNegativeCountTrialActivity.class);
-                    intent_1.putExtra("typename", experimenterExperimentAdapter.getItem(position));
+                    intent_1.putExtra("typename", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 }
             }
