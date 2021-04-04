@@ -39,6 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialButton delete_button;
     EditText expDesc;
-    EditText expUser;
-    EditText expStatus;
+
+    EditText expMinTrials;
+    EditText expLocation;
+
     FloatingActionButton floatingActionButton;
     String id;
 
@@ -98,15 +101,24 @@ public class MainActivity extends AppCompatActivity {
                 experimenterExperimentDataList.clear();
                 ownerExperimentDataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                    //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                    UUID experiment_id = UUID.fromString( (String) doc.getData().get("Experiment ID"));
                     String experiment_description = doc.getId();
                     String experiment_username = (String) doc.getData().get("Experiment User");
                     String experiment_status = (String) doc.getData().get("Experiment Status");
                     String experiment_type = (String) doc.getData().get("Experiment Type");
-                    experimenterExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type)); // Adding the cities and provinces from FireStore
+                    String experiment_location = (String) doc.getData().get("Experiment Location");
+                    Integer experiment_min_trials = 1;
+                    try{
+                        experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
+                    }catch(Exception e){
+                        experiment_min_trials = 0;
+                    }
+                    Log.d("TAG", experiment_username);
+                    experimenterExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type,experiment_min_trials,experiment_location)); // Adding the cities and provinces from FireStore
 
                     if (experiment_username.equals(id)){
-                        ownerExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type));
+                        ownerExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type,experiment_min_trials,experiment_location));
                     }
                 }
                 experimenterExperimentAdapter.notifyDataSetChanged();
@@ -205,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
                 //Creating the instance of PopupMenu
                 View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_experiment_fragment_layout, null);
                 expDesc = view_1.findViewById(R.id.exp_desc_fragment);
-                //expUser = view_1.findViewById(R.id.exp_user_fragment);
-                //expStatus = view_1.findViewById(R.id.exp_status_fragment);
+                expMinTrials = view_1.findViewById(R.id.exp_min_trials);
+                expLocation= view_1.findViewById(R.id.exp_location);
 
 
                 AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
@@ -222,17 +234,29 @@ public class MainActivity extends AppCompatActivity {
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        UUID exp_id = UUID.randomUUID();
                         String exp_description = expDesc.getText().toString();
                         String exp_username = id;
                         String exp_status = "Running";
+                        Integer exp_min_trials;
+                        try{
+                            exp_min_trials = Integer.valueOf(expMinTrials.getText().toString());
+                        }catch(Exception e){
+                            exp_min_trials = 0;
+                        }
                         String exp_type = expTypes.getSelectedItem().toString();
+                        String exp_location = expLocation.getText().toString();
+
 
 //  FIREBASE STUFF BEGINS
                         HashMap<String, String> data = new HashMap<>();
                         if (exp_description.length() > 0) {
+                            data.put("Experiment ID", exp_id.toString());
                             data.put("Experiment User", exp_username);
                             data.put("Experiment Status", exp_status);
                             data.put("Experiment Type", exp_type);
+                            data.put("Experiment Location", exp_location);
+                            data.put("Min Trials", exp_min_trials.toString());
                         }
                         else{
                             Toast.makeText(MainActivity.this, "Unable to create experiment.\nDescription empty!", Toast.LENGTH_SHORT).show();
@@ -258,10 +282,11 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
 
+
 //  FIREBASE STUFF ENDS
 
-                        ownerExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
-                        experimenterExperimentDataList.add(new Experiment(exp_description, exp_username, exp_status, exp_type));
+                        ownerExperimentDataList.add(new Experiment(exp_id, exp_description, exp_username, exp_status, exp_type, exp_min_trials, exp_location));
+                        experimenterExperimentDataList.add(new Experiment(exp_id, exp_description, exp_username, exp_status, exp_type, exp_min_trials, exp_location));
 
 //                                     current_exp.setExp_desc(exp_description);
 //                                     current_exp.setUser(exp_username);
