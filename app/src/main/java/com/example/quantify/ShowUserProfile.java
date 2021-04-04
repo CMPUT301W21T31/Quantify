@@ -2,13 +2,7 @@ package com.example.quantify;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,9 +10,25 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+
 public class ShowUserProfile extends AppCompatActivity implements UserProfileEditFragment.OnFragmentInteractionListener {
 
-    String nameText = "User Unknown";
+    String nameText;
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +37,66 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-//        cityName = (String) intent.getSerializableExtra("city");
+        nameText = intent.getStringExtra("USER");
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("Users");
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                    String user_id = doc.getId();
+
+                    if (user_id.equals(nameText)){
+                        String user_email = (String) doc.getData().get("User email");
+                        String user_contact = (String) doc.getData().get("User contact");
+
+                        TextView nameTextView = findViewById(R.id.tv_name);
+                        nameTextView.setText(user_id);
+
+                        TextView email_View = findViewById(R.id.email);
+                        email_View.setText(user_email);
+                        flag = 1;
+                        break;
+                    }
+                }
+
+            }
+        });
+
+
+        if (flag == 1){
+            HashMap<String, String> data = new HashMap<>();
+            if (nameText.length() > 0) {
+                data.put("User email", "");
+                data.put("User contact", "");
+            }
+            else{
+                Toast.makeText(ShowUserProfile.this, "Unable to create USER.\nUSER empty!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            collectionReference
+                    .document(nameText)
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is succeeded
+                            Log.d("TAG", "Data has been added successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                            Log.d("TAG", "Data could not be added!" + e.toString());
+                        }
+                    });
+        }
+
 
 
         TextView nameTextView = findViewById(R.id.tv_name);
@@ -92,8 +152,45 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
     @Override
     public void onOkPressed(String new_text) {
         setContentView(R.layout.activity_show_user_profile);
-        TextView nameTextView = findViewById(R.id.email);
-        nameTextView.setText(new_text);
+        TextView nameTextView_1 = findViewById(R.id.email);
+        nameTextView_1.setText(new_text);
 //        nameText = new_text;
+
+//        FIREBASE STUFF AGAIN
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("Users");
+
+        HashMap<String, String> data = new HashMap<>();
+        if (nameText.length() > 0) {
+            data.put("User email", new_text);
+            data.put("User contact", "");
+        }
+        else{
+            Toast.makeText(ShowUserProfile.this, "Unable to create USER.\nUSER empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        collectionReference
+                .document(nameText)
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // These are a method which gets executed when the task is succeeded
+                        Log.d("TAG", "Data has been added successfully!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // These are a method which gets executed if there’s any problem
+                        Log.d("TAG", "Data could not be added!" + e.toString());
+                    }
+                });
+//        END OF FIREBASE STUFF
+
+
+
     }
 }
