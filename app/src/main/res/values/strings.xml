@@ -20,10 +20,6 @@
     <string name="supporting_text" />
     <string name="secondary_text" />
     <string name="title" />
-    <string name="questionCall">Questions</string>
-    <string name="cannot_find_question">Cannot find what you were looking for?</string>
-    <string name="button_ask_question">Ask a Question!</string>
-    <string name="type_your_question">Type your Question down below</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -52,5 +48,28 @@
     <string name="enter_your_number_in_decimal">Enter your number in decimal</string>
     <string name="zero">0</string>
 
+    <string name="UniqueUsername">username</string>
+    <string name="title_activity_show_user_profile">ShowUserProfile</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="todo">TODO</string>
+    <string name="item">Item</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="subscribe" />
+
+    <string-array name="expTypes">
+        <item>Binomial Trials</item>
+        <item>Count-based Tests</item>
+        <item>Measurement Trials</item>
+        <item>Non-negative Integer Counts</item>
+    </string-array>
 
 </resources>
