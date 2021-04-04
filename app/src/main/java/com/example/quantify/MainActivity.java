@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     EditText expStatus;
     EditText expType;
     FloatingActionButton floatingActionButton;
+    String id;
 
 
     private int tabPos = 0;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         experimentList = findViewById(R.id.exp_list);
@@ -79,15 +81,6 @@ public class MainActivity extends AppCompatActivity {
         ownerExperimentDataList = new ArrayList<>();
         experimenterExperimentDataList = new ArrayList<>();
         subscribedExperimentDataList = new ArrayList<>();
-
-
-//        ownerExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
-//        ownerExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
-//        ownerExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
-
-//        experimenterExperimentDataList.add(new Experiment("Roll of Dice", "USER1", "RUNNING", "Binomial"));
-//        experimenterExperimentDataList.add(new Experiment("Cars on a busy street", "USER1", "RUNNING", "Count"));
-//        experimenterExperimentDataList.add(new Experiment("Temperature of a star", "USER1", "RUNNING", "Temperature"));
 
 
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
@@ -112,7 +105,10 @@ public class MainActivity extends AppCompatActivity {
                     String experiment_status = (String) doc.getData().get("Experiment Status");
                     String experiment_type = (String) doc.getData().get("Experiment Type");
                     experimenterExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type)); // Adding the cities and provinces from FireStore
-                    ownerExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type));
+
+                    if (experiment_username.equals(id)){
+                        ownerExperimentDataList.add(new Experiment(experiment_description, experiment_username, experiment_status, experiment_type));
+                    }
                 }
                 experimenterExperimentAdapter.notifyDataSetChanged();
                 ownerExperimentAdapter.notifyDataSetChanged();
@@ -143,16 +139,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.search:
                         // Handle search icon press
-                        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                         Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
                         break;
 
 
                     case R.id.user:
                         // Handle user icon press
+
                         Intent intent = new Intent(MainActivity.this, ShowUserProfile.class);
-//
-//                        intent.putExtra("city", (Serializable) cityName);
+                        intent.putExtra("USER", id);
 //
                         startActivity(intent);
                         break;
@@ -229,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String exp_description = expDesc.getText().toString();
-                        String exp_username = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                        String exp_username = id;
                         String exp_status = "Running";
                         String exp_type = expType.getSelectedItem().toString();
 
