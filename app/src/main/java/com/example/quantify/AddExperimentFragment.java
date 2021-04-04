@@ -5,14 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 
 public class AddExperimentFragment extends DialogFragment {
     private EditText expDesc;
@@ -44,8 +43,8 @@ public class AddExperimentFragment extends DialogFragment {
         //Inflate the layout for this fragment
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_experiment_fragment_layout, null);
         expDesc = view.findViewById(R.id.exp_desc_fragment);
-        expUser = view.findViewById(R.id.exp_user_fragment);
-        expStatus = view.findViewById(R.id.exp_status_fragment);
+        //expUser = view.findViewById(R.id.exp_user_fragment);
+        //expStatus = view.findViewById(R.id.exp_status_fragment);
         expType = view.findViewById(R.id.exp_type_fragment);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -56,19 +55,19 @@ public class AddExperimentFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String experiment = expDesc.getText().toString();
-                        String user = expUser.getText().toString();
-                        String status = expStatus.getText().toString();
-                        String type = expType.getText().toString();
-
-//                        https://stackoverflow.com/a/15314227
-//                        username: Ahmed Aeon Axan
-//                        license: CC BY-SA 3.0
-
-
-//                        Reference ends. I just learned parseInt from this guy
-
-                        listener.onOkPressed(new Experiment(experiment, user, status, type));
+//                        String experiment = expDesc.getText().toString();
+//                        String user = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+//                        //String status = expStatus.getText().toString();
+//                        String type = expType.getText().toString();
+//
+////                        https://stackoverflow.com/a/15314227
+////                        username: Ahmed Aeon Axan
+////                        license: CC BY-SA 3.0
+//
+//
+////                        Reference ends. I just learned parseInt from this guy
+//
+//                        listener.onOkPressed(new Experiment(experiment, user, status, type));
                     }
                 }).create();
     }

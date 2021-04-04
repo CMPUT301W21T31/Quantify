@@ -11,32 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Exp_Name"
+        android:hint="Experiment Description"
         android:inputType="textPersonName"  />
 
-    <EditText
-        android:id="@+id/exp_user_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="User"
-        android:inputType="textPersonName"  />
+<!--    <EditText-->
+<!--        android:id="@+id/exp_user_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="User"-->
+<!--        android:inputType="textPersonName"  />-->
 
-    <EditText
-        android:id="@+id/exp_status_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Status"
-        android:inputType="textPersonName"  />
+<!--    <EditText-->
+<!--        android:id="@+id/exp_status_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Status"-->
+<!--        android:inputType="textPersonName"  />-->
 
-    <EditText
-        android:id="@+id/exp_type_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Binomial/Count/Temperature/Non-neg"
-        android:inputType="textPersonName"  />
+<!--    <EditText-->
+<!--        android:id="@+id/exp_type_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Binomial/Count/Temperature/Non-neg"-->
+<!--        android:inputType="textPersonName"  />-->
 
+        <Spinner
+            android:id="@+id/exp_type_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
