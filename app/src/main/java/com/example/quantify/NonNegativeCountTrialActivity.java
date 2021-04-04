@@ -14,8 +14,4 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
         setContentView(R.layout.non_negative_count_trial);
     }
 
-    public void OpenQuestionList(View view) {
-        Intent intent = new Intent(this, Question.class);
-        startActivity(intent);
-    }
 }

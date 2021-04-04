@@ -60,6 +60,14 @@
     <string name="item">Item</string>
     <string name="title_activity_maps">Map</string>
 
+    <!-- String used for Questions -->
+    <string name="questionCall">Questions</string>
+    <string name="cannot_find_question">Cannot find what you were looking for?</string>
+    <string name="button_ask_question">Ask a Question!</string>
+    <string name="type_your_question">Type your Question down below</string>
+    <string name="join_question_forum">Still have some doubts? Join our question forum</string>
+    <string name="questionForumButton">Question Forum</string>
+
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

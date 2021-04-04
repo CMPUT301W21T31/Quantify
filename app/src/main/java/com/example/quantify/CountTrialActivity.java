@@ -16,8 +16,4 @@ public class CountTrialActivity extends AppCompatActivity {
 
     }
 
-    public void OpenQuestionList(View view) {
-        Intent intent = new Intent(this, Question.class);
-        startActivity(intent);
-    }
 }

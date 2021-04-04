@@ -3,6 +3,7 @@ package com.example.quantify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class BinomialTrialActivity extends AppCompatActivity {
 
@@ -10,5 +11,9 @@ public class BinomialTrialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.binomial_trial);
+    }
+
+    public void questionPortalButton(View view) {
+
     }
 }

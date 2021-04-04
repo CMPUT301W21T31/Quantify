@@ -14,8 +14,5 @@ public class MeasurementTrialActivity extends AppCompatActivity {
         setContentView(R.layout.measurement_trial);
     }
 
-    public void OpenQuestionList(View view) {
-        Intent intent = new Intent(this, Question.class);
-        startActivity(intent);
-    }
+
 }
