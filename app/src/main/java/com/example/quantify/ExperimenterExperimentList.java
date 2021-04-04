@@ -75,8 +75,8 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
 
                 String experiment_type = (String) getItem(position).getType();
 
-                Toast.makeText(context ,(String) getItem(position).getLocation(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context ,(String) getItem(position).getDescription(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context ,(String) getItem(position).getLocation(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context ,(String) getItem(position).getDescription(), Toast.LENGTH_SHORT).show();
                 if ( ((String) getItem(position).getLocation()).equals("Yes") ) {
                     //Creating the instance of PopupMenu
                     View view_1 = LayoutInflater.from(context).inflate(R.layout.location_warning, null);
