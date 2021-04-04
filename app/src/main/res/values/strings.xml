@@ -82,6 +82,11 @@
     <string name="mean_view">mean_value</string>
     <string name="median_value">median_value</string>
     <string name="std_dev_value">std_dev_value</string>
+    <string name="count_text">Count:</string>
+    <string name="success_text">Success:</string>
+    <string name="fail_text">Fail:</string>
+    <string name="success_view">success_view_number</string>
+    <string name="fail_view">fail_view_number</string>
 
     <string-array name="expTypes">
         <item>Binomial Trials</item>
