@@ -6,8 +6,8 @@
     android:background="@color/shrine_pink_50">
 
     <TextView
-        android:id="@+id/trialNumberView"
-        android:layout_width="0dp"
+        android:id="@+id/minTrialView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
@@ -15,7 +15,7 @@
         android:text="@string/trialNumber"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@id/minimumNumberTrialsText"
-        app:layout_constraintTop_toBottomOf="@id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/minimumNumberTrialsText"
@@ -27,11 +27,11 @@
         android:text="@string/minimum_number_of_trials_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/userIDView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
@@ -39,7 +39,7 @@
         android:text="@string/userid_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@id/userIDText"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/userIDText"
@@ -51,22 +51,24 @@
         android:text="@string/userid_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
-        android:id="@+id/experimentTitleView"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:id="@+id/experimentDescriptionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/experiment_title_view"
+        android:text="@string/experiment_description_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="start"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/quartiles"
@@ -78,7 +80,7 @@
         android:text="@string/quartiles_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/LocationText"
@@ -113,7 +115,7 @@
         android:text="@string/mean_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@id/meanView"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/medianView"
@@ -125,7 +127,7 @@
         android:text="@string/MedianText"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/medianValue"
@@ -149,7 +151,7 @@
         android:text="@string/meanText"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/stdDevView"
@@ -161,7 +163,7 @@
         android:text="@string/std_dev_text"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/StdDevValue"
@@ -281,6 +283,7 @@
         android:layout_width="106dp"
         android:layout_height="55dp"
         android:layout_marginBottom="88dp"
+        android:onClick="startTrial"
         android:text="@string/start_button"
         app:backgroundTint="#7E5256"
         app:layout_constraintBottom_toBottomOf="parent"
