@@ -3,16 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="20dp">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="25dp"
+        android:layout_marginLeft="5dp"></TextView>
 
     <EditText
         android:id="@+id/exp_desc_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Experiment Description"
-        android:inputType="textPersonName"  />
+        android:hint="Enter description"
+        android:inputType="textPersonName"
+        android:layout_marginTop="10dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Minimum Trials required"
+        android:textSize="25dp"
+        android:layout_marginLeft="5dp"></TextView>
 
     <EditText
         android:id="@+id/exp_min_trials"
@@ -20,44 +37,34 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Minimum Trials Required"
-        android:inputType="number"  />
+        android:inputType="number"
+        android:layout_marginTop="10dp"/>
 
-    <EditText
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location required?"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"></TextView>
+    <Spinner
         android:id="@+id/exp_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Location"
-        android:inputType="textPostalAddress"  />
+        android:layout_marginTop="10dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Experiment Type"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"></TextView>
 
-<!--    <EditText-->
-<!--        android:id="@+id/exp_user_fragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:hint="User"-->
-<!--        android:inputType="textPersonName"  />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/exp_status_fragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:hint="Status"-->
-<!--        android:inputType="textPersonName"  />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/exp_type_fragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:hint="Binomial/Count/Temperature/Non-neg"-->
-<!--        android:inputType="textPersonName"  />-->
-
-        <Spinner
-            android:id="@+id/exp_type_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/exp_type_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

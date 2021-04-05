@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quantify">
 
-
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -14,7 +12,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,13 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
-
+        <activity android:name=".BinomialTrialIntermediateActivity"></activity>
+        <activity android:name=".TrialIntermediateActivity" />
         <activity
             android:name=".ShowUserProfile"
             android:label="@string/title_activity_show_user_profile"
-            android:theme="@style/Theme.Quantify.NoActionBar"></activity>
-
-
+            android:theme="@style/Theme.Quantify.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,8 +39,7 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-
+            android:label="@string/title_activity_maps" />
         <activity android:name=".SubscribedActivity" />
         <activity android:name=".CountTrialActivity" />
         <activity android:name=".NonNegativeCountTrialActivity" />
