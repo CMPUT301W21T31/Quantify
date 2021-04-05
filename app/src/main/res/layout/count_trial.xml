@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/experimentDescriptionViewBino"
+        android:id="@+id/cTrialDescriptionView"
         android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/userIDTextBino"
+        android:id="@+id/cTrialUserIDText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,10 +28,10 @@
         android:layout_marginTop="24dp"
         android:text="@string/userid_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
+        app:layout_constraintTop_toBottomOf="@+id/cTrialDescriptionView" />
 
     <TextView
-        android:id="@+id/regionText"
+        android:id="@+id/cTrialRegionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,10 +39,10 @@
         android:layout_marginTop="24dp"
         android:text="@string/region_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userIDTextBino" />
+        app:layout_constraintTop_toBottomOf="@+id/cTrialUserIDText" />
 
     <TextView
-        android:id="@+id/MinimumNumberTrialsText"
+        android:id="@+id/cTrialMinimumNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -50,43 +50,43 @@
         android:layout_marginTop="24dp"
         android:text="@string/minimum_number_of_trials_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regionText" />
+        app:layout_constraintTop_toBottomOf="@+id/cTrialRegionText" />
 
     <TextView
-        android:id="@+id/userIDViewBino"
+        android:id="@+id/cTrialUserIDView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_view"
-        app:layout_constraintStart_toEndOf="@+id/userIDTextBino"
-        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
+        app:layout_constraintStart_toEndOf="@+id/cTrialUserIDText"
+        app:layout_constraintTop_toBottomOf="@+id/cTrialDescriptionView" />
 
     <TextView
-        android:id="@+id/regionView"
+        android:id="@+id/cTrialRegionView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_view"
-        app:layout_constraintStart_toEndOf="@+id/regionText"
-        app:layout_constraintTop_toBottomOf="@+id/userIDViewBino" />
+        app:layout_constraintStart_toEndOf="@+id/cTrialRegionText"
+        app:layout_constraintTop_toBottomOf="@+id/cTrialUserIDView" />
 
     <TextView
-        android:id="@+id/minTrialViewBino"
+        android:id="@+id/cMinTrialView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="111dp"
         android:text="@string/trialNumber"
-        app:layout_constraintStart_toEndOf="@+id/MinimumNumberTrialsText"
-        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
+        app:layout_constraintStart_toEndOf="@+id/cTrialMinimumNumberText"
+        app:layout_constraintTop_toBottomOf="@+id/cTrialDescriptionView" />
 
     <Button
-        android:id="@+id/generateQRCodeButton"
+        android:id="@+id/cTrialGenerateQRCodeButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="100dp"
@@ -98,10 +98,10 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MinimumNumberTrialsText" />
+        app:layout_constraintTop_toBottomOf="@+id/cTrialMinimumNumberText" />
 
     <TextView
-        android:id="@+id/successText"
+        android:id="@+id/cTrialSuccessText"
         android:layout_width="383dp"
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
@@ -114,58 +114,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/generateQRCodeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/cTrialGenerateQRCodeButton" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="78dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="200dp"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/minusOneButton"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toEndOf="@+id/addOneButton" />
+
 
     <TextView
-        android:id="@+id/nonNegativeCountView"
+        android:id="@+id/countText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Count:"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cTrialSuccessText" />
+
+    <EditText
+        android:id="@+id/countEdit"
         android:layout_width="90dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/zero"
-        android:textSize="35sp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:hint="@string/zero"
         android:textAlignment="center"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/successText"
-        android:gravity="center"/>
+        app:layout_constraintTop_toBottomOf="@+id/countText" />
 
     <Button
-        android:id="@+id/addOneButton"
-        android:layout_width="63dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/plus_sign"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nonNegativeCountView" />
-
-    <Button
-        android:id="@+id/minusOneButton"
-        android:layout_width="63dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
-        android:text="@string/minus_sign"
-        android:textSize="20sp"
+        android:id="@+id/cTrialSaveButton"
+        android:layout_width="78dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="196dp"
+        android:onClick="countSaveClicked"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nonNegativeCountView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countEdit"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
