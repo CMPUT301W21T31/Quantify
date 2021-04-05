@@ -25,7 +25,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="48dp"
         android:text="@string/minimum_number_of_trials_text"
-        android:textColor="@color/shrine_pink_900"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/experimentDescriptionView" />
 
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/userid_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@id/userIDText"
@@ -47,38 +48,42 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/userid_text"
-        android:textColor="@color/shrine_pink_900"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
     <TextView
         android:id="@+id/experimentDescriptionView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:gravity="start"
         android:text="@string/experiment_description_view"
+        android:textAllCaps="true"
         android:textColor="@color/shrine_pink_900"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="start"
-        android:textSize="20dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quartiles"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="21dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="104dp"
         android:text="@string/quartiles_text"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/experimentDescriptionView" />
 
@@ -90,7 +95,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="208dp"
         android:text="@string/location_text"
-        android:textColor="@color/shrine_pink_900"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quartiles" />
 
@@ -111,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="200dp"
         android:text="@string/mean_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@id/meanView"
@@ -119,13 +125,14 @@
 
     <TextView
         android:id="@+id/medianView"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="58dp"
+        android:layout_height="22dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="232dp"
         android:text="@string/MedianText"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
@@ -133,8 +140,8 @@
         android:id="@+id/medianValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginTop="12dp"
         android:text="@string/median_value"
         android:textColor="@color/shrine_pink_900"
@@ -147,9 +154,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="200dp"
         android:text="@string/meanText"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
@@ -159,9 +167,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="284dp"
+        android:layout_marginTop="264dp"
         android:text="@string/std_dev_text"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionView" />
 
@@ -169,8 +178,8 @@
         android:id="@+id/StdDevValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginTop="12dp"
         android:text="@string/std_dev_value"
         android:textColor="@color/shrine_pink_900"
@@ -196,7 +205,7 @@
 
     <Button
         android:id="@+id/CreateHistogramButton"
-        android:layout_width="185dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
@@ -211,7 +220,7 @@
 
     <Button
         android:id="@+id/ResultsOverTimeButton"
-        android:layout_width="185dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -233,6 +242,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/quartile_one"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quartiles" />
 
@@ -245,6 +255,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/quartile_two"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quartile1Text" />
 
@@ -282,7 +293,8 @@
         android:id="@+id/startButton"
         android:layout_width="106dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:onClick="startTrial"
         android:text="@string/start_button"
         app:backgroundTint="#7E5256"

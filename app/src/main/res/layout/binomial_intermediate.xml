@@ -26,7 +26,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="48dp"
         android:text="@string/minimum_number_of_trials_text"
-        android:textColor="@color/shrine_pink_900"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/experimentDescriptionViewBino" />
 
@@ -34,9 +35,9 @@
         android:id="@+id/userIDViewBino"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="24dp"
         android:text="@string/userid_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@id/userIDTextBino"
@@ -48,23 +49,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/userid_text"
-        android:textColor="@color/shrine_pink_900"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
     <TextView
         android:id="@+id/experimentDescriptionViewBino"
         android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/experiment_description_view"
+        android:textAllCaps="true"
         android:textColor="@color/shrine_pink_900"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +83,7 @@
         android:layout_marginTop="116dp"
         android:text="@string/count_text"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/experimentDescriptionViewBino" />
 
@@ -89,7 +95,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="128dp"
         android:text="@string/location_text"
-        android:textColor="@color/shrine_pink_900"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/CountBino" />
 
@@ -123,7 +130,7 @@
 
     <Button
         android:id="@+id/CreateHistogramButtonBino"
-        android:layout_width="185dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
@@ -138,7 +145,7 @@
 
     <Button
         android:id="@+id/ResultsOverTimeButtonBino"
-        android:layout_width="185dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -160,6 +167,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/success_text"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CountBino" />
 
@@ -172,6 +180,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/fail_text"
         android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SuccessBino" />
 
@@ -209,6 +218,7 @@
         android:layout_width="106dp"
         android:layout_height="55dp"
         android:layout_marginBottom="88dp"
+        android:onClick="startBinomialTrial"
         android:text="@string/start_button"
         app:backgroundTint="#7E5256"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -216,7 +226,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/QuestionButtonBino"
-        app:layout_constraintVertical_bias="0.686"
-        android:onClick="startBinomialTrial"/>
+        app:layout_constraintVertical_bias="0.686" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

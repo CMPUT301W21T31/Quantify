@@ -17,7 +17,9 @@
         android:layout_marginLeft="5dp"
         android:paddingTop="10dp"
         android:text="Experiment"
-        android:textSize="30sp"></TextView>
+        android:textColor="@color/gradStart"
+        android:textSize="30sp"
+        android:textStyle="italic"></TextView>
 
 
 
@@ -34,7 +36,8 @@
             android:inputType="date"
             android:paddingTop="10dp"
             android:text="User"
-            android:textSize="20sp"/>
+            android:textColor="@color/gradStart"
+            android:textSize="20sp" />
 
 
         <TextView

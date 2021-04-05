@@ -101,7 +101,8 @@
                     android:layout_height="wrap_content"
                     android:text="Phone"
                     android:textColor="@color/gradStart"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/contact"

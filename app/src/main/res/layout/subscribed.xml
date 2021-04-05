@@ -10,10 +10,12 @@
         android:id="@+id/sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Subscribed to Experiments"
-        android:textSize="30dp"
         android:layout_marginTop="10dp"
-        android:gravity="center"></TextView>
+        android:gravity="center"
+        android:text="Subscribed to Experiments"
+        android:textColor="@color/gradStart"
+        android:textSize="30dp"
+        android:textStyle="bold"></TextView>
 
     <ListView
         android:id="@+id/sub_exp_list"

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/shrine_pink_50">
 
     <TextView
         android:id="@+id/experimentDescriptionViewBino"
@@ -15,6 +16,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/experiment_description_view"
+        android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +30,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
@@ -38,6 +43,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userIDTextBino" />
 
@@ -49,6 +56,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/minimum_number_of_trials_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regionText" />
 
@@ -60,6 +69,7 @@
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_view"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/userIDTextBino"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
@@ -71,6 +81,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_view"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/regionText"
         app:layout_constraintTop_toBottomOf="@+id/userIDViewBino" />
 
@@ -82,6 +93,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="111dp"
         android:text="@string/trialNumber"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/MinimumNumberTrialsText"
         app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
@@ -96,6 +108,7 @@
         android:layout_marginRight="100dp"
         android:text="@string/generate_qr_code_button"
         android:textSize="12sp"
+        app:backgroundTint="@color/bottom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MinimumNumberTrialsText" />
@@ -109,8 +122,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:fontFamily="sans-serif"
         android:text="@string/binomialDescriptionText"
+        android:textColor="@color/shrine_pink_900"
         android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +140,7 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="16dp"
         android:text="@string/success"
+        app:backgroundTint="@color/gradStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberOfFailureText" />
 
@@ -135,7 +152,9 @@
         android:layout_marginEnd="70dp"
         android:layout_marginRight="70dp"
         android:text="@string/fail"
+        app:backgroundTint="@color/gradStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/successButton"
         app:layout_constraintTop_toBottomOf="@+id/numberOfFailureView" />
 
     <TextView
@@ -146,6 +165,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/number_of_successions"
+        android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/successText" />
 
@@ -157,6 +178,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/number_of_failures"
+        android:textColor="@color/shrine_pink_900"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberOfSuccessText" />
 
@@ -170,6 +193,7 @@
         android:layout_marginEnd="180dp"
         android:layout_marginRight="180dp"
         android:text="@string/space"
+        android:textColor="@color/gradStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/numberOfSuccessText"
         app:layout_constraintTop_toBottomOf="@+id/successText" />
@@ -184,19 +208,28 @@
         android:layout_marginEnd="180dp"
         android:layout_marginRight="180dp"
         android:text="@string/space"
+        android:textColor="@color/gradStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/numberOfFailureText"
         app:layout_constraintTop_toBottomOf="@+id/numberOfSuccessView" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="78dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="100dp"
         android:text="@string/save"
+        app:backgroundTint="#7E5256"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/failButton"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
