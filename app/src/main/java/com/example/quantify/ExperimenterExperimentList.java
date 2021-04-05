@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,25 +88,14 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
                     adb.setNegativeButton("Cancel", null);
                     adb.setPositiveButton("Proceed", new AlertDialog.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            if (experiment_type.equals("Binomial Trials")) {
-                                Log.d("BLABLA", "Binomial Clicked");
-                                Intent intent_1 = new Intent(context, BinomialTrialActivity.class);
-                                intent_1.putExtra("typename", getItem(position));
+                            if(experiment_type.equals("Binomial Trials")){
+                                Intent intent_1 = new Intent(context, BinomialTrialIntermediateActivity.class);
+                                intent_1.putExtra("Experiment", getItem(position));
                                 context.startActivity(intent_1);
-                            } else if (experiment_type.equals("Count-based Tests")) {
-                                Log.d("BLABLA", "Count Clicked");
-                                Intent intent_1 = new Intent(context, CountTrialActivity.class);
-                                intent_1.putExtra("typename", getItem(position));
-                                context.startActivity(intent_1);
-                            } else if (experiment_type.equals("Measurement Trials")) {
-                                Log.d("BLABLA", "Temperature clicked");
-                                Intent intent_1 = new Intent(context, MeasurementTrialActivity.class);
-                                intent_1.putExtra("typename", getItem(position));
-                                context.startActivity(intent_1);
-                            } else if (experiment_type.equals("Non-negative Integer Counts")) {
-                                Log.d("BLABLA", "Non-neg clicked");
-                                Intent intent_1 = new Intent(context, NonNegativeCountTrialActivity.class);
-                                intent_1.putExtra("typename", getItem(position));
+                            }
+                            else {
+                                Intent intent_1 = new Intent(context, TrialIntermediateActivity.class);
+                                intent_1.putExtra("Experiment", getItem(position));
                                 context.startActivity(intent_1);
                             }
                         }
@@ -115,27 +103,17 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
                     adb.show();
                 }
                 else{
-                    if (experiment_type.equals("Binomial Trials")) {
-                        Log.d("BLABLA", "Binomial Clicked");
-                        Intent intent_1 = new Intent(context, BinomialTrialActivity.class);
-                        intent_1.putExtra("typename", getItem(position));
-                        context.startActivity(intent_1);
-                    } else if (experiment_type.equals("Count-based Tests")) {
-                        Log.d("BLABLA", "Count Clicked");
-                        Intent intent_1 = new Intent(context, CountTrialActivity.class);
-                        intent_1.putExtra("typename", getItem(position));
-                        context.startActivity(intent_1);
-                    } else if (experiment_type.equals("Measurement Trials")) {
-                        Log.d("BLABLA", "Temperature clicked");
-                        Intent intent_1 = new Intent(context, MeasurementTrialActivity.class);
-                        intent_1.putExtra("typename", getItem(position));
-                        context.startActivity(intent_1);
-                    } else if (experiment_type.equals("Non-negative Integer Counts")) {
-                        Log.d("BLABLA", "Non-neg clicked");
-                        Intent intent_1 = new Intent(context, NonNegativeCountTrialActivity.class);
-                        intent_1.putExtra("typename", getItem(position));
-                        context.startActivity(intent_1);
-                    }
+                        if(experiment_type.equals("Binomial Trials")){
+                            Intent intent_1 = new Intent(context, BinomialTrialIntermediateActivity.class);
+                            intent_1.putExtra("Experiment", getItem(position));
+                            context.startActivity(intent_1);
+                        }
+                        else {
+                            Intent intent_1 = new Intent(context, TrialIntermediateActivity.class);
+                            intent_1.putExtra("Experiment", getItem(position));
+                            context.startActivity(intent_1);
+                        }
+//                    }
                 }
             }
 

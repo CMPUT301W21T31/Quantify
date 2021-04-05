@@ -28,7 +28,7 @@
     <string name="userid_text">UserID:</string>
     <string name="region_text">Region:</string>
     <string name="minimum_number_of_trials_text">Minimum number of trials:</string>
-    <string name="experiment_title_view">Experiment title</string>
+    <string name="experiment_description_view">Experiment Description</string>
     <string name="userid_view">userID</string>
     <string name="region_view">regions</string>
     <string name="trialNumber">trial_number_view</string>

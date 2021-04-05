@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/experimentTitleView"
+        android:id="@+id/experimentDescriptionViewBino"
         android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -14,13 +14,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/experiment_title_view"
+        android:text="@string/experiment_description_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/userIDText"
+        android:id="@+id/userIDTextBino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/userid_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
     <TextView
         android:id="@+id/regionText"
@@ -39,7 +39,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/region_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userIDText" />
+        app:layout_constraintTop_toBottomOf="@+id/userIDTextBino" />
 
     <TextView
         android:id="@+id/MinimumNumberTrialsText"
@@ -53,15 +53,15 @@
         app:layout_constraintTop_toBottomOf="@+id/regionText" />
 
     <TextView
-        android:id="@+id/userIDView"
+        android:id="@+id/userIDViewBino"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_view"
-        app:layout_constraintStart_toEndOf="@+id/userIDText"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintStart_toEndOf="@+id/userIDTextBino"
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
     <TextView
         android:id="@+id/regionView"
@@ -72,10 +72,10 @@
         android:layout_marginTop="24dp"
         android:text="@string/region_view"
         app:layout_constraintStart_toEndOf="@+id/regionText"
-        app:layout_constraintTop_toBottomOf="@+id/userIDView" />
+        app:layout_constraintTop_toBottomOf="@+id/userIDViewBino" />
 
     <TextView
-        android:id="@+id/trialNumberView"
+        android:id="@+id/minTrialViewBino"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -83,7 +83,7 @@
         android:layout_marginTop="111dp"
         android:text="@string/trialNumber"
         app:layout_constraintStart_toEndOf="@+id/MinimumNumberTrialsText"
-        app:layout_constraintTop_toBottomOf="@+id/experimentTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
 
     <Button
         android:id="@+id/generateQRCodeButton"
