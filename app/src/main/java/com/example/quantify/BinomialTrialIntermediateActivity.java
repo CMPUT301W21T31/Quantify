@@ -32,7 +32,9 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
     TextView locationView;
     TextView SuccessCount;
     TextView FailureCount;
+    Button locationButton;
     Button start;
+
 
     int SUCCESS;
     int FAILURE;
@@ -52,6 +54,7 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         locationView = findViewById(R.id.locationViewBino);
         SuccessCount = findViewById(R.id.successViewBino);
         FailureCount = findViewById(R.id.failViewBino);
+        locationButton = findViewById(R.id.LocationButtonBino);
         start = findViewById(R.id.startButtonBino);
 
 
@@ -65,6 +68,7 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         if(exp.getLocation().equals("No")){
             locationText.setVisibility(View.INVISIBLE);
             locationView.setVisibility(View.INVISIBLE);
+            locationButton.setVisibility(View.INVISIBLE);
         }
         else{
             // later change this value to be the user's location
