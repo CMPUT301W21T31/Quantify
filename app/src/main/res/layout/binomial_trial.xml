@@ -7,7 +7,7 @@
     android:background="@color/shrine_pink_50">
 
     <TextView
-        android:id="@+id/experimentDescriptionViewBino"
+        android:id="@+id/bTrialDescriptionView"
         android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/userIDTextBino"
+        android:id="@+id/bTrialUserIDText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -33,10 +33,10 @@
         android:textColor="@color/bottom_button"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
+        app:layout_constraintTop_toBottomOf="@+id/bTrialDescriptionView" />
 
     <TextView
-        android:id="@+id/regionText"
+        android:id="@+id/bTrialRegionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -46,10 +46,10 @@
         android:textColor="@color/bottom_button"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userIDTextBino" />
+        app:layout_constraintTop_toBottomOf="@+id/bTrialUserIDText" />
 
     <TextView
-        android:id="@+id/MinimumNumberTrialsText"
+        android:id="@+id/bTrialMinimumNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -59,10 +59,10 @@
         android:textColor="@color/bottom_button"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regionText" />
+        app:layout_constraintTop_toBottomOf="@+id/bTrialRegionText" />
 
     <TextView
-        android:id="@+id/userIDViewBino"
+        android:id="@+id/bTrialUserIDView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -70,11 +70,11 @@
         android:layout_marginTop="24dp"
         android:text="@string/userid_view"
         android:textColor="@color/gradStart"
-        app:layout_constraintStart_toEndOf="@+id/userIDTextBino"
-        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
+        app:layout_constraintStart_toEndOf="@+id/bTrialUserIDText"
+        app:layout_constraintTop_toBottomOf="@+id/bTrialDescriptionView" />
 
     <TextView
-        android:id="@+id/regionView"
+        android:id="@+id/bTrialRegionView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -82,11 +82,12 @@
         android:layout_marginTop="24dp"
         android:text="@string/region_view"
         android:textColor="@color/gradStart"
-        app:layout_constraintStart_toEndOf="@+id/regionText"
-        app:layout_constraintTop_toBottomOf="@+id/userIDViewBino" />
+        app:layout_constraintStart_toEndOf="@+id/bTrialRegionText"
+        app:layout_constraintTop_toBottomOf="@+id/bTrialUserIDView" />
+
 
     <TextView
-        android:id="@+id/minTrialViewBino"
+        android:id="@+id/bMinTrialView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -94,11 +95,12 @@
         android:layout_marginTop="111dp"
         android:text="@string/trialNumber"
         android:textColor="@color/gradStart"
-        app:layout_constraintStart_toEndOf="@+id/MinimumNumberTrialsText"
-        app:layout_constraintTop_toBottomOf="@+id/experimentDescriptionViewBino" />
+        app:layout_constraintStart_toEndOf="@+id/bTrialMinimumNumberText"
+        app:layout_constraintTop_toBottomOf="@+id/bTrialDescriptionView" />
+
 
     <Button
-        android:id="@+id/generateQRCodeButton"
+        android:id="@+id/bTrialGenerateQRCodeButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="100dp"
@@ -111,10 +113,10 @@
         app:backgroundTint="@color/bottom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MinimumNumberTrialsText" />
+        app:layout_constraintTop_toBottomOf="@+id/bTrialMinimumNumberText" />
 
     <TextView
-        android:id="@+id/successText"
+        android:id="@+id/bTrialSuccessText"
         android:layout_width="383dp"
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
@@ -130,106 +132,75 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/generateQRCodeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/bTrialGenerateQRCodeButton" />
+
+
+
+    <TextView
+        android:id="@+id/bResultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Result"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bTrialSuccessText"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/bResultValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="_____"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bResultText" />
 
     <Button
         android:id="@+id/successButton"
         android:layout_width="110dp"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="70dp"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="16dp"
+        android:onClick="successClicked"
         android:text="@string/success"
         app:backgroundTint="@color/gradStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfFailureText" />
+        app:layout_constraintTop_toBottomOf="@+id/bResultValue" />
 
     <Button
         android:id="@+id/failButton"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="70dp"
         android:layout_marginRight="70dp"
+        android:onClick="failClicked"
         android:text="@string/fail"
         app:backgroundTint="@color/gradStart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/successButton"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfFailureView" />
-
-    <TextView
-        android:id="@+id/numberOfSuccessText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/number_of_successions"
-        android:textColor="@color/shrine_pink_900"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/successText" />
-
-    <TextView
-        android:id="@+id/numberOfFailureText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/number_of_failures"
-        android:textColor="@color/shrine_pink_900"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfSuccessText" />
-
-    <TextView
-        android:id="@+id/numberOfSuccessView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginRight="180dp"
-        android:text="@string/space"
-        android:textColor="@color/gradStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numberOfSuccessText"
-        app:layout_constraintTop_toBottomOf="@+id/successText" />
-
-    <TextView
-        android:id="@+id/numberOfFailureView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginLeft="47dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginRight="180dp"
-        android:text="@string/space"
-        android:textColor="@color/gradStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numberOfFailureText"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfSuccessView" />
+        app:layout_constraintTop_toBottomOf="@+id/bResultValue" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginBottom="100dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="binomialSaveClicked"
         android:text="@string/save"
         app:backgroundTint="#7E5256"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/failButton"
-        app:layout_constraintVertical_bias="1.0" />
+
+        app:layout_constraintTop_toBottomOf="@+id/successButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

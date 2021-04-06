@@ -28,7 +28,7 @@ public class TrialIntermediateActivity extends AppCompatActivity {
 
         expDesc = findViewById(R.id.experimentDescriptionView);
         userID = findViewById(R.id.userIDView);
-        minTrials = findViewById(R.id.minTrialView);
+        minTrials = findViewById(R.id.cMinTrialView);
         start = findViewById(R.id.startButton);
 
         expDesc.setText(exp.getDescription());
