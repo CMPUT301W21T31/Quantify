@@ -4,24 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/shrine_pink_50"
     tools:context=".SubscribedActivity">
 
     <TextView
         android:id="@+id/sub_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Subscribed to Experiments"
-        android:textSize="30dp"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:gravity="center"></TextView>
+        android:background="@color/shrine_pink_50"
+        android:gravity="center"
+        android:text="Subscribed to Experiments"
+        android:textColor="@color/gradStart"
+        android:textSize="30dp"
+        android:textStyle="bold"></TextView>
 
     <ListView
         android:id="@+id/sub_exp_list"
         android:layout_width="match_parent"
         android:layout_height="627dp"
         android:layout_marginTop="105dp"
-        android:layout_marginBottom="55dp"></ListView>
-
+        android:layout_marginBottom="55dp"
+        android:background="@color/white"
+        android:cacheColorHint="@color/white"></ListView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

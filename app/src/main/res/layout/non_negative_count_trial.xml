@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/shrine_pink_50">
 
     <TextView
         android:id="@+id/nTrialDescriptionView"
@@ -15,6 +16,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/experiment_description_view"
+        android:textColor="@color/gradStart"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +30,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nTrialDescriptionView" />
 
@@ -38,6 +43,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nTrialUserIDText" />
 
@@ -49,6 +56,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/minimum_number_of_trials_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nTrialRegionText" />
 
@@ -60,6 +69,7 @@
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_view"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/nTrialUserIDText"
         app:layout_constraintTop_toBottomOf="@+id/nTrialDescriptionView" />
 
@@ -71,8 +81,11 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_view"
+
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/nTrialRegionText"
         app:layout_constraintTop_toBottomOf="@+id/nTrialUserIDView" />
+
 
     <TextView
         android:id="@+id/nMinTrialView"
@@ -82,8 +95,10 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="111dp"
         android:text="@string/trialNumber"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/nTrialMinimumNumberText"
         app:layout_constraintTop_toBottomOf="@+id/nTrialDescriptionView" />
+
 
     <Button
         android:id="@+id/nTrialGenerateQRCodeButton"
@@ -96,6 +111,7 @@
         android:layout_marginRight="100dp"
         android:text="@string/generate_qr_code_button"
         android:textSize="12sp"
+        app:backgroundTint="@color/bottom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nTrialMinimumNumberText" />
@@ -110,7 +126,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/nonNegativeCountDescriptionText"
+        android:textColor="@color/gradStart"
         android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,9 +173,9 @@
         android:layout_marginBottom="200dp"
         android:onClick="nonNegSaveClicked"
         android:text="@string/save"
+        app:backgroundTint="@color/bottom_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nonNegEdit" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
