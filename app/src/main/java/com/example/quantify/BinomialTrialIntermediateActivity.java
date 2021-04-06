@@ -16,6 +16,8 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
     TextView expDesc;
     TextView userID;
     TextView minTrials;
+    TextView locationText;
+    TextView locationView;
     Button start;
 
     @Override
@@ -29,11 +31,24 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         expDesc = findViewById(R.id.experimentDescriptionViewBino);
         userID = findViewById(R.id.userIDViewBino);
         minTrials = findViewById(R.id.minTrialViewBino);
+        locationText = findViewById(R.id.locationTextBino);
+        locationView = findViewById(R.id.locationViewBino);
         start = findViewById(R.id.startButtonBino);
 
         expDesc.setText(exp.getDescription());
         userID.setText(exp.getExperimentID().toString());
         minTrials.setText(exp.getMinTrials().toString());
+
+        // trial array
+
+        if(exp.getLocation().equals("No")){
+            locationText.setVisibility(View.INVISIBLE);
+            locationView.setVisibility(View.INVISIBLE);
+        }
+        else{
+            // later change this value to be the user's location
+            locationView.setText(exp.getLocation());
+        }
     }
 
     public void startBinomialTrial(View target){
