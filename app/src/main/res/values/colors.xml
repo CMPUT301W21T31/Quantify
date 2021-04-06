@@ -10,7 +10,8 @@
     <color name="shrine_pink_100">#FEDBD0</color>
     <color name="shrine_pink_900">#442C2E</color>
     <color name="shrine_pink_50">#FEEAE6</color>
-
+    <color name="light_background">#94FEEAE6</color>
+    <color name="bottom_button">#7E5256</color>
     <color name="colorPrimary">#49BEFF</color>
     <color name="colorPrimaryDark">#65DCE5</color>
     <color name="colorAccent">#0D5D98</color>

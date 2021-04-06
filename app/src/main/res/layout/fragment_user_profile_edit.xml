@@ -7,8 +7,10 @@
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/light_background"
         android:ems="10"
         android:hint="New information"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/gradStart" />
 
 </LinearLayout>

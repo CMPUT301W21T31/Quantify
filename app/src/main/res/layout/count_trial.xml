@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#B4FEEAE6">
 
     <TextView
         android:id="@+id/cTrialDescriptionView"
@@ -15,6 +16,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/experiment_description_view"
+        android:textColor="@color/gradStart"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +30,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cTrialDescriptionView" />
 
@@ -38,6 +43,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cTrialUserIDText" />
 
@@ -49,6 +56,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/minimum_number_of_trials_text"
+        android:textColor="@color/bottom_button"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cTrialRegionText" />
 
@@ -60,8 +69,10 @@
         android:layout_marginLeft="52dp"
         android:layout_marginTop="24dp"
         android:text="@string/userid_view"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/cTrialUserIDText"
         app:layout_constraintTop_toBottomOf="@+id/cTrialDescriptionView" />
+
 
     <TextView
         android:id="@+id/cTrialRegionView"
@@ -71,8 +82,10 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="24dp"
         android:text="@string/region_view"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/cTrialRegionText"
         app:layout_constraintTop_toBottomOf="@+id/cTrialUserIDView" />
+
 
     <TextView
         android:id="@+id/cMinTrialView"
@@ -82,8 +95,10 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="111dp"
         android:text="@string/trialNumber"
+        android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/cTrialMinimumNumberText"
         app:layout_constraintTop_toBottomOf="@+id/cTrialDescriptionView" />
+
 
     <Button
         android:id="@+id/cTrialGenerateQRCodeButton"
@@ -96,6 +111,7 @@
         android:layout_marginRight="100dp"
         android:text="@string/generate_qr_code_button"
         android:textSize="12sp"
+        app:backgroundTint="@color/bottom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cTrialMinimumNumberText" />
@@ -110,12 +126,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/countDescriptionText"
+        android:textColor="@color/gradStart"
         android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cTrialGenerateQRCodeButton" />
-
 
 
     <TextView
@@ -137,10 +154,11 @@
         android:gravity="center"
         android:autofillHints=""
         android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="number"
         android:hint="@string/zero"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textColor="#090909"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,9 +174,9 @@
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countEdit"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
