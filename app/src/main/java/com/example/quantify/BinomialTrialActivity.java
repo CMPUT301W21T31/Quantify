@@ -48,62 +48,52 @@ public class BinomialTrialActivity extends AppCompatActivity {
         expDesc.setText(exp.getDescription());
         userID.setText(exp.getExperimentID().toString());
         minTrials.setText(exp.getMinTrials().toString());
-
-
-
-
     }
 
     public void successClicked(View target){
-
-
-
-
-
         result.setText("Success");
     }
 
     public void failClicked(View target){
-
-
-
         result.setText("Fail");
     }
 
 
     public void binomialSaveClicked(View target){
         // we give the trial an ID using UUID and save the result in the database
-        FirebaseFirestore db;
-        db = FirebaseFirestore.getInstance();
-        String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        final CollectionReference collectionReference_1 = db.collection("Experiments");
-        final DocumentReference documentReference = collectionReference_1.document(id);
-        final CollectionReference collectionReference = documentReference.collection("Trials");
+        if(result.getText().toString().equals("Fail") || result.getText().toString().equals("Success")) {
+            FirebaseFirestore db;
+            db = FirebaseFirestore.getInstance();
+            String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+            final CollectionReference collectionReference_1 = db.collection("Experiments");
+            final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
+            final CollectionReference collectionReference = documentReference.collection("Trials");
 
-        HashMap<String, String> data = new HashMap<>();
-        data.put("Trial-Result", result.getText().toString());
-        UUID Trial_id = UUID.randomUUID();
+            HashMap<String, String> data = new HashMap<>();
+            data.put("Trial-Result", result.getText().toString());
+            UUID Trial_id = UUID.randomUUID();
 
-        collectionReference
-                .document(Trial_id.toString())
-                .set(data)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // These are a method which gets executed when the task is succeeded
-                        Log.d("TAG", "Data has been added successfully!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // These are a method which gets executed if there’s any problem
-                        Log.d("TAG", "Data could not be added!" + e.toString());
-                    }
-                });
+            collectionReference
+                    .document(Trial_id.toString())
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is succeeded
+                            Log.d("TAG", "Data has been added successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                            Log.d("TAG", "Data could not be added!" + e.toString());
+                        }
+                    });
 
 
-        Log.d("count", "Count: " + result.getText().toString());
+            Log.d("count", "Count: " + result.getText().toString());
+        }
         finish();
     }
 }

@@ -50,8 +50,8 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         minTrials = findViewById(R.id.minTrialViewBino);
         locationText = findViewById(R.id.locationTextBino);
         locationView = findViewById(R.id.locationViewBino);
-        SuccessCount = findViewById(R.id.SuccessBino);
-        FailureCount = findViewById(R.id.FailTextBino);
+        SuccessCount = findViewById(R.id.successViewBino);
+        FailureCount = findViewById(R.id.failViewBino);
         start = findViewById(R.id.startButtonBino);
 
 
@@ -59,8 +59,6 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         expDesc.setText(exp.getDescription());
         userID.setText(exp.getExperimentID().toString());
         minTrials.setText(exp.getMinTrials().toString());
-        SUCCESS = 0;
-        FAILURE = 0;
 
         // trial array
 
@@ -77,7 +75,7 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         final CollectionReference collectionReference_1 = db.collection("Experiments");
-        final DocumentReference documentReference = collectionReference_1.document(id);
+        final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
         final CollectionReference collectionReference = documentReference.collection("Trials");
 
 
@@ -85,6 +83,8 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                SUCCESS = 0;
+                FAILURE = 0;
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     String Trial_id = doc.getId();
                     String Trial_result = (String) doc.getData().get("Trial-Result");
@@ -117,5 +117,13 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
             Intent intent_1 = new Intent(this, BinomialTrialActivity.class);
             intent_1.putExtra("Experiment", exp);
             this.startActivity(intent_1);
+    }
+
+    public void createHistogramBino(View target){
+        Log.d("BLABLA", "Binomial Clicked");
+        Intent intent_1 = new Intent(this, BinomialHistogramActivity.class);
+        intent_1.putExtra("success", SUCCESS);
+        intent_1.putExtra("fail", FAILURE);
+        this.startActivity(intent_1);
     }
 }
