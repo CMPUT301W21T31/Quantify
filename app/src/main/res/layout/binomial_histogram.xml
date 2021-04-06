@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Histogram"
         android:textSize="50dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +24,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/histogramTextBino"></com.github.mikephil.charting.charts.BarChart>
+        app:layout_constraintTop_toTopOf="parent"></com.github.mikephil.charting.charts.BarChart>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
