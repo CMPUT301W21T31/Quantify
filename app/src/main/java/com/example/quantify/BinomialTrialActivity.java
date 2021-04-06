@@ -50,7 +50,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
     public void binomialSaveClicked(View target){
         // we give the trial an ID using UUID and save the result in the database
-        Log.d("count", "Count: " + result.getText().toString());
+        Log.d("count", "Result: " + result.getText().toString());
         finish();
     }
 }
