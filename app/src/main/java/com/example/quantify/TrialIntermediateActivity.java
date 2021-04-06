@@ -16,6 +16,8 @@ public class TrialIntermediateActivity extends AppCompatActivity {
     TextView expDesc;
     TextView userID;
     TextView minTrials;
+    TextView locationText;
+    TextView locationView;
     Button start;
 
     @Override
@@ -29,12 +31,22 @@ public class TrialIntermediateActivity extends AppCompatActivity {
         expDesc = findViewById(R.id.experimentDescriptionView);
         userID = findViewById(R.id.userIDView);
         minTrials = findViewById(R.id.cMinTrialView);
+        locationText = findViewById(R.id.locationText);
+        locationView = findViewById(R.id.locationView);
         start = findViewById(R.id.startButton);
 
         expDesc.setText(exp.getDescription());
         userID.setText(exp.getExperimentID().toString());
         minTrials.setText(exp.getMinTrials().toString());
 
+        if(exp.getLocation().equals("No")){
+            locationText.setVisibility(View.INVISIBLE);
+            locationView.setVisibility(View.INVISIBLE);
+        }
+        else{
+            // later change this value to be the user's location
+            locationView.setText(exp.getLocation());
+        }
     }
 
     public void startTrial(View target){

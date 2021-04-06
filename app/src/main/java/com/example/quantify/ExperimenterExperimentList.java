@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,13 +56,14 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
         card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //Log.d("BLABLA",subscribed.toString());
+
                 if(!(context instanceof SubscribedActivity)){
                     Toast.makeText(context ,"Subscribed", Toast.LENGTH_SHORT).show();
                 }
 
                 if(!subscribed.contains(experiments.get(position))) {
                     subscribed.add(experiments.get(position));
+                    Log.d("subscribed","Subscribed");
                 }
                 notifyDataSetChanged();
                 return false;
