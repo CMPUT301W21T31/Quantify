@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,44 +55,52 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
 
 
 
-    public void nonNegSaveClicked(View target){
+    public void nonNegSaveClicked(View target) {
         // we give the trial an ID using UUID and save the result in the database
         Log.d("count", "Number: " + editCount.getText().toString());
-        if(!editCount.getText().toString().equals("")) {
-            FirebaseFirestore db;
-            db = FirebaseFirestore.getInstance();
-            String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-            final CollectionReference collectionReference_1 = db.collection("Experiments");
-            final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
-            final CollectionReference collectionReference = documentReference.collection("Trials");
 
-            HashMap<String, String> data = new HashMap<>();
-            data.put("Trial-Result", editCount.getText().toString());
-            data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-            //data.put("Location Latitude", String.valueOf(map.getCurrentLatitude()));
-            //data.put("Location Longitude", String.valueOf(map.getCurrentLongitude()));
-            UUID Trial_id = UUID.randomUUID();
+        if(!editCount.getText().toString().equals("-")){
+            if (!(editCount.getText().toString().equals("")) && Integer.parseInt(editCount.getText().toString()) >= 0) {
+                FirebaseFirestore db;
+                db = FirebaseFirestore.getInstance();
+                String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                final CollectionReference collectionReference_1 = db.collection("Experiments");
+                final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
+                final CollectionReference collectionReference = documentReference.collection("Trials");
 
-            collectionReference
-                    .document(Trial_id.toString())
-                    .set(data)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // These are a method which gets executed when the task is succeeded
-                            Log.d("TAG", "Data has been added successfully!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // These are a method which gets executed if there’s any problem
-                            Log.d("TAG", "Data could not be added!" + e.toString());
-                        }
-                    });
+                HashMap<String, String> data = new HashMap<>();
+                data.put("Trial-Result", editCount.getText().toString());
+                data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+                //data.put("Location Latitude", String.valueOf(map.getCurrentLatitude()));
+                //data.put("Location Longitude", String.valueOf(map.getCurrentLongitude()));
+                UUID Trial_id = UUID.randomUUID();
+
+                collectionReference
+                        .document(Trial_id.toString())
+                        .set(data)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // These are a method which gets executed when the task is succeeded
+                                Log.d("TAG", "Data has been added successfully!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // These are a method which gets executed if there’s any problem
+                                Log.d("TAG", "Data could not be added!" + e.toString());
+                            }
+                        });
 
 
-            Log.d("count", "Count: " + editCount.getText().toString());
+                Log.d("count", "Count: " + editCount.getText().toString());
+            } else {
+                Toast.makeText(NonNegativeCountTrialActivity.this, "Please insert a non-negative number. Could not create trial.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(NonNegativeCountTrialActivity.this, "Please insert a non-negative number. Could not create trial.", Toast.LENGTH_SHORT).show();
         }
         finish();
     }

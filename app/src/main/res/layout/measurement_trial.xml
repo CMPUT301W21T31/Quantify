@@ -154,7 +154,7 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/enter_your_number_in_decimal"
-        android:inputType="numberDecimal"
+        android:inputType="numberSigned|numberDecimal"
         android:textColor="@color/gradStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
