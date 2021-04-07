@@ -103,24 +103,31 @@ public class MainActivity extends AppCompatActivity {
                 experimenterExperimentDataList.clear();
                 ownerExperimentDataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
-                    UUID experiment_id = UUID.fromString( (String) doc.getData().get("Experiment ID"));
-                    String experiment_description = doc.getId();
-                    String experiment_username = (String) doc.getData().get("Experiment User");
-                    String experiment_status = (String) doc.getData().get("Experiment Status");
-                    String experiment_type = (String) doc.getData().get("Experiment Type");
-                    String experiment_location = (String) doc.getData().get("Experiment Location");
-                    Integer experiment_min_trials = 1;
-                    try{
-                        experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
-                    }catch(Exception e){
-                        experiment_min_trials = 0;
-                    }
-                    Log.d("TAG", experiment_username);
-                    experimenterExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type,experiment_min_trials,experiment_location)); // Adding the cities and provinces from FireStore
+                    if(doc.getData().get("Experiment ID") != null
+                            && doc.getData().get("Experiment User")!= null
+                            && doc.getData().get("Experiment Status")!= null
+                            && doc.getData().get("Experiment Type")!= null
+                            && doc.getData().get("Experiment Location")!= null
+                            && doc.getData().get("Min Trials")!= null) {
+                        //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                        UUID experiment_id = UUID.fromString((String) doc.getData().get("Experiment ID"));
+                        String experiment_description = doc.getId();
+                        String experiment_username = (String) doc.getData().get("Experiment User");
+                        String experiment_status = (String) doc.getData().get("Experiment Status");
+                        String experiment_type = (String) doc.getData().get("Experiment Type");
+                        String experiment_location = (String) doc.getData().get("Experiment Location");
+                        Integer experiment_min_trials = 1;
+                        try {
+                            experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
+                        } catch (Exception e) {
+                            experiment_min_trials = 0;
+                        }
+                        Log.d("TAG", experiment_username);
+                        experimenterExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location)); // Adding the cities and provinces from FireStore
 
-                    if (experiment_username.equals(id)){
-                        ownerExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type,experiment_min_trials,experiment_location));
+                        if (experiment_username.equals(id)) {
+                            ownerExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location));
+                        }
                     }
                 }
                 experimenterExperimentAdapter.notifyDataSetChanged();

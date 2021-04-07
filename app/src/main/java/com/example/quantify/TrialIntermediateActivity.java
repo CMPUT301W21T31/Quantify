@@ -77,13 +77,16 @@ public class TrialIntermediateActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
 
+
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    String Trial_id = doc.getId();
-                    String Trial_result = (String) doc.getData().get("Trial-Result");
-                    Log.d("TAG",Trial_result);
+                    if (doc.getData().get("Trial-Result") != null) {
+                        String Trial_id = doc.getId();
+                        String Trial_result = (String) doc.getData().get("Trial-Result");
+                        Log.d("TAG", Trial_result);
 
-                   // pass the result and its count to next activity smhw
+                        // pass the result and its count to next activity smhw
 
+                    }
                 }
 
             }
