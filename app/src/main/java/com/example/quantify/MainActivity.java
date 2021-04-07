@@ -4,6 +4,7 @@ package com.example.quantify;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
     String id;
+
+    private double latitude;
+    private double longitude;
 
 
     private int tabPos = 0;

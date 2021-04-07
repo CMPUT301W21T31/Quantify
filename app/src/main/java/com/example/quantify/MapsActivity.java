@@ -210,4 +210,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
+
+    public double getCurrentLatitude(Double currentLatitude) {
+        return currentLatitude;
+    }
+
+    public double getCurrentLongitude(Double currentLongitude) {
+        return currentLongitude;
+    }
 }
+
