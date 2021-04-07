@@ -95,20 +95,27 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
                 SUCCESS = 0;
                 FAILURE = 0;
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    String Trial_id = doc.getId();
-                    String Trial_result = (String) doc.getData().get("Trial-Result");
-                    Log.d("TAG",Trial_result);
+                    if (doc.getData().get("Trial-Result") != null) {
+                        String Trial_id = doc.getId();
+                        String Trial_result = (String) doc.getData().get("Trial-Result");
+                        Log.d("TAG", Trial_result);
 
-                    if (Trial_result.equals("Success")){
-                        SUCCESS++;
-                        Log.d("TAG","BOOM");
+                        if (Trial_result.equals("Success")) {
+                            SUCCESS++;
+                            Log.d("TAG", "BOOM");
+                        }
+
+                        if (Trial_result.equals("Success")) {
+                            SUCCESS++;
+                            Log.d("TAG", "BOOM");
+                        }
+
+                        if (Trial_result.equals("Fail")) {
+                            FAILURE++;
+                            Log.d("TAG", "BOOM2");
+                        }
+
                     }
-
-                    if (Trial_result.equals("Fail")){
-                        FAILURE++;
-                        Log.d("TAG","BOOM2");
-                    }
-
                 }
 
                 SuccessCount.setText(String.valueOf(SUCCESS));
