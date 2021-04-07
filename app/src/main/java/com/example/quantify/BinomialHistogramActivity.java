@@ -43,8 +43,8 @@ public class BinomialHistogramActivity extends AppCompatActivity {
         BarDataSet barDataSet = new BarDataSet(barEntries,"Counts");
 
         ArrayList<String> outcomes = new ArrayList<>();
-        outcomes.add("Success");
         outcomes.add("Failure");
+        outcomes.add("Success");
 
         //Log.d("histogram", String.valueOf(barchart.getXAxis().getLabelCount()));
         BarData theData = new BarData(outcomes,barDataSet);
