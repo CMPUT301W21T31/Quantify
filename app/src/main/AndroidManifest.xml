@@ -19,8 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
-        <activity android:name=".BinomialHistogramActivity"></activity>
-        <activity android:name=".BinomialTrialIntermediateActivity" />
+        <activity android:name=".BinomialTrialIntermediateActivity"></activity>
+        <activity android:name=".QuestionForumList" />
+        <activity android:name=".QuestionDetails" />
+        <activity android:name=".AddNewQuestion" />
+        <activity android:name=".QuesAns" />
+        <activity android:name=".BinomialHistogramActivity" />
         <activity android:name=".TrialIntermediateActivity" />
         <activity
             android:name=".ShowUserProfile"

@@ -77,16 +77,13 @@ public class TrialIntermediateActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
 
-
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    if (doc.getData().get("Trial-Result") != null) {
-                        String Trial_id = doc.getId();
-                        String Trial_result = (String) doc.getData().get("Trial-Result");
-                        Log.d("TAG", Trial_result);
+                    String Trial_id = doc.getId();
+                    String Trial_result = (String) doc.getData().get("Trial-Result");
+                    Log.d("TAG",Trial_result);
 
-                        // pass the result and its count to next activity smhw
+                    // pass the result and its count to next activity smhw
 
-                    }
                 }
 
             }
@@ -112,5 +109,18 @@ public class TrialIntermediateActivity extends AppCompatActivity {
             intent_1.putExtra("Experiment", exp);
             this.startActivity(intent_1);
         }
+    }
+
+    public void questionForumLaunchTrial(View view)  {
+
+        TextView expName = (TextView)findViewById(R.id.experimentDescriptionView);
+        String expNameString = expName.getText().toString();
+
+        Intent intent = new Intent(this, QuestionForumList.class);
+        intent.putExtra("EXPNAME", expNameString);
+        intent.putExtra("SENT_FROM_TRIAL", 5);
+        startActivity(intent);
+
+        Log.d("STARTQA", "questionForumLaunch: The QuestionForum is launched!");
     }
 }

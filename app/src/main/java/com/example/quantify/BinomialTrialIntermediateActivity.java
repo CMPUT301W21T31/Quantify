@@ -19,6 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -93,22 +95,20 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
                 SUCCESS = 0;
                 FAILURE = 0;
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    if (doc.getData().get("Trial-Result") != null) {
-                        String Trial_id = doc.getId();
-                        String Trial_result = (String) doc.getData().get("Trial-Result");
-                        Log.d("TAG", Trial_result);
+                    String Trial_id = doc.getId();
+                    String Trial_result = (String) doc.getData().get("Trial-Result");
+                    Log.d("TAG",Trial_result);
 
-                        if (Trial_result.equals("Success")) {
-                            SUCCESS++;
-                            Log.d("TAG", "BOOM");
-                        }
-
-                        if (Trial_result.equals("Fail")) {
-                            FAILURE++;
-                            Log.d("TAG", "BOOM2");
-                        }
-
+                    if (Trial_result.equals("Success")){
+                        SUCCESS++;
+                        Log.d("TAG","BOOM");
                     }
+
+                    if (Trial_result.equals("Fail")){
+                        FAILURE++;
+                        Log.d("TAG","BOOM2");
+                    }
+
                 }
 
                 SuccessCount.setText(String.valueOf(SUCCESS));
@@ -122,10 +122,10 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
 
     public void startBinomialTrial(View target){
 
-            Log.d("BLABLA", "Binomial Clicked");
-            Intent intent_1 = new Intent(this, BinomialTrialActivity.class);
-            intent_1.putExtra("Experiment", exp);
-            this.startActivity(intent_1);
+        Log.d("BLABLA", "Binomial Clicked");
+        Intent intent_1 = new Intent(this, BinomialTrialActivity.class);
+        intent_1.putExtra("Experiment", exp);
+        this.startActivity(intent_1);
     }
 
     public void createHistogramBino(View target){
@@ -134,5 +134,18 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         intent_1.putExtra("success", SUCCESS);
         intent_1.putExtra("fail", FAILURE);
         this.startActivity(intent_1);
+    }
+
+    public void questionForumLaunch(View view)  {
+
+        TextView expName = (TextView)findViewById(R.id.experimentDescriptionViewBino);
+        String expNameString = expName.getText().toString();
+
+        Intent intent = new Intent(this, QuestionForumList.class);
+        intent.putExtra("EXPNAME", expNameString);
+        intent.putExtra("SENT_FROM_TRIAL", 5);
+        startActivity(intent);
+
+        Log.d("STARTQA", "questionForumLaunch: The QuestionForum is launched!");
     }
 }

@@ -195,6 +195,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="70dp"
         android:layout_marginRight="70dp"
+        android:onClick="questionForumLaunchTrial"
         android:text="@string/question_button"
         android:textSize="12sp"
         app:backgroundTint="@color/shrine_pink_900"
