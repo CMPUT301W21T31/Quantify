@@ -48,6 +48,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
 
+    private double currentLatitude;
+    private double currentLongitude;
+
 
     Marker mCurrLocationMarker;
 
@@ -104,13 +107,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a new marker and move the camera
         LatLng marker1 = new LatLng(45, 34);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker 1"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        map.addMarker(new MarkerOptions().position(marker1).title("Marker 1"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(marker1));
 
         // Add a marker and move the camera
         LatLng marker2 = new LatLng(15, 20);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker 2"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        map.addMarker(new MarkerOptions().position(marker2).title("Marker 2"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(marker2));
 
         getLocationPermission();
         updateLocationUI();
@@ -187,6 +190,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                currentLatitude = lastKnownLocation.getLatitude();
+                                currentLongitude = lastKnownLocation.getLongitude();
+                                LatLng myMarker = new LatLng(currentLatitude, currentLongitude);
+                                map.addMarker(new MarkerOptions().position(myMarker).title("My location"));
+
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
