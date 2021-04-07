@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -25,7 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QuestionDetails extends AppCompatActivity {
 
@@ -67,7 +70,7 @@ public class QuestionDetails extends AppCompatActivity {
 
 
         arrangeListWithDocument(list);
-        interactWithQuestionList(list);
+        interactWithAnswerList(list);
 
     }
 
@@ -87,13 +90,15 @@ public class QuestionDetails extends AppCompatActivity {
      * a question is clicked, this method intents to a detail page of that Question info with
      * required information
      */
-    public void interactWithQuestionList(List<String> list) {
+    public void interactWithAnswerList(List<String> list) {
         AdapterView.OnItemClickListener itemClickListener =
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         Intent intent = new Intent(QuestionDetails.this, QuesAns.class);
+                        intent.putExtra("QUESTION", getQuestion());
+                        intent.putExtra("REPLY", list.get(position));
                         startActivity(intent);
                     }
                 };
@@ -104,10 +109,6 @@ public class QuestionDetails extends AppCompatActivity {
 
     }
 
-
-    public void tempFunc(List<String> list) {
-
-    }
 
     /**
      * arrangeListWithDocuments(path: String, list: List<String>)
@@ -148,6 +149,12 @@ public class QuestionDetails extends AppCompatActivity {
                             list.add(snapshot.getId());
                         }
 
+                        if (list.isEmpty()) {
+                            TextView textView = (TextView)findViewById(R.id.ReplyAnnounce);
+                            textView.setText("No answers available, be the first one to Answer");
+
+                        }
+
                         Log.d("IssueQA", "onEvent: list: " + list);
                         // ArrayAdapter
                         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(
@@ -163,6 +170,40 @@ public class QuestionDetails extends AppCompatActivity {
 
 
                 });
+
+    }
+
+    /**
+     * addReply(View view)
+     * This method is used when the reply button is clicked, what it does it update the same page
+     * the listview inside this page updates with the new list.
+     * @param view the button reference
+     */
+    public void addReply(View view) {
+        //Setting up the stage
+        TextView replyText = (TextView)findViewById(R.id.ReplyDescBox);
+        String replyBody = replyText.getText().toString();
+        String path = getPath() + "/" + "Reply";
+        path = path + "/" + replyBody;
+
+        //Connect to the Firebase and position at correct place to upload data
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Write data
+        Map<String, Object> docData = new HashMap<>();
+        docData.put("ExperimentId", null);
+
+        db.document(path).set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("REPLY", "onSuccess: Reply nicely updated");
+                Toast.makeText(getApplicationContext(), "Reply successfully Added", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // updating the page
+        finish();
+        startActivity(getIntent());
 
     }
 }
