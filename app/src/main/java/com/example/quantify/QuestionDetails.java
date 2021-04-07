@@ -148,6 +148,12 @@ public class QuestionDetails extends AppCompatActivity {
                             list.add(snapshot.getId());
                         }
 
+                        if (list.isEmpty()) {
+                            TextView textView = (TextView)findViewById(R.id.ReplyAnnounce);
+                            textView.setText("No answers available, be the first one to Answer");
+
+                        }
+
                         Log.d("IssueQA", "onEvent: list: " + list);
                         // ArrayAdapter
                         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(
