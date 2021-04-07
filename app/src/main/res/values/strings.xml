@@ -89,6 +89,7 @@
     <string name="fail_view">fail_view_number</string>
     <string name="experiment_text">Experiment name:</string>
     <string name="enter_name">enter name</string>
+    <string name="search_title" />
 
     <string-array name="expTypes">
         <item>Binomial Trials</item>
