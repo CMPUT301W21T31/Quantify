@@ -96,14 +96,11 @@ public class AddNewQuestion extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG", e.toString());
+                        Log.d("QUESTION", e.toString());
                         Toast.makeText(getApplicationContext(), "Error creating the Document", Toast.LENGTH_SHORT).show();
                     }
                 });
-        // Create the Reply collection
-        DocumentReference messageRef = db
-                .document(absolutePath)
-                .collection("Reply").document("First Reply");
+
 
     }
 }
