@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,7 +30,6 @@ public class BinomialTrialActivity extends AppCompatActivity {
     TextView userID;
     TextView minTrials;
     TextView result;
-
     Button save;
 
     @Override
@@ -44,6 +44,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
         userID = findViewById(R.id.bTrialUserIDView);
         minTrials = findViewById(R.id.bMinTrialView);
         result = findViewById(R.id.bResultValue);
+
 
         expDesc.setText(exp.getDescription());
         userID.setText(exp.getExperimentID().toString());
@@ -72,10 +73,9 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
             HashMap<String, String> data = new HashMap<>();
             data.put("Trial-Result", result.getText().toString());
-            //data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-            //data.put("Location Address", );
-            //data.put("Location Longitude", );
-            //data.put("Location Latitude", );
+            data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+            //data.put("Location Latitude", String.valueOf(map.getCurrentLatitude()));
+            //data.put("Location Longitude", String.valueOf(map.getCurrentLongitude()));
             UUID Trial_id = UUID.randomUUID();
 
             collectionReference

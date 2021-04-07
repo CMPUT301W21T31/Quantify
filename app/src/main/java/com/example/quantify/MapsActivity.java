@@ -115,9 +115,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.addMarker(new MarkerOptions().position(marker2).title("Marker 2"));
         map.moveCamera(CameraUpdateFactory.newLatLng(marker2));
 
+
         getLocationPermission();
         updateLocationUI();
         getDeviceLocation(); //get the current location from the map
+        this.currentLatitude = lastKnownLocation.getLatitude();
+        this.currentLongitude = lastKnownLocation.getLongitude();
     }
 
     private void getLocationPermission() {
@@ -211,12 +214,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public double getCurrentLatitude(Double currentLatitude) {
-        return currentLatitude;
+    public double getCurrentLatitude() {
+        return this.currentLatitude;
     }
 
-    public double getCurrentLongitude(Double currentLongitude) {
-        return currentLongitude;
+    public double getCurrentLongitude() {
+        return this.currentLongitude;
     }
+
+    public GoogleMap getMap() {
+        return map;
+    }
+
 }
 
