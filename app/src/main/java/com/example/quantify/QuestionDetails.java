@@ -70,7 +70,7 @@ public class QuestionDetails extends AppCompatActivity {
 
 
         arrangeListWithDocument(list);
-        interactWithQuestionList(list);
+        interactWithAnswerList(list);
 
     }
 
@@ -90,13 +90,15 @@ public class QuestionDetails extends AppCompatActivity {
      * a question is clicked, this method intents to a detail page of that Question info with
      * required information
      */
-    public void interactWithQuestionList(List<String> list) {
+    public void interactWithAnswerList(List<String> list) {
         AdapterView.OnItemClickListener itemClickListener =
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         Intent intent = new Intent(QuestionDetails.this, QuesAns.class);
+                        intent.putExtra("QUESTION", getQuestion());
+                        intent.putExtra("REPLY", list.get(position));
                         startActivity(intent);
                     }
                 };
@@ -171,6 +173,12 @@ public class QuestionDetails extends AppCompatActivity {
 
     }
 
+    /**
+     * addReply(View view)
+     * This method is used when the reply button is clicked, what it does it update the same page
+     * the listview inside this page updates with the new list.
+     * @param view the button reference
+     */
     public void addReply(View view) {
         //Setting up the stage
         TextView replyText = (TextView)findViewById(R.id.ReplyDescBox);
