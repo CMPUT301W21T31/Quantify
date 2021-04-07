@@ -72,6 +72,10 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
             HashMap<String, String> data = new HashMap<>();
             data.put("Trial-Result", result.getText().toString());
+            //data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+            //data.put("Location Address", );
+            //data.put("Location Longitude", );
+            //data.put("Location Latitude", );
             UUID Trial_id = UUID.randomUUID();
 
             collectionReference
