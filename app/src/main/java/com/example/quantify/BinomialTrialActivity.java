@@ -61,6 +61,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
     public void binomialSaveClicked(View target){
         // we give the trial an ID using UUID and save the result in the database
+
         if(result.getText().toString().equals("Fail") || result.getText().toString().equals("Success")) {
             FirebaseFirestore db;
             db = FirebaseFirestore.getInstance();
@@ -71,6 +72,10 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
             HashMap<String, String> data = new HashMap<>();
             data.put("Trial-Result", result.getText().toString());
+            //data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+            //data.put("Location Address", );
+            //data.put("Location Longitude", );
+            //data.put("Location Latitude", );
             UUID Trial_id = UUID.randomUUID();
 
             collectionReference
@@ -94,6 +99,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
             Log.d("count", "Count: " + result.getText().toString());
         }
+
         finish();
     }
 }

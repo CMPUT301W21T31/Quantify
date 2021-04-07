@@ -30,7 +30,7 @@ public class TrialIntermediateActivity extends AppCompatActivity {
 
         expDesc = findViewById(R.id.experimentDescriptionView);
         userID = findViewById(R.id.userIDView);
-        minTrials = findViewById(R.id.cMinTrialView);
+        minTrials = findViewById(R.id.MinTrialView);
         locationText = findViewById(R.id.locationText);
         locationView = findViewById(R.id.locationView);
         start = findViewById(R.id.startButton);

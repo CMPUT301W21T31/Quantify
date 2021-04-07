@@ -23,6 +23,14 @@ public class BinomialTrial {
         this.trialID = trialID;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
     public UUID getExperimenterID() {
         return experimenterID;
     }

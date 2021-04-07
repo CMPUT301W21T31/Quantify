@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class BinomialTrialIntermediateActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
     Button locationButton;
     Button start;
 
+    ArrayList<BinomialTrial> trialList;
 
     int SUCCESS;
     int FAILURE;
@@ -47,6 +49,7 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         Intent intent = getIntent();
         exp = (Experiment) getIntent().getSerializableExtra("Experiment");
 
+        trialList = new ArrayList<>(); // use this array list to store trials from database and pass them to location
         expDesc = findViewById(R.id.experimentDescriptionViewBino);
         userID = findViewById(R.id.userIDViewBino);
         minTrials = findViewById(R.id.minTrialViewBino);
