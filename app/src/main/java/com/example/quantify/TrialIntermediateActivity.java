@@ -20,6 +20,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class TrialIntermediateActivity extends AppCompatActivity {
 
@@ -73,9 +75,14 @@ public class TrialIntermediateActivity extends AppCompatActivity {
         // create an array of numbers and its counters
         // if the number is unique, add it to array and set count to 1
         // if the number is not unique, increment count
+        List<String> Trial_list = new ArrayList<String>();
+        List<Integer> Count_list = new ArrayList<Integer>();
+
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                Count_list.clear();
+                Trial_list.clear();
 
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     if (doc.getData().get("Trial-Result") != null) {
@@ -83,10 +90,24 @@ public class TrialIntermediateActivity extends AppCompatActivity {
                         String Trial_result = (String) doc.getData().get("Trial-Result");
                         Log.d("TAG", Trial_result);
 
+                        if (Trial_list.contains(Trial_result)){
+                            int index = Trial_list.indexOf(Trial_result);
+                            Count_list.set(index, Count_list.get(index) + 1);
+                        }
+
+                        else {
+                            Trial_list.add(Trial_result);
+                            Count_list.add(1);
+                        }
+
+
+
+
                         // pass the result and its count to next activity smhw
 
                     }
                 }
+                Log.d("TAG", (String) Count_list.toString());
             }
         });
     }
