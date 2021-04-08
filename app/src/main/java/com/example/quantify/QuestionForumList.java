@@ -114,6 +114,8 @@ public class QuestionForumList extends AppCompatActivity {
      */
     public void arrangeListWithDocument(String path, List<String> list) {
 
+        List<String> user = new ArrayList<>();
+
         TextView textSuggestion = (TextView)findViewById(R.id.addQuestionReferenceText);
         // Firebase connection
         FirebaseFirestore db = FirebaseFirestore.getInstance();
