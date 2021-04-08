@@ -31,15 +31,14 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -98,12 +97,30 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Experiments");
+        final CollectionReference collectionReference_1 = db.collection("Users");
+        final DocumentReference documentReference = collectionReference_1.document(id);
+        final CollectionReference collectionReferenceSubscribed = documentReference.collection("Subscribed");
+
+
+        ArrayList<String> Subscribed_description_list = new ArrayList<String>();
+        collectionReferenceSubscribed.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                Subscribed_description_list.clear();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    String exp_description = doc.getId();
+                    Subscribed_description_list.add(exp_description);
+                }
+            }
+        });
+
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 experimenterExperimentDataList.clear();
                 ownerExperimentDataList.clear();
+                subscribedExperimentDataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     if(doc.getData().get("Experiment ID") != null
                             && doc.getData().get("Experiment User")!= null
@@ -126,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Log.d("TAG", experiment_username);
                         experimenterExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location)); // Adding the cities and provinces from FireStore
+
+                        if (Subscribed_description_list.contains(experiment_description)){
+                            subscribedExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location));
+                        }
 
                         if (experiment_username.equals(id)) {
                             ownerExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location));
