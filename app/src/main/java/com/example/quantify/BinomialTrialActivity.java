@@ -30,6 +30,10 @@ public class BinomialTrialActivity extends AppCompatActivity {
     TextView userID;
     TextView minTrials;
     TextView result;
+
+    private double latitude;
+    private double longitude;
+
     Button save;
 
     @Override
