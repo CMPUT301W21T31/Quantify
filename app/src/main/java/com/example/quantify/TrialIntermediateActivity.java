@@ -34,6 +34,11 @@ public class TrialIntermediateActivity extends AppCompatActivity {
     TextView locationView;
     Button start;
 
+    ArrayList<String> Trial_list;
+    ArrayList<Integer> Count_list;
+
+    ArrayList<String> result_date_list;
+    ArrayList<Integer> result_count_list;
 
     ArrayList<ResultCount> resultCount;
 
@@ -75,39 +80,50 @@ public class TrialIntermediateActivity extends AppCompatActivity {
         // create an array of numbers and its counters
         // if the number is unique, add it to array and set count to 1
         // if the number is not unique, increment count
-        List<String> Trial_list = new ArrayList<String>();
-        List<Integer> Count_list = new ArrayList<Integer>();
+        Trial_list = new ArrayList<String>();
+        Count_list = new ArrayList<Integer>();
+
+        result_date_list = new ArrayList<>();
+        result_count_list = new ArrayList<>();
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 Count_list.clear();
                 Trial_list.clear();
+                result_count_list.clear();
+                result_date_list.clear();
 
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     if (doc.getData().get("Trial-Result") != null) {
                         String Trial_id = doc.getId();
                         String Trial_result = (String) doc.getData().get("Trial-Result");
-                        Log.d("TAG", Trial_result);
+//                        Log.d("TAG", Result_date);
 
                         if (Trial_list.contains(Trial_result)){
                             int index = Trial_list.indexOf(Trial_result);
                             Count_list.set(index, Count_list.get(index) + 1);
                         }
-
                         else {
                             Trial_list.add(Trial_result);
                             Count_list.add(1);
                         }
 
+                        if(doc.getData().get("Trial Date") != null) {
+                            String Result_date = (String) doc.getData().get("Trial Date");
 
-
-
+                            if (result_date_list.contains(Result_date)) {
+                                int index = result_date_list.indexOf(Result_date);
+                                result_count_list.set(index, result_count_list.get(index) + 1);
+                            } else {
+                                result_date_list.add(Result_date);
+                                result_count_list.add(1);
+                            }
+                        }
                         // pass the result and its count to next activity smhw
-
                     }
                 }
-                Log.d("TAG", (String) Count_list.toString());
+                Log.d("TAG", (String) result_count_list.toString());
             }
         });
     }
@@ -144,5 +160,20 @@ public class TrialIntermediateActivity extends AppCompatActivity {
         startActivity(intent);
 
         Log.d("STARTQA", "questionForumLaunch: The QuestionForum is launched!");
+    }
+
+    public void createHistogram(View target){
+        Intent intent_1 = new Intent(this, OtherHistogramActivity.class);
+        intent_1.putExtra("y-axis", Count_list);
+        intent_1.putExtra("x-axis", Trial_list);
+        this.startActivity(intent_1);
+    }
+
+    public void resultsOverTimeOtherClicked(View target){
+        Log.d("BLABLA", "Results Clicked");
+        Intent intent_1 = new Intent(this, ResultsOverTimeActivity.class);
+        intent_1.putExtra("y-axis", result_count_list);
+        intent_1.putExtra("x-axis", result_date_list);
+        this.startActivity(intent_1);
     }
 }

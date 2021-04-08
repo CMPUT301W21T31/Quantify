@@ -38,10 +38,11 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
     Button locationButton;
     Button start;
 
-    ArrayList<BinomialTrial> trialList;
-
     int SUCCESS;
     int FAILURE;
+
+    ArrayList<String> result_date_list;
+    ArrayList<Integer> result_count_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,6 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         Intent intent = getIntent();
         exp = (Experiment) getIntent().getSerializableExtra("Experiment");
 
-        trialList = new ArrayList<>(); // use this array list to store trials from database and pass them to location
         expDesc = findViewById(R.id.experimentDescriptionViewBino);
         userID = findViewById(R.id.userIDViewBino);
         minTrials = findViewById(R.id.minTrialViewBino);
@@ -80,6 +80,10 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
             locationView.setText(exp.getLocation());
         }
 
+        result_date_list = new ArrayList<>();
+        result_count_list = new ArrayList<>();
+
+
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         String id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -94,6 +98,8 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 SUCCESS = 0;
                 FAILURE = 0;
+                result_count_list.clear();
+                result_date_list.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     if (doc.getData().get("Trial-Result") != null) {
                         String Trial_id = doc.getId();
@@ -115,9 +121,19 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
                             Log.d("TAG", "BOOM2");
                         }
 
+                        if(doc.getData().get("Trial Date") != null) {
+                            String Result_date = (String) doc.getData().get("Trial Date");
+
+                            if (result_date_list.contains(Result_date)) {
+                                int index = result_date_list.indexOf(Result_date);
+                                result_count_list.set(index, result_count_list.get(index) + 1);
+                            } else {
+                                result_date_list.add(Result_date);
+                                result_count_list.add(1);
+                            }
+                        }
                     }
                 }
-
                 SuccessCount.setText(String.valueOf(SUCCESS));
                 FailureCount.setText(String.valueOf(FAILURE));
             }
@@ -154,5 +170,13 @@ public class BinomialTrialIntermediateActivity extends AppCompatActivity {
         startActivity(intent);
 
         Log.d("STARTQA", "questionForumLaunch: The QuestionForum is launched!");
+    }
+
+    public void resultsOverTimeBinomialClicked(View target){
+        Log.d("BLABLA", "Results Clicked");
+        Intent intent_1 = new Intent(this, ResultsOverTimeActivity.class);
+        intent_1.putExtra("y-axis", result_count_list);
+        intent_1.putExtra("x-axis", result_date_list);
+        this.startActivity(intent_1);
     }
 }
