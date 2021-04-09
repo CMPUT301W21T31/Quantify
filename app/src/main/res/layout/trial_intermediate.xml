@@ -267,7 +267,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
-        android:text="@string/quartile_two"
+        android:text="Q3"
         android:textColor="@color/shrine_pink_900"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -289,7 +289,7 @@
         app:layout_constraintTop_toTopOf="@+id/quartile1Text" />
 
     <TextView
-        android:id="@+id/quartile2View"
+        android:id="@+id/quartile3View"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
