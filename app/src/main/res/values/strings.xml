@@ -90,6 +90,7 @@
     <string name="experiment_text">Experiment name:</string>
     <string name="enter_name">enter name</string>
     <string name="search_title" />
+    <string name="user_search" />
 
     <string-array name="expTypes">
         <item>Binomial Trials</item>

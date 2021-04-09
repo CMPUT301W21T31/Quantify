@@ -32,12 +32,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.UUID;
 
-public class SearchActivity extends AppCompatActivity {
+public class UserSearch extends AppCompatActivity {
 
     ListView resultView;
-    ArrayAdapter<Experiment> resultAdapter;
-    ArrayList<Experiment> dataList;
-    ArrayList<Experiment> resultList;
+    ArrayAdapter<User> resultAdapter;
+    ArrayList<User> dataList;
+    ArrayList<User> resultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +51,9 @@ public class SearchActivity extends AppCompatActivity {
         dataList = new ArrayList<>();
         resultList = new ArrayList<>();
 
-        ArrayList<Experiment> subscribeList = new ArrayList<>();
+        ArrayList<User> subscribeList = new ArrayList<>();
 
-        resultAdapter = new ExperimenterExperimentList(SearchActivity.this, resultList, subscribeList);
+        resultAdapter = new UserList(UserSearch.this, resultList);
         resultView.setAdapter(resultAdapter);
 
 
@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
 
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("Experiments");
+        final CollectionReference collectionReference = db.collection("Users");
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -69,20 +69,10 @@ public class SearchActivity extends AppCompatActivity {
                 dataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
-                    UUID experiment_id = UUID.fromString((String) doc.getData().get("Experiment ID"));
-                    String experiment_description = doc.getId();
-                    String experiment_username = (String) doc.getData().get("Experiment User");
-                    String experiment_status = (String) doc.getData().get("Experiment Status");
-                    String experiment_type = (String) doc.getData().get("Experiment Type");
-                    String experiment_location = (String) doc.getData().get("Experiment Location");
-                    Integer experiment_min_trials = 1;
-                    try {
-                        experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
-                    } catch (Exception e) {
-                        experiment_min_trials = 0;
-                    }
-                    Log.d("TAG", experiment_username);
-                    dataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location)); // Adding the cities and provinces from FireStore
+                    String user_id = doc.getId();
+                    String user_contact = (String) doc.getData().get("User contact");
+
+                    dataList.add(new User(user_id, user_contact)); // Adding the cities and provinces from FireStore
                 }
 
             }
@@ -102,14 +92,14 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(SearchActivity.this, "SEARCH " + query, Toast.LENGTH_LONG).show();
+                Toast.makeText(UserSearch.this, "SEARCH " + query, Toast.LENGTH_LONG).show();
                 searchExps(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(SearchActivity.this, "SEARCH " + newText, Toast.LENGTH_LONG).show();
+                Toast.makeText(UserSearch.this, "SEARCH " + newText, Toast.LENGTH_LONG).show();
                 searchExps(newText);
                 return false;
             }
@@ -121,19 +111,8 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void updateListExps(ArrayList<Experiment> listExps) {
+    private void updateListExps(ArrayList<User> listExps) {
 
-        // Sort the list by date
-//        Collections.sort(listExps, new Comparator<Experiment>() {
-//            @Override
-//            public int compare(Experiment o1, Experiment o2) {
-//                int res = -1;
-//                if (o1.getDate() > (o2.getDate())) {
-//                    res = 1;
-//                }
-//                return res;
-//            }
-//        });
 
         resultList.clear();
         resultList.addAll(listExps);
@@ -146,11 +125,11 @@ public class SearchActivity extends AppCompatActivity {
 //        if (queryText.length() > 0)
 //            queryText = queryText.substring(0, 1).toUpperCase() + queryText.substring(1).toLowerCase();
 
-        ArrayList<Experiment> results = new ArrayList<>();
+        ArrayList<User> results = new ArrayList<>();
 
-        for(Experiment exp : dataList){
-            if(exp.getDescription() != null && exp.getDescription().toLowerCase().contains(queryText) && !results.contains(exp)){
-                results.add(exp);
+        for(User ur : dataList){
+            if(ur.getUserID() != null && ur.getUserID().toLowerCase().contains(queryText) && !results.contains(ur)){
+                results.add(ur);
             }
         }
         updateListExps(results);
