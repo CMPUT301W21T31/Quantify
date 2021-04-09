@@ -16,7 +16,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class MainActivityTest_2 {
+public class                                                                        MainActivityTest_2 {
     private Solo solo;
     @Rule
     public ActivityTestRule<MainActivity> rule =

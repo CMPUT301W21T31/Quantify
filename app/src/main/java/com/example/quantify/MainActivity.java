@@ -204,9 +204,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
 
-                    case R.id.more:
+                    /*case R.id.more:
                         // Handle more icon press
-                        break;
+                        break;*/
 
                 }
                 return false;
@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
 
-                    case R.id.question_answer:
+                    /*case R.id.question_answer:*/
                         // Handle question_answer icon press
 
                     case R.id.qr_code:
