@@ -32,6 +32,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -89,18 +90,15 @@ public class BinomialTrialActivity extends AppCompatActivity {
         userID.setText(exp.getExperimentID().toString());
         minTrials.setText(exp.getMinTrials().toString());
 
+        //generate the QR code with save feature not working
         String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
         String TAG = "GenerateQRCode";
-        ImageView img_QRCode;
-        UUID thisTrialID;
-        UUID thisExperimenterID;
-        String thisBinomialResult;
-        Double thisCountResult;
+        UUID thisExperimentID = exp.getExperimentID();
         imageView = findViewById(R.id.imageView);
         generateQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputValue = "Hello";
+                String inputValue = "experimentID:" + thisExperimentID.toString() + ", result:" + result.getText().toString();
                 try{
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.encodeBitmap(inputValue, BarcodeFormat.QR_CODE,400,400);
@@ -108,7 +106,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
                     boolean save;
                     String result;
                     try {
-                        save = QRGSaver.save(savePath, "Test1", bitmap, QRGContents.ImageType.IMAGE_JPEG);
+                        save = QRGSaver.save(savePath, "Test1", bitmap, QRGContents.ImageType.IMAGE_PNG);
                         String realPath = savePath.toString() + "Test1";
                         result = save ? "Image Saved" : "Image Not Saved";
                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
