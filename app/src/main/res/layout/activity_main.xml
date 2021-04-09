@@ -19,8 +19,8 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_menu_24dp"
-            app:titleTextColor="@color/shrine_pink_900"
-            app:title="@string/app_name" />
+            app:title="@string/app_name"
+            app:titleTextColor="@color/shrine_pink_900" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
