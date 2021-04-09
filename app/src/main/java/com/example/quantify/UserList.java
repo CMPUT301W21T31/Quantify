@@ -47,6 +47,17 @@ public class UserList extends ArrayAdapter<User> {
         userID.setText(user.getUserID());
         userNum.setText(user.getPhoneNum());
 
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uid = (String) getItem(position).getUserID();
+                Intent intent = new Intent(context, ShowUserSearchResult.class);
+                intent.putExtra("USER", uid);
+//
+                context.startActivity(intent);
+            }
+        });
+
         return view;
     }
 }
