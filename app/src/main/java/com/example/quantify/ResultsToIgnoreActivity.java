@@ -29,6 +29,7 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
     ListView trialList;
     ArrayAdapter<Trial> trialAdapter;
     ArrayList<Trial> trialDataList;
+    ArrayList<Trial> ignoredTrials = new ArrayList<>();
 
     TextView exp_name;
     TextView userID;
@@ -61,9 +62,6 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
 
         trialList = findViewById(R.id.result_list);
         trialDataList = new ArrayList<>();
-        trialAdapter = new ResultList(ResultsToIgnoreActivity.this, trialDataList);
-
-        trialList.setAdapter(trialAdapter);
 
         Trial_list = new ArrayList<String>();
         Count_list = new ArrayList<Integer>();
@@ -73,6 +71,12 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
 
         success = 0;
         failure = 0;
+
+        trialAdapter = new ResultList(ResultsToIgnoreActivity.this, trialDataList, ignoredTrials, Trial_list, Count_list, result_date_list, result_count_list, success, failure);
+
+        trialList.setAdapter(trialAdapter);
+
+
 
 
         String exp_name = exp.getDescription();
@@ -94,7 +98,6 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
                 success = 0;
                 failure = 0;
 
-
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     String experimenter_id = (String) doc.getData().get("Experimenter ID");
                     String Trial_date = "0";
@@ -105,23 +108,29 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
                     }
                     String Trial_result = (String) doc.getData().get("Trial-Result");
                     Trial new_trial = new Trial(experimenter_id, Trial_date, Trial_result);
-                    trialDataList.add(new_trial);
+                    if(!ignoredTrials.contains(new_trial)) {
+                        trialDataList.add(new_trial);
 
-                    if (Trial_result.equals("Success")) {
-                        success++;
-                        Log.d("TAG", "BOOM");
-                    }
+                        if (Trial_result.equals("Success")) {
+                            success++;
+                            Log.d("TAG", "BOOM");
+                        }
 
-                    if (Trial_result.equals("Fail")) {
-                        failure++;
-                        Log.d("TAG", "BOOM2");
+                        if (Trial_result.equals("Fail")) {
+                            failure++;
+                            Log.d("TAG", "BOOM2");
+                        }
                     }
                 }
+
+                Log.d("ignored", String.valueOf(failure));
+                Log.d("ignored", ignoredTrials.toString());
                 trialAdapter.notifyDataSetChanged();
 
                 for(int counter = 0; counter < trialDataList.size(); counter++){
                     String Trial_result = trialDataList.get(counter).getResult();
                     String Result_date = trialDataList.get(counter).getDate();
+
                     if (Trial_list.contains(Trial_result)){
                         int index = Trial_list.indexOf(Trial_result);
                         Count_list.set(index, Count_list.get(index) + 1);
@@ -166,10 +175,16 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
     }
 
     public void myResultsOverTimeOtherClicked(View target){
-        Log.d("BLABLA", "Results Clicked");
-        Intent intent_1 = new Intent(this, ResultsOverTimeActivity.class);
-        intent_1.putExtra("y-axis", result_count_list);
-        intent_1.putExtra("x-axis", result_date_list);
-        this.startActivity(intent_1);
+
+        if(result_count_list.size() > 0 && result_date_list.size() > 0) {
+            Log.d("BLABLA", "Results Clicked");
+            Intent intent_1 = new Intent(this, ResultsOverTimeActivity.class);
+            intent_1.putExtra("y-axis", result_count_list);
+            intent_1.putExtra("x-axis", result_date_list);
+            this.startActivity(intent_1);
+        }
+        else{
+            Toast.makeText(this, "No trials available", Toast.LENGTH_SHORT).show();
+        }
     }
 }

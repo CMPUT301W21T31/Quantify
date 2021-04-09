@@ -53,7 +53,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/userid_text"
+        android:text="Owner ID:"
         android:textColor="@color/bottom_button"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
