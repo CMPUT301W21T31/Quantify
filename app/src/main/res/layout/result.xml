@@ -34,8 +34,8 @@
         app:layout_constraintTop_toBottomOf="@+id/experiment_name" />
 
     <TextView
-        android:id="@+id/experimenter_exp_status"
-        android:layout_width="49dp"
+        android:id="@+id/exp_status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Status"
@@ -96,7 +96,6 @@
         android:id="@+id/CreateHistogramButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:onClick="createMyHistogram"
         android:text="@string/createhistogram"

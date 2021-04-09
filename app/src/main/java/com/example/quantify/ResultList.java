@@ -45,9 +45,8 @@ public class ResultList extends ArrayAdapter<Trial> {
         TextView result = view.findViewById(R.id.result);
         TextView userID = view.findViewById(R.id.userID);
 
-        result.setText(trial.getResult());
-        userID.setText(trial.getExperimenterID());
-
+        result.setText("Result: " + trial.getResult());
+        userID.setText("Experimenter ID: " + trial.getExperimenterID());
 
         return view;
     }
