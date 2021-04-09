@@ -30,6 +30,9 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
 
     Experiment exp;
 
+    String longitude;
+    String latitude;
+
     TextView expDesc;
     TextView userID;
     TextView minTrials;
@@ -48,6 +51,8 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         exp = (Experiment) getIntent().getSerializableExtra("Experiment");
+        longitude = getIntent().getStringExtra("Longitude");
+        latitude = getIntent().getStringExtra("Latitude");
 
         expDesc = findViewById(R.id.nTrialDescriptionView);
         userID = findViewById(R.id.nTrialUserIDView);
@@ -84,8 +89,8 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
                 data.put("Trial-Result", editCount.getText().toString());
                 data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                 data.put("Trial Date", formattedCurrentDate);
-                //data.put("Location Latitude", String.valueOf(map.getCurrentLatitude()));
-                //data.put("Location Longitude", String.valueOf(map.getCurrentLongitude()));
+                data.put("Location Latitude", latitude);
+                data.put("Location Longitude", longitude);
                 UUID Trial_id = UUID.randomUUID();
 
                 collectionReference

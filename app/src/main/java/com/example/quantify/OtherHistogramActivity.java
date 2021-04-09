@@ -33,6 +33,7 @@ public class OtherHistogramActivity extends AppCompatActivity {
         XAxis xAxis = barchart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         Log.d("count",Count_list.toString());
+        Log.d("count",String.valueOf(Count_list.size()));
 
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();

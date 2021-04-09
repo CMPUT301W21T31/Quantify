@@ -17,7 +17,7 @@ public class ResultsOverTimeActivity extends AppCompatActivity {
 
     ArrayList<String> result_trial_list;
     ArrayList<Integer> Count_list;
-    BarChart barchart;
+    private BarChart barchart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

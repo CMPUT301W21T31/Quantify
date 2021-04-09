@@ -19,7 +19,7 @@ public class BinomialHistogramActivity extends AppCompatActivity {
 
     int successCount;
     int failCount;
-    BarChart barchart;
+    private BarChart barchart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

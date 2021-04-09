@@ -36,8 +36,8 @@ public class BinomialTrialActivity extends AppCompatActivity {
     TextView minTrials;
     TextView result;
 
-    private double latitude;
-    private double longitude;
+    String longitude;
+    String latitude;
 
     Date date;
     SimpleDateFormat currentDate;
@@ -52,6 +52,8 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         exp = (Experiment) getIntent().getSerializableExtra("Experiment");
+        longitude = getIntent().getStringExtra("Longitude");
+        latitude = getIntent().getStringExtra("Latitude");
 
         expDesc = findViewById(R.id.bTrialDescriptionView);
         userID = findViewById(R.id.bTrialUserIDView);
@@ -91,8 +93,8 @@ public class BinomialTrialActivity extends AppCompatActivity {
             data.put("Trial-Result", result.getText().toString());
             data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
             data.put("Trial Date", formattedCurrentDate);
-            //data.put("Location Latitude", String.valueOf(map.getCurrentLatitude()));
-            //data.put("Location Longitude", String.valueOf(map.getCurrentLongitude()));
+            data.put("Location Latitude", latitude);
+            data.put("Location Longitude", longitude);
             UUID Trial_id = UUID.randomUUID();
 
             collectionReference
