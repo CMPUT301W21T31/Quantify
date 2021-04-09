@@ -102,7 +102,7 @@
 
     <TextView
         android:id="@+id/locationViewBino"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginLeft="56dp"
@@ -116,11 +116,13 @@
         android:layout_width="147dp"
         android:layout_height="46dp"
         android:layout_marginTop="12dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="questionForumLaunch"
         android:text="@string/question_button"
         android:textSize="12sp"
         app:backgroundTint="@color/shrine_pink_900"
-        app:layout_constraintTop_toBottomOf="@+id/CreateHistogramButtonBino"
-        tools:layout_editor_absoluteX="38dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateHistogramButtonBino" />
 
     <Button
         android:id="@+id/LocationButtonBino"
@@ -129,6 +131,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="36dp"
         android:layout_marginRight="36dp"
+        android:onClick="onLocationClickedBinomial"
         android:text="location"
         android:textSize="12sp"
         app:backgroundTint="@color/shrine_pink_900"
@@ -159,6 +162,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:onClick="resultsOverTimeBinomialClicked"
         android:text="@string/resultsOverTime"
         app:backgroundTint="@color/shrine_pink_900"
         app:layout_constraintEnd_toEndOf="parent"

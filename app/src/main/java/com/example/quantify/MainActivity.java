@@ -4,7 +4,6 @@ package com.example.quantify;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -32,12 +31,14 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -86,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         experimenterExperimentDataList = new ArrayList<>();
         subscribedExperimentDataList = new ArrayList<>();
 
-
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
         experimenterExperimentAdapter = new ExperimenterExperimentList(MainActivity.this, experimenterExperimentDataList, subscribedExperimentDataList);
 
@@ -96,31 +96,60 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Experiments");
+        final CollectionReference collectionReference_1 = db.collection("Users");
+        final DocumentReference documentReference = collectionReference_1.document(id);
+        final CollectionReference collectionReferenceSubscribed = documentReference.collection("Subscribed");
+
+
+        ArrayList<String> Subscribed_description_list = new ArrayList<String>();
+        collectionReferenceSubscribed.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                Subscribed_description_list.clear();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    String exp_description = doc.getId();
+                    Subscribed_description_list.add(exp_description);
+                }
+            }
+        });
+
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 experimenterExperimentDataList.clear();
                 ownerExperimentDataList.clear();
+                subscribedExperimentDataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
-                    UUID experiment_id = UUID.fromString( (String) doc.getData().get("Experiment ID"));
-                    String experiment_description = doc.getId();
-                    String experiment_username = (String) doc.getData().get("Experiment User");
-                    String experiment_status = (String) doc.getData().get("Experiment Status");
-                    String experiment_type = (String) doc.getData().get("Experiment Type");
-                    String experiment_location = (String) doc.getData().get("Experiment Location");
-                    Integer experiment_min_trials = 1;
-                    try{
-                        experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
-                    }catch(Exception e){
-                        experiment_min_trials = 0;
-                    }
-                    Log.d("TAG", experiment_username);
-                    experimenterExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type,experiment_min_trials,experiment_location)); // Adding the cities and provinces from FireStore
+                    if(doc.getData().get("Experiment ID") != null
+                            && doc.getData().get("Experiment User")!= null
+                            && doc.getData().get("Experiment Status")!= null
+                            && doc.getData().get("Experiment Type")!= null
+                            && doc.getData().get("Experiment Location")!= null
+                            && doc.getData().get("Min Trials")!= null) {
+                        //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                        UUID experiment_id = UUID.fromString((String) doc.getData().get("Experiment ID"));
+                        String experiment_description = doc.getId();
+                        String experiment_username = (String) doc.getData().get("Experiment User");
+                        String experiment_status = (String) doc.getData().get("Experiment Status");
+                        String experiment_type = (String) doc.getData().get("Experiment Type");
+                        String experiment_location = (String) doc.getData().get("Experiment Location");
+                        Integer experiment_min_trials = 1;
+                        try {
+                            experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
+                        } catch (Exception e) {
+                            experiment_min_trials = 0;
+                        }
+                        Log.d("TAG", experiment_username);
+                        experimenterExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location)); // Adding the cities and provinces from FireStore
 
-                    if (experiment_username.equals(id)){
-                        ownerExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type,experiment_min_trials,experiment_location));
+                        if (Subscribed_description_list.contains(experiment_description)){
+                            subscribedExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location));
+                        }
+
+                        if (experiment_username.equals(id)) {
+                            ownerExperimentDataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location));
+                        }
                     }
                 }
                 experimenterExperimentAdapter.notifyDataSetChanged();
@@ -236,8 +265,6 @@ public class MainActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.expTypes));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 expTypes.setAdapter(adapter);
-
-
 
                 AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
                 adb.setTitle("Add?");
@@ -383,10 +410,60 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.qr_code:
                         // Handle qr_code icon press
+                        IntentIntegrator intentIntegrator = new IntentIntegrator(
+                                MainActivity.this
+                        );
+                        //set prompt text
+                        intentIntegrator.setPrompt("For flash use volume up key");
+                        //set beep
+                        intentIntegrator.setBeepEnabled(true);
+                        //locked orientation
+                        intentIntegrator.setOrientationLocked(true);
+                        //set capture activity
+                        intentIntegrator.setCaptureActivity(Capture.class);
+                        //initiate scan
+                        intentIntegrator.initiateScan();
                 }
                 return false;
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //initialize intent result
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(
+                requestCode,resultCode,data
+        );
+        //check condition
+        if (intentResult.getContents() != null) {
+            //when result content is not null
+            //initialize alert dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    MainActivity.this
+            );
+            //set title
+            builder.setTitle("Result");
+            //set message
+            builder.setMessage(intentResult.getContents());
+            //set positive button
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    //dismiss dialog
+                    dialogInterface.dismiss();
+                }
+            });
+            //show alert dialog
+            builder.show();
+        }else {
+            //when result content is null
+            //display toast
+            Toast.makeText(getApplicationContext()
+            ,"OOPS... You did not scan anything", Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

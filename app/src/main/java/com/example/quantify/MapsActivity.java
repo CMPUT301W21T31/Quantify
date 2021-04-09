@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -32,6 +33,9 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -48,15 +52,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
 
-    private double currentLatitude;
-    private double currentLongitude;
+    private static double currentLatitude;
+    private static double currentLongitude;
+    private double outputLatitude;
+    private double outputLongitude;
 
+    ArrayList<String> experimentIDList;
+    ArrayList<String> longitudeList;
+    ArrayList<String> latitudeList;
 
     Marker mCurrLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        experimentIDList = intent.getStringArrayListExtra("Experimenter ID");
+        longitudeList = intent.getStringArrayListExtra("longitude");
+        latitudeList = intent.getStringArrayListExtra("latitude");
+
+        Log.d("longitudeList", longitudeList.toString());
+        Log.d("latitudeList", latitudeList.toString());
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -70,6 +88,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+
 
     }
 
@@ -101,26 +123,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(32, 34);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(32, 34);
+//        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//
+//        // Add a new marker and move the camera
+//        LatLng marker1 = new LatLng(45, 34);
+//        map.addMarker(new MarkerOptions().position(marker1).title("Marker 1"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(marker1));
+//
+//        // Add a marker and move the camera
+//        LatLng marker2 = new LatLng(15, 20);
+//        map.addMarker(new MarkerOptions().position(marker2).title("Marker 2"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(marker2));
 
-        // Add a new marker and move the camera
-        LatLng marker1 = new LatLng(45, 34);
-        map.addMarker(new MarkerOptions().position(marker1).title("Marker 1"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(marker1));
-
-        // Add a marker and move the camera
-        LatLng marker2 = new LatLng(15, 20);
-        map.addMarker(new MarkerOptions().position(marker2).title("Marker 2"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(marker2));
-
+        for(int counter = 0; counter < longitudeList.size(); counter++){
+            LatLng marker1 = new LatLng(Double.parseDouble(latitudeList.get(counter)), Double.parseDouble(longitudeList.get(counter)));
+            map.addMarker(new MarkerOptions().position(marker1).title(experimentIDList.get(counter) + " performed a trial here!"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(marker1));
+        }
 
         getLocationPermission();
         updateLocationUI();
         getDeviceLocation(); //get the current location from the map
-        this.currentLatitude = lastKnownLocation.getLatitude();
-        this.currentLongitude = lastKnownLocation.getLongitude();
+
+        //this.currentLatitude = lastKnownLocation.getLatitude();
+        //this.currentLongitude = lastKnownLocation.getLongitude();
+
+        LatLng myMarker = new LatLng(currentLatitude, currentLongitude);
+        map.addMarker(new MarkerOptions().position(myMarker).title("myMarker"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(myMarker));
+
     }
 
     private void getLocationPermission() {
@@ -156,6 +189,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         updateLocationUI();
     }
+
     private void updateLocationUI() {
         if (map == null) {
             return;
@@ -170,7 +204,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 lastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -193,10 +227,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                                currentLatitude = lastKnownLocation.getLatitude();
-                                currentLongitude = lastKnownLocation.getLongitude();
-                                LatLng myMarker = new LatLng(currentLatitude, currentLongitude);
-                                map.addMarker(new MarkerOptions().position(myMarker).title("My location"));
+                                //currentLatitude = lastKnownLocation.getLatitude();
+                                //currentLongitude = lastKnownLocation.getLongitude();
+                                //LatLng myMarker = new LatLng(currentLatitude, currentLongitude);
+                                //map.addMarker(new MarkerOptions().position(myMarker).title("My location"));
+
+                                setLa(lastKnownLocation.getLatitude());
+                                setLo(lastKnownLocation.getLongitude());
 
                             }
                         } else {
@@ -207,11 +244,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             map.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
+
+                    private Double getLa() {
+                        return currentLatitude;
+                    }
+
+                    private Double getLo() {
+                        return currentLongitude;
+                    }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage(), e);
         }
+    }
+    public void setLa(Double currentLatitude) {
+        this.currentLatitude = currentLatitude;
     }
 
     public double getCurrentLatitude() {
@@ -222,9 +270,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return this.currentLongitude;
     }
 
-    public GoogleMap getMap() {
-        return map;
+    public Double getLa() {
+        return currentLatitude;
+    }
+
+    public void setLo(Double currentLongitude) {
+        this.currentLongitude = currentLongitude;
+    }
+
+    public Double getLo() {
+        return currentLongitude;
     }
 
 }
-
