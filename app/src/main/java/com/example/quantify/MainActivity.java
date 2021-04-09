@@ -37,8 +37,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -423,6 +428,7 @@ public class MainActivity extends AppCompatActivity {
                         intentIntegrator.setCaptureActivity(Capture.class);
                         //initiate scan
                         intentIntegrator.initiateScan();
+
                         break;
                 }
                 return false;
@@ -445,10 +451,20 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(
                     MainActivity.this
             );
+            String trialResultString;
+            String experimentIDString;
+            UUID experimentID;
             //set title
             builder.setTitle("Result");
             //set message
             builder.setMessage(intentResult.getContents());
+            experimentIDString = intentResult.getContents().split(";")[0];
+            trialResultString = intentResult.getContents().split(";")[1];
+            experimentID = UUID.fromString(experimentIDString);
+
+            
+
+            Log.d("BLABLA", "The trial is added.");
             //set positive button
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override

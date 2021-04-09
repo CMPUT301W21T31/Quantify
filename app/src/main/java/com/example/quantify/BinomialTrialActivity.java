@@ -98,7 +98,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
         generateQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputValue = "experimentID:" + thisExperimentID.toString() + ", result:" + result.getText().toString();
+                String inputValue = thisExperimentID.toString() + ";" + result.getText().toString();
                 try{
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.encodeBitmap(inputValue, BarcodeFormat.QR_CODE,400,400);
