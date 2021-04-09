@@ -62,6 +62,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
     Button save;
     Button generateQR;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +92,11 @@ public class BinomialTrialActivity extends AppCompatActivity {
         String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
         String TAG = "GenerateQRCode";
         ImageView img_QRCode;
-        QRGEncoder qrgEncoder;
         UUID thisTrialID;
         UUID thisExperimenterID;
         String thisBinomialResult;
         Double thisCountResult;
+        imageView = findViewById(R.id.imageView);
         generateQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +104,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
                 try{
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.encodeBitmap(inputValue, BarcodeFormat.QR_CODE,400,400);
-                    //img_qrcode.setImageBitmap(bitmap);
+                    imageView.setImageBitmap(bitmap);
                     boolean save;
                     String result;
                     try {
@@ -111,9 +112,6 @@ public class BinomialTrialActivity extends AppCompatActivity {
                         String realPath = savePath.toString() + "Test1";
                         result = save ? "Image Saved" : "Image Not Saved";
                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-                        Intent QRIntent = new Intent(BinomialTrialActivity.this, DisplayQRActivity.class);
-                        QRIntent.putExtra(QRPath, realPath);
-                        startActivity(QRIntent);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

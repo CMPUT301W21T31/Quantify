@@ -423,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
                         intentIntegrator.setCaptureActivity(Capture.class);
                         //initiate scan
                         intentIntegrator.initiateScan();
+                        break;
                 }
                 return false;
             }
