@@ -40,7 +40,7 @@ public class ResultList extends ArrayAdapter<Trial> {
         View view = convertView;
 
         if (view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.result, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.result_card, parent, false);
         }
 
         Trial trial = trials.get(position);
