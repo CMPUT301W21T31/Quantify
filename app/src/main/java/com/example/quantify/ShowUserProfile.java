@@ -49,7 +49,7 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+//                    Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
                     String user_id = doc.getId();
 
                     if (user_id.equals(nameText)) {
