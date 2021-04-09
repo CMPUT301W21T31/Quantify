@@ -181,7 +181,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.search:
                         // Handle search icon press
-                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Your Device: " + id, Toast.LENGTH_SHORT).show();
+                        Intent search_intent = new Intent(MainActivity.this, SearchActivity.class);
+                        search_intent.putExtra("USER", id);
+//
+                        startActivity(search_intent);
                         break;
 
 

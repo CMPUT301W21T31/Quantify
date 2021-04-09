@@ -3,10 +3,13 @@ package com.example.quantify;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +52,7 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
                     Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
                     String user_id = doc.getId();
 
-                    if (user_id.equals(nameText)){
+                    if (user_id.equals(nameText)) {
                         String user_contact = (String) doc.getData().get("User contact");
                         //String user_contact = (String) doc.getData().get("User contact");
 
@@ -67,13 +70,12 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
         });
 
 
-        if (flag == 1){
+        if (flag == 1) {
             HashMap<String, String> data = new HashMap<>();
             if (nameText.length() > 0) {
                 data.put("User email", "");
                 data.put("User contact", "");
-            }
-            else{
+            } else {
                 Toast.makeText(ShowUserProfile.this, "Unable to create USER.\nUSER empty!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -96,7 +98,6 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
                         }
                     });
         }
-
 
 
         TextView nameTextView = findViewById(R.id.tv_name);
@@ -165,8 +166,7 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
         if (nameText.length() > 0) {
             data.put("User email", "");
             data.put("User contact", new_text);
-        }
-        else{
+        } else {
             Toast.makeText(ShowUserProfile.this, "Unable to create USER.\nUSER empty!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -191,6 +191,26 @@ public class ShowUserProfile extends AppCompatActivity implements UserProfileEdi
 //        END OF FIREBASE STUFF
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_profile_menu, menu);
+        return true;
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.user_search:
+                Intent intent = new Intent(ShowUserProfile.this, UserSearch.class);
+                startActivity(intent);
+        }
+        return true;
+    }
+
 }

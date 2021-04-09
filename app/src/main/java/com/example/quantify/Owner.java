@@ -1,4 +1,4 @@
 package com.example.quantify;
 
-public class Owner extends UserProfile{
+public class Owner {
 }
