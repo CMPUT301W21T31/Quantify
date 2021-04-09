@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,11 +51,14 @@ public class QuestionDetails extends AppCompatActivity {
 
     private String path;
     private String question;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_details);
+
+        id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         // getting the values ready
         Intent receiveIntent = getIntent();
@@ -70,7 +74,7 @@ public class QuestionDetails extends AppCompatActivity {
 
 
         arrangeListWithDocument(list);
-        interactWithAnswerList(list);
+        //interactWithAnswerList(list);
 
     }
 
@@ -90,24 +94,26 @@ public class QuestionDetails extends AppCompatActivity {
      * a question is clicked, this method intents to a detail page of that Question info with
      * required information
      */
-    public void interactWithAnswerList(List<String> list) {
-        AdapterView.OnItemClickListener itemClickListener =
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        Intent intent = new Intent(QuestionDetails.this, QuesAns.class);
-                        intent.putExtra("QUESTION", getQuestion());
-                        intent.putExtra("REPLY", list.get(position));
-                        startActivity(intent);
-                    }
-                };
-
-        // Time to connect with the listView from XML
-        ListView listView = (ListView)findViewById(R.id.replyList);
-        listView.setOnItemClickListener(itemClickListener);
-
-    }
+    //commented this out because it's not necessary anymore
+//    public void interactWithAnswerList(List<String> list) {
+//        AdapterView.OnItemClickListener itemClickListener =
+//                new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                        Intent intent = new Intent(QuestionDetails.this, QuesAns.class);
+//                        intent.putExtra("QUESTION", getQuestion());
+//                        intent.putExtra("REPLY", list.get(position));
+//                        startActivity(intent);
+//                    }
+//                };
+//
+//        // Time to connect with the listView from XML
+//        ListView listView = (ListView)findViewById(R.id.replyList);
+//        listView.setOnItemClickListener(itemClickListener);
+//
+//    }
 
 
     /**
@@ -146,7 +152,13 @@ public class QuestionDetails extends AppCompatActivity {
                         // storing the values
                         list.clear();
                         for (DocumentSnapshot snapshot : value) {
-                            list.add(snapshot.getId());
+                            if(snapshot.getData().get("ExperimentId") != null) {
+                                Log.d("reply test", snapshot.getData().get("ExperimentId").toString());
+                                list.add(snapshot.getId() + "\n\nby " + snapshot.getData().get("ExperimentId").toString());
+                            }
+                            else{
+                                list.add(snapshot.getId());
+                            }
                         }
 
                         if (list.isEmpty()) {
@@ -191,7 +203,7 @@ public class QuestionDetails extends AppCompatActivity {
 
         // Write data
         Map<String, Object> docData = new HashMap<>();
-        docData.put("ExperimentId", null);
+        docData.put("ExperimentId", this.id);
 
         db.document(path).set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
