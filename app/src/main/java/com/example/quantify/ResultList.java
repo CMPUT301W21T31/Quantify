@@ -33,9 +33,6 @@ public class ResultList extends ArrayAdapter<Trial> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-        FirebaseFirestore db;
-        db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("Experiments");
 
         View view = convertView;
 
