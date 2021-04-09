@@ -449,6 +449,7 @@ public class MainActivity extends AppCompatActivity {
             builder.setTitle("Result");
             //set message
             builder.setMessage(intentResult.getContents());
+
             //set positive button
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
@@ -459,6 +460,10 @@ public class MainActivity extends AppCompatActivity {
             });
             //show alert dialog
             builder.show();
+
+            // check firebase
+//            String codeInfo =  intentResult.getContents();
+
         }else {
             //when result content is null
             //display toast
