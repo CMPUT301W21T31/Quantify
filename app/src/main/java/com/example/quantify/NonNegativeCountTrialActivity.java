@@ -19,17 +19,28 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 public class NonNegativeCountTrialActivity extends AppCompatActivity {
 
     Experiment exp;
 
+    String longitude;
+    String latitude;
+
     TextView expDesc;
     TextView userID;
     TextView minTrials;
     EditText editCount;
+
+    Date date;
+    SimpleDateFormat currentDate;
+    String formattedCurrentDate;
 
     Button save;
 
@@ -40,11 +51,17 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         exp = (Experiment) getIntent().getSerializableExtra("Experiment");
+        longitude = getIntent().getStringExtra("Longitude");
+        latitude = getIntent().getStringExtra("Latitude");
 
         expDesc = findViewById(R.id.nTrialDescriptionView);
         userID = findViewById(R.id.nTrialUserIDView);
         minTrials = findViewById(R.id.nMinTrialView);
         editCount = findViewById(R.id.nonNegEdit);
+
+        date = Calendar.getInstance().getTime();
+        currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        formattedCurrentDate = currentDate.format(date);
 
         expDesc.setText(exp.getDescription());
         userID.setText(exp.getExperimentID().toString());
@@ -71,8 +88,9 @@ public class NonNegativeCountTrialActivity extends AppCompatActivity {
                 HashMap<String, String> data = new HashMap<>();
                 data.put("Trial-Result", editCount.getText().toString());
                 data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                //data.put("Location Latitude", String.valueOf(map.getCurrentLatitude()));
-                //data.put("Location Longitude", String.valueOf(map.getCurrentLongitude()));
+                data.put("Trial Date", formattedCurrentDate);
+                data.put("Location Latitude", latitude);
+                data.put("Location Longitude", longitude);
                 UUID Trial_id = UUID.randomUUID();
 
                 collectionReference

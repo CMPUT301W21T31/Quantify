@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +17,26 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
 
     private ArrayList<Experiment> experiments;
     private ArrayList<Experiment> subscribed;
     private Context context;
+    String id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
     public ExperimenterExperimentList(Context context, ArrayList<Experiment> experiments, ArrayList<Experiment> subscribed){
         super(context, 0, experiments);
@@ -53,12 +67,55 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
         expUser.setText(experiment.getUser());
         expStatus.setText(experiment.getStatus());
 
+
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference_1 = db.collection("Users");
+        final DocumentReference documentReference = collectionReference_1.document(id);
+        final CollectionReference collectionReference = documentReference.collection("Subscribed");
+        final CollectionReference collectionReferenceExperiments = documentReference.collection("Experiments");
+
+
+
         card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
                 if(!(context instanceof SubscribedActivity)){
                     Toast.makeText(context ,"Subscribed", Toast.LENGTH_SHORT).show();
+                    HashMap<String, String> data = new HashMap<>();
+
+                    data.put("Subscribed", "Subscribed");
+
+                    collectionReference
+                            .document(experiment.getDescription())
+                            .set(data)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // These are a method which gets executed when the task is succeeded
+                                    Log.d("TAG", "Data has been added successfully!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // These are a method which gets executed if there’s any problem
+                                    Log.d("TAG", "Data could not be added!" + e.toString());
+                                }
+                            });
+
+
+
+
+
+
+
+
+
+
+
+
                 }
 
                 if(!subscribed.contains(experiments.get(position))) {

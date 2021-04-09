@@ -190,18 +190,29 @@
         android:id="@+id/QuestionButton"
         android:layout_width="147dp"
         android:layout_height="46dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="30dp"
         android:onClick="questionForumLaunchTrial"
         android:text="@string/question_button"
         android:textSize="12sp"
         app:backgroundTint="@color/shrine_pink_900"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateHistogramButton" />
+
+
+    <Button
+        android:id="@+id/LocationButton"
+        android:layout_width="147dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:onClick="onLocationClickedOther"
+        android:text="location"
+        android:textSize="12sp"
+        app:backgroundTint="@color/shrine_pink_900"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreateHistogramButton" />
 
     <Button
@@ -213,6 +224,7 @@
         android:layout_marginTop="208dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:onClick="createHistogram"
         android:text="@string/createhistogram"
         app:backgroundTint="@color/shrine_pink_900"
         app:layout_constraintEnd_toStartOf="@+id/ResultsOverTimeButton"
@@ -227,6 +239,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:onClick="resultsOverTimeOtherClicked"
         android:text="@string/resultsOverTime"
         app:backgroundTint="@color/shrine_pink_900"
         app:layout_constraintEnd_toEndOf="parent"
