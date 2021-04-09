@@ -60,8 +60,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation 'com.google.android.libraries.places:places:2.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    //implementation 'com.google.zxing:core:3.2.0'
-    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
-    //implementation 'com.journeyapps:zxing-android-legacy:3.4.0'
-    //implementation 'com.journeyapps:zxing-android-integration:3.4.0'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:25.3.1'
 }

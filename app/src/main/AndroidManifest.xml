@@ -3,6 +3,7 @@
     package="com.example.quantify">
 
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <!--

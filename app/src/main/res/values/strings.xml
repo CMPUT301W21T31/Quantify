@@ -91,6 +91,8 @@
     <string name="enter_name">enter name</string>
 
     <string name="QuestionSuggestion">Ask us a Question, our community will try their best to help you</string>
+    <string name="qrcode">qrcode</string>
+    <string name="qr_code_text">QR code</string>
 
     <string-array name="expTypes">
         <item>Binomial Trials</item>

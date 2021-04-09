@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         experimenterExperimentDataList = new ArrayList<>();
         subscribedExperimentDataList = new ArrayList<>();
 
-
         ownerExperimentAdapter = new OwnerExperimentList(MainActivity.this, ownerExperimentDataList);
         experimenterExperimentAdapter = new ExperimenterExperimentList(MainActivity.this, experimenterExperimentDataList, subscribedExperimentDataList);
 
@@ -241,8 +240,6 @@ public class MainActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.expTypes));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 expTypes.setAdapter(adapter);
-
-
 
                 AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
                 adb.setTitle("Add?");
