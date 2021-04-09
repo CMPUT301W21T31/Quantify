@@ -104,18 +104,6 @@ public class ExperimenterExperimentList extends ArrayAdapter<Experiment> {
                                     Log.d("TAG", "Data could not be added!" + e.toString());
                                 }
                             });
-
-
-
-
-
-
-
-
-
-
-
-
                 }
 
                 if(!subscribed.contains(experiments.get(position))) {

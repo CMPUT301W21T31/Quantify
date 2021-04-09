@@ -106,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginLeft="56dp"
+        android:layout_marginRight="10dp"
         android:text="@string/location_view"
         android:textColor="@color/shrine_pink_900"
         app:layout_constraintStart_toEndOf="@+id/locationText"
