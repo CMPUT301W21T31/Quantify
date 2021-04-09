@@ -6,55 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/shrine_pink_50">
 
-    s3f
-
-    <LinearLayout
-        android:id="@+id/result_card"
+    <TextView
+        android:id="@+id/results_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:orientation="vertical"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="30dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Results"
+        android:textColor="@color/gradStart"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_title"
-        app:strokeColor="@color/stroke_color"
-        app:strokeWidth="10dp">
-
-        <TextView
-            android:id="@+id/experimenter_exp_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:paddingTop="10dp"
-            android:text="Count:"
-            android:textColor="@color/gradStart"
-            android:textSize="20sp"
-            android:textStyle="italic"></TextView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/experimenter_exp_user"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:inputType="date"
-                android:paddingTop="10dp"
-                android:text="User"
-                android:textColor="@color/gradStart"
-                android:textSize="18sp" />
-
-
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/userIDView"
@@ -120,18 +85,35 @@
         app:layout_constraintStart_toEndOf="@+id/experiment"
         app:layout_constraintTop_toBottomOf="@+id/results_title" />
 
-    <TextView
-        android:id="@+id/results_title"
+    <ListView
+        android:id="@+id/result_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Results"
-        android:textColor="@color/gradStart"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="125dp"></ListView>
+
+    <Button
+        android:id="@+id/CreateHistogramButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:onClick="createMyHistogram"
+        android:text="@string/createhistogram"
+        app:backgroundTint="@color/shrine_pink_900"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/result_list" />
+
+    <Button
+        android:id="@+id/ResultsOverTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:onClick="myResultsOverTimeOtherClicked"
+        android:text="@string/resultsOverTime"
+        app:backgroundTint="@color/shrine_pink_900"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintStart_toEndOf="@+id/CreateHistogramButton"
+        app:layout_constraintTop_toTopOf="@+id/CreateHistogramButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

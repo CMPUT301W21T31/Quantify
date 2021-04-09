@@ -239,6 +239,8 @@ public class TrialIntermediateActivity extends AppCompatActivity {
     }
 
     public void createHistogram(View target){
+        Log.d("count list", (String) Count_list.toString());
+
         Intent intent_1 = new Intent(this, OtherHistogramActivity.class);
         intent_1.putExtra("y-axis", Count_list);
         intent_1.putExtra("x-axis", Trial_list);

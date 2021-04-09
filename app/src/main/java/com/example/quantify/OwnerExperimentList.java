@@ -101,16 +101,6 @@ public class OwnerExperimentList extends ArrayAdapter<Experiment> {
 
                 });
 
-
-
-
-
-
-
-
-
-
-
                 notifyDataSetChanged();
             }
         });
