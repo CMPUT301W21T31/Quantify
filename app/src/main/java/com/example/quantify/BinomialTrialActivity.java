@@ -2,27 +2,19 @@ package com.example.quantify;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.hardware.display.DisplayManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -32,7 +24,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,7 +32,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 import androidmads.library.qrgenearator.QRGContents;
-import androidmads.library.qrgenearator.QRGEncoder;
 import androidmads.library.qrgenearator.QRGSaver;
 
 public class BinomialTrialActivity extends AppCompatActivity {
@@ -63,7 +53,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
     Button save;
     Button generateQR;
-    ImageView imageView;
+    ImageView binomialQRImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,15 +84,48 @@ public class BinomialTrialActivity extends AppCompatActivity {
         String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
         String TAG = "GenerateQRCode";
         UUID thisExperimentID = exp.getExperimentID();
-        imageView = findViewById(R.id.imageView);
+        binomialQRImage = findViewById(R.id.binomialQRImage);
         generateQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (result.getText().toString().equals("_____")) {
+                    Toast.makeText(getApplicationContext(), "The Trial result is empty, please enter result.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 String inputValue = thisExperimentID.toString() + ";" + result.getText().toString();
                 try{
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.encodeBitmap(inputValue, BarcodeFormat.QR_CODE,400,400);
-                    imageView.setImageBitmap(bitmap);
+                    binomialQRImage.setImageBitmap(bitmap);
+
+                    FirebaseFirestore db;
+                    db = FirebaseFirestore.getInstance();
+                    final CollectionReference collectionReference = db.collection("Barcodes");
+
+                    HashMap<String, String> data = new HashMap<>();
+                    data.put("Associate Exp", thisExperimentID.toString());
+                    data.put("Result", result.getText().toString());
+                    data.put("Type", "Binomial Trials");
+
+                    collectionReference
+                            .document(inputValue)
+                            .set(data)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // These are a method which gets executed when the task is succeeded
+                                    Log.d("TAG", "Data has been added successfully!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // These are a method which gets executed if there’s any problem
+                                    Log.d("TAG", "Data could not be added!" + e.toString());
+                                }
+                            });
+
                     boolean save;
                     String result;
                     try {
