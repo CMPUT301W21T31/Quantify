@@ -93,11 +93,13 @@ public class BinomialTrialActivity extends AppCompatActivity {
                     return;
                 }
 
-                String inputValue = thisExperimentID.toString() + ";" + result.getText().toString();
+                String inputValue = thisExperimentID.toString() + ";" + exp.getDescription() + ";" + result.getText().toString();
                 try{
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.encodeBitmap(inputValue, BarcodeFormat.QR_CODE,400,400);
                     binomialQRImage.setImageBitmap(bitmap);
+
+                    Log.d("expdesc", exp.getDescription());
 
                     FirebaseFirestore db;
                     db = FirebaseFirestore.getInstance();
@@ -105,6 +107,7 @@ public class BinomialTrialActivity extends AppCompatActivity {
 
                     HashMap<String, String> data = new HashMap<>();
                     data.put("Associate Exp", thisExperimentID.toString());
+                    data.put("Experiment desc", exp.getDescription());
                     data.put("Result", result.getText().toString());
                     data.put("Type", "Binomial Trials");
 
