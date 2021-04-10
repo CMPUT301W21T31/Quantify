@@ -93,7 +93,8 @@ public class CountTrialActivity extends AppCompatActivity {
                     return;
                 }
 
-                String inputValue = thisExperimentID.toString() + ";" + editCount.getText().toString();
+                String inputValue = thisExperimentID.toString() + ";" + exp.getDescription() + ";" + editCount.getText().toString();
+
                 try{
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.encodeBitmap(inputValue, BarcodeFormat.QR_CODE,400,400);
@@ -105,6 +106,7 @@ public class CountTrialActivity extends AppCompatActivity {
 
                     HashMap<String, String> data = new HashMap<>();
                     data.put("Associate Exp", thisExperimentID.toString());
+                    data.put("Experiment desc", exp.getDescription());
                     data.put("Result", editCount.getText().toString());
                     data.put("Type", "Count-based Tests");
 

@@ -1,9 +1,15 @@
 package com.example.quantify;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -23,10 +29,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -44,8 +53,12 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 
@@ -67,8 +80,13 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     String id;
 
-    private double latitude;
-    private double longitude;
+    String latitude;
+    String longitude;
+
+    LocationManager locationManager;
+    LocationListener locationListener;
+
+
 
 
     private int tabPos = 0;
@@ -97,6 +115,22 @@ public class MainActivity extends AppCompatActivity {
 
         // initially, we see the owner view
         experimentList.setAdapter(ownerExperimentAdapter);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new UserLocationListenerMain();
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
@@ -452,18 +486,105 @@ public class MainActivity extends AppCompatActivity {
             );
             String trialResultString;
             String experimentIDString;
+            String experimentDesc;
             UUID experimentID;
             //set title
-            builder.setTitle("Result");
+            builder.setTitle("Notification");
             //set message
-            builder.setMessage(intentResult.getContents());
+            builder.setMessage("Your trial has been added.");
             experimentIDString = intentResult.getContents().split(";")[0];
-            trialResultString = intentResult.getContents().split(";")[1];
+            trialResultString = intentResult.getContents().split(";")[2];
+            experimentDesc = intentResult.getContents().split(";")[1];
             experimentID = UUID.fromString(experimentIDString);
 
+
+            FirebaseFirestore db;
+            db = FirebaseFirestore.getInstance();
+            //whereEqualTo() is from
+            //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection/53332591#53332591
+            db.collection("Experiments").whereEqualTo("Experiment ID", experimentID)
+                    .limit(1).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                //Toast.makeText(getApplicationContext(),experimentDesc, Toast.LENGTH_SHORT).show();
+                                //Log.d("docsize", experimentDesc);
+                                //task.getResult().getDocuments().get(0).getId();
+
+                                final CollectionReference collectionReference_1 = db.collection("Experiments");
+                                final DocumentReference documentReference = collectionReference_1.document(experimentDesc);
+                                final CollectionReference collectionReference = documentReference.collection("Trials");
+
+                                Date date;
+                                SimpleDateFormat currentDate;
+                                String formattedCurrentDate;
+
+                                date = Calendar.getInstance().getTime();
+                                currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                                formattedCurrentDate = currentDate.format(date);
+                                String experimenterID = id;
+
+                                HashMap<String, String> data = new HashMap<>();
+                                data.put("Experimenter ID", experimenterID);
+                                data.put("Location Latitude", latitude);
+                                data.put("Location Longitude", longitude);
+                                data.put("Trial Date", formattedCurrentDate);
+                                data.put("Trial-Result", trialResultString);
+
+                                UUID trialID = UUID.randomUUID();
+                                collectionReference
+                                        .document(trialID.toString())
+                                        .set(data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // These are a method which gets executed when the task is succeeded
+                                                Log.d("TAG", "Data has been added successfully!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // These are a method which gets executed if there’s any problem
+                                                Log.d("TAG", "Data could not be added!" + e.toString());
+                                            }
+                                        });
+                            }
+                        }
+                    });
+
+            /**final CollectionReference collectionReference_1 = db.collection("Experiments");
+            final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
+            final CollectionReference collectionReference = documentReference.collection("Trials");
+
+            HashMap<String, String> data = new HashMap<>();
+            data.put("Trial-Result", result.getText().toString());
+            data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+            data.put("Trial Date", formattedCurrentDate);
+            data.put("Location Latitude", latitude);
+            data.put("Location Longitude", longitude);
+            UUID Trial_id = UUID.randomUUID();
+
+            collectionReference
+                    .document(Trial_id.toString())
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is succeeded
+                            Log.d("TAG", "Data has been added successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                            Log.d("TAG", "Data could not be added!" + e.toString());
+                        }
+                    });**/
             
 
-            Log.d("BLABLA", "The trial is added.");
             //set positive button
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
@@ -481,5 +602,32 @@ public class MainActivity extends AppCompatActivity {
             ,"OOPS... You did not scan anything", Toast.LENGTH_SHORT)
                     .show();
         }
+    }
+    // Code taken from: https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
+    // Code owner: Swiftboy (https://stackoverflow.com/users/1371853/swiftboy)
+
+    class UserLocationListenerMain implements LocationListener {
+        @Override
+        public void onLocationChanged(Location loc) {
+
+            longitude = loc.getLongitude()+"";
+            Log.v("longitude", longitude);
+            latitude = loc.getLatitude() + "";
+            Log.d("latitude", latitude);
+
+            String final_location = longitude + ", " + latitude;
+
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {}
+
+        @Override
+        public void onProviderEnabled(String provider) {}
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+
     }
 }
