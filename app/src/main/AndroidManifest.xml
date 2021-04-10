@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quantify">
+        <activity android:name=".BarcodeDetect"></activity>
         <activity android:name=".ResultsToIgnoreActivity"></activity>
         <activity android:name=".ShowUserSearchResult" />
         <activity
