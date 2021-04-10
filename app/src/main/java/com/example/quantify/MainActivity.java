@@ -451,6 +451,7 @@ public class MainActivity extends AppCompatActivity {
         if (intentResult.getContents() != null) {
             //when result content is not null
             //initialize alert dialog
+<<<<<<< HEAD
 
             String barcodeInfo = intentResult.getContents();
 
@@ -460,6 +461,18 @@ public class MainActivity extends AppCompatActivity {
 
 
             barcodeCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+=======
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    MainActivity.this
+            );
+            //set title
+            builder.setTitle("Result");
+            //set message
+            builder.setMessage(intentResult.getContents());
+
+            //set positive button
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+>>>>>>> 7d54a6cfb4e5bc054a0fbafe3aab1dd5a739b210
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -478,7 +491,15 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+<<<<<<< HEAD
 
+=======
+            //show alert dialog
+            builder.show();
+
+            // check firebase
+//            String codeInfo =  intentResult.getContents();
+>>>>>>> 7d54a6cfb4e5bc054a0fbafe3aab1dd5a739b210
 
         }else {
             //when result content is null
