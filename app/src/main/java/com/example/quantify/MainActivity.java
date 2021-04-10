@@ -363,22 +363,22 @@ public class MainActivity extends AppCompatActivity {
 
                 if (experiment_type.equals("Binomial Trials")) {
                     Log.d("BLABLA", "Binomial Clicked");
-                    Intent intent_1 = new Intent(MainActivity.this, BinomialTrialActivity.class);
+                    Intent intent_1 = new Intent(MainActivity.this, ResultsToIgnoreActivity.class);
                     intent_1.putExtra("Experiment", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 } else if (experiment_type.equals("Count-based Tests")) {
                     Log.d("BLABLA", "Count Clicked");
-                    Intent intent_1 = new Intent(MainActivity.this, CountTrialActivity.class);
+                    Intent intent_1 = new Intent(MainActivity.this, ResultsToIgnoreActivity.class);
                     intent_1.putExtra("Experiment", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 } else if (experiment_type.equals("Measurement Trials")) {
                     Log.d("BLABLA", "Temperature clicked");
-                    Intent intent_1 = new Intent(MainActivity.this, MeasurementTrialActivity.class);
+                    Intent intent_1 = new Intent(MainActivity.this, ResultsToIgnoreActivity.class);
                     intent_1.putExtra("Experiment", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 } else if (experiment_type.equals("Non-negative Integer Counts")) {
                     Log.d("BLABLA", "Non-neg clicked");
-                    Intent intent_1 = new Intent(MainActivity.this, NonNegativeCountTrialActivity.class);
+                    Intent intent_1 = new Intent(MainActivity.this, ResultsToIgnoreActivity.class);
                     intent_1.putExtra("Experiment", ownerExperimentAdapter.getItem(position));
                     startActivity(intent_1);
                 }

@@ -12,10 +12,11 @@
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/experiment_description_view"
+        android:textSize="25dp"
         android:textColor="@color/gradStart"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,18 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mTrialDescriptionView" />
 
-    <TextView
-        android:id="@+id/mTrialRegionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/region_text"
-        android:textColor="@color/bottom_button"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mTrialUserIDText" />
 
     <TextView
         android:id="@+id/mTrialMinimumNumberText"
@@ -59,7 +48,7 @@
         android:textColor="@color/bottom_button"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mTrialRegionText" />
+        app:layout_constraintTop_toBottomOf="@+id/mTrialUserIDText" />
 
     <TextView
         android:id="@+id/mTrialUserIDView"
@@ -75,24 +64,12 @@
 
 
     <TextView
-        android:id="@+id/mTrialRegionView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/region_view"
-        android:textColor="@color/gradStart"
-        app:layout_constraintStart_toEndOf="@+id/mTrialRegionText"
-        app:layout_constraintTop_toBottomOf="@+id/mTrialUserIDView" />
-
-    <TextView
         android:id="@+id/mMinTrialView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="111dp"
+        android:layout_marginTop="67dp"
         android:text="@string/trialNumber"
         android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/mTrialMinimumNumberText"

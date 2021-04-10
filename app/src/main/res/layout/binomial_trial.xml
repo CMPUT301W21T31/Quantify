@@ -12,10 +12,11 @@
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/experiment_description_view"
+        android:textSize="25dp"
         android:textColor="@color/shrine_pink_900"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,30 +37,17 @@
         app:layout_constraintTop_toBottomOf="@+id/bTrialDescriptionView" />
 
     <TextView
-        android:id="@+id/bTrialRegionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/region_text"
-        android:textColor="@color/bottom_button"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bTrialUserIDText" />
-
-    <TextView
         android:id="@+id/bTrialMinimumNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginLeft="16dp"
         android:text="@string/minimum_number_of_trials_text"
         android:textColor="@color/bottom_button"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bTrialRegionText" />
+        app:layout_constraintTop_toBottomOf="@+id/bTrialUserIDText" />
 
     <TextView
         android:id="@+id/bTrialUserIDView"
@@ -73,26 +61,14 @@
         app:layout_constraintStart_toEndOf="@+id/bTrialUserIDText"
         app:layout_constraintTop_toBottomOf="@+id/bTrialDescriptionView" />
 
-    <TextView
-        android:id="@+id/bTrialRegionView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/region_view"
-        android:textColor="@color/gradStart"
-        app:layout_constraintStart_toEndOf="@+id/bTrialRegionText"
-        app:layout_constraintTop_toBottomOf="@+id/bTrialUserIDView" />
 
 
     <TextView
         android:id="@+id/bMinTrialView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="111dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="67dp"
         android:text="@string/trialNumber"
         android:textColor="@color/gradStart"
         app:layout_constraintStart_toEndOf="@+id/bTrialMinimumNumberText"
