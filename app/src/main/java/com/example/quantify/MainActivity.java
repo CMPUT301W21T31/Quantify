@@ -25,8 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -461,9 +463,51 @@ public class MainActivity extends AppCompatActivity {
             trialResultString = intentResult.getContents().split(";")[1];
             experimentID = UUID.fromString(experimentIDString);
 
+            FirebaseFirestore db;
+            db = FirebaseFirestore.getInstance();
+
+            db.collection("Experiments").whereEqualTo("Experiment ID", experimentID)
+                    .limit(1).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                task.getResult();
+                            }
+                        }
+                    });
+
+            /**final CollectionReference collectionReference_1 = db.collection("Experiments");
+            final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
+            final CollectionReference collectionReference = documentReference.collection("Trials");
+
+            HashMap<String, String> data = new HashMap<>();
+            data.put("Trial-Result", result.getText().toString());
+            data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+            data.put("Trial Date", formattedCurrentDate);
+            data.put("Location Latitude", latitude);
+            data.put("Location Longitude", longitude);
+            UUID Trial_id = UUID.randomUUID();
+
+            collectionReference
+                    .document(Trial_id.toString())
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is succeeded
+                            Log.d("TAG", "Data has been added successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                            Log.d("TAG", "Data could not be added!" + e.toString());
+                        }
+                    });**/
             
 
-            Log.d("BLABLA", "The trial is added.");
             //set positive button
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
