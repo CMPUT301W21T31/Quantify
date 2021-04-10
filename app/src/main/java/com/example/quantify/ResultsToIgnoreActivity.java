@@ -41,8 +41,7 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
     ArrayList<String> result_date_list;
     ArrayList<Integer> result_count_list;
 
-    int success;
-    int failure;
+    ArrayList<Integer> booleanResults; // zero index is fail. one index is success
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +68,11 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
         result_date_list = new ArrayList<>();
         result_count_list = new ArrayList<>();
 
-        success = 0;
-        failure = 0;
+        booleanResults = new ArrayList<Integer>();
+        booleanResults.add(0);
+        booleanResults.add(0);
 
-        trialAdapter = new ResultList(ResultsToIgnoreActivity.this, trialDataList, ignoredTrials, Trial_list, Count_list, result_date_list, result_count_list, success, failure);
+        trialAdapter = new ResultList(ResultsToIgnoreActivity.this, trialDataList, ignoredTrials, Trial_list, Count_list, result_date_list, result_count_list, booleanResults);
 
         trialList.setAdapter(trialAdapter);
 
@@ -95,8 +95,8 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
                 Count_list.clear();
                 result_date_list.clear();
                 result_count_list.clear();
-                success = 0;
-                failure = 0;
+                booleanResults.set(0,0); // zero index is fail
+                booleanResults.set(1,0); // one index is success
 
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     String experimenter_id = (String) doc.getData().get("Experimenter ID");
@@ -112,18 +112,18 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
                         trialDataList.add(new_trial);
 
                         if (Trial_result.equals("Success")) {
-                            success++;
+                            booleanResults.set(1, booleanResults.get(1)+1);
                             Log.d("TAG", "BOOM");
                         }
 
                         if (Trial_result.equals("Fail")) {
-                            failure++;
+                            booleanResults.set(0, booleanResults.get(0)+1);
                             Log.d("TAG", "BOOM2");
                         }
                     }
                 }
 
-                Log.d("ignored", String.valueOf(failure));
+                Log.d("fail", String.valueOf(booleanResults.get(0)));
                 Log.d("ignored", ignoredTrials.toString());
                 trialAdapter.notifyDataSetChanged();
 
@@ -158,8 +158,11 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
         if(Count_list.size() > 0 && Trial_list.size() > 0) {
             if (exp.getType().equals("Binomial Trials")) {
                 Intent intent_1 = new Intent(this, BinomialHistogramActivity.class);
-                intent_1.putExtra("success", success);
-                intent_1.putExtra("fail", failure);
+                intent_1.putExtra("success", booleanResults.get(1));
+                intent_1.putExtra("fail", booleanResults.get(0));
+                Log.d("success",String.valueOf(booleanResults.get(1)));
+                Log.d("failure",String.valueOf(booleanResults.get(0)));
+
                 this.startActivity(intent_1);
             } else {
                 Intent intent_1 = new Intent(this, OtherHistogramActivity.class);
@@ -186,5 +189,6 @@ public class ResultsToIgnoreActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "No trials available", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
