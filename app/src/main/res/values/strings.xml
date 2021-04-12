@@ -103,6 +103,12 @@
         <item>Non-negative Integer Counts</item>
     </string-array>
 
+    <string-array name="booleanTypes">
+        <item>Success</item>
+        <item>Fail</item>
+        <item>Not Binomial</item>
+    </string-array>
+
     <string-array name="locationChoice">
         <item>Yes</item>
         <item>No</item>

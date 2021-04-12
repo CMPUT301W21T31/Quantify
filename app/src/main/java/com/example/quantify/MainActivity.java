@@ -41,6 +41,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -481,6 +482,7 @@ public class MainActivity extends AppCompatActivity {
         if (intentResult.getContents() != null) {
             //when result content is not null
             //initialize alert dialog
+            if (intentResult.getContents().contains(";")){
             AlertDialog.Builder builder = new AlertDialog.Builder(
                     MainActivity.this
             );
@@ -557,7 +559,6 @@ public class MainActivity extends AppCompatActivity {
             /**final CollectionReference collectionReference_1 = db.collection("Experiments");
             final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
             final CollectionReference collectionReference = documentReference.collection("Trials");
-
             HashMap<String, String> data = new HashMap<>();
             data.put("Trial-Result", result.getText().toString());
             data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
@@ -565,7 +566,6 @@ public class MainActivity extends AppCompatActivity {
             data.put("Location Latitude", latitude);
             data.put("Location Longitude", longitude);
             UUID Trial_id = UUID.randomUUID();
-
             collectionReference
                     .document(Trial_id.toString())
                     .set(data)
@@ -594,7 +594,41 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             //show alert dialog
-            builder.show();
+            builder.show();                
+              
+              
+            }
+            else {
+                String barcodeInfo = intentResult.getContents();
+
+                FirebaseFirestore db;
+                db = FirebaseFirestore.getInstance();
+                final CollectionReference barcodeCollection = db.collection("Barcodes");
+
+
+                barcodeCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                            String barcodeID = doc.getId();
+
+                            //recognize code
+                            if (barcodeInfo.equals(barcodeID)){
+                                addBarcodeTrialResult(barcodeID);
+                                return;
+                            }
+
+                        }
+
+                        // new barcode
+                        initBarcode(barcodeInfo);
+
+                    }
+                });
+
+
+            }
+     
         }else {
             //when result content is null
             //display toast
@@ -602,10 +636,142 @@ public class MainActivity extends AppCompatActivity {
             ,"OOPS... You did not scan anything", Toast.LENGTH_SHORT)
                     .show();
         }
-    }
-    // Code taken from: https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
-    // Code owner: Swiftboy (https://stackoverflow.com/users/1371853/swiftboy)
+    }              
+              
 
+    private void addBarcodeTrialResult(String barcode){
+        Toast.makeText(MainActivity.this, "bar code is: " + barcode, Toast.LENGTH_SHORT).show();
+        return;
+    }
+
+    private void initBarcode(String barcode){
+        Toast.makeText(MainActivity.this, "bar code is: " + barcode, Toast.LENGTH_SHORT).show();
+        View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.barcode_associate_exp_dialog, null);
+        expDesc = view_1.findViewById(R.id.exp_desc_fragment);
+        expMinTrials = view_1.findViewById(R.id.exp_min_trials);
+
+        Spinner expTypes = view_1.findViewById(R.id.exp_type_fragment);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.booleanTypes));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        expTypes.setAdapter(adapter);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+        adb.setTitle("New Barcode detecte, attach to experiment");
+//        adb.setMessage("Are you sure ");
+        adb.setView(view_1);
+
+        adb.setNegativeButton("Cancel", null);
+        adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                String exp_description = expDesc.getText().toString();
+                String bool_result = expTypes.getSelectedItem().toString();
+                String num_result = expMinTrials.getText().toString();
+                final String[] result = new String[1];
+
+                FirebaseFirestore db;
+                db = FirebaseFirestore.getInstance();
+                final CollectionReference coll = db.collection("Experiments");
+                final DocumentReference doc = coll.document(exp_description);
+
+                doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("EXTAG", "Document exists!");
+                                String exp_type = document.getString("Experiment Type");
+//                                Log.d("EXTAG", ()exp_type);
+                                Log.d("EXTAG", "exp_type");
+
+                                if (exp_type.equals("Binomial Trials")){
+                                    Log.d("EXTAG", "I am here");
+                                    if (bool_result.equals("Not Binomial")){
+                                        Toast.makeText(MainActivity.this, "Invalid Result!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    result[0] = bool_result;
+                                }
+
+                                if (exp_type.equals("Non-negative Integer Counts") ){
+                                    if (num_result.contains(".") || Integer.parseInt(num_result) < 0 || num_result.isEmpty()) {
+                                        Toast.makeText(MainActivity.this, "Invalid Result!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    String result = num_result;
+                                }
+
+                                if (exp_type.equals("Count-based Tests")){
+
+                                    if (num_result.contains(".") || Integer.parseInt(num_result) < 1 || num_result.isEmpty()) {
+                                        Toast.makeText(MainActivity.this, "Invalid Result!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    result[0] = num_result;
+                                }
+
+                                if (exp_type.equals("Measurement Trials") ){
+
+                                    if (num_result.isEmpty()) {
+                                        Toast.makeText(MainActivity.this, "Invalid Result!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    result[0] =  num_result;
+                                }
+
+                                final CollectionReference coll = db.collection("Barcodes");
+
+                                HashMap<String, String> data = new HashMap<>();
+                                if (exp_description.length() > 0) {
+                                    data.put("Associate Exp", exp_description);
+                                    data.put("Result", result[0]);
+                                    data.put("Type", exp_type);
+                                }
+                                else{
+                                    Toast.makeText(MainActivity.this, "Unable to create experiment.\nDescription empty!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                coll
+                                        .document(barcode)
+                                        .set(data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // These are a method which gets executed when the task is succeeded
+                                                Log.d("EXTAG", "Data has been added successfully!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // These are a method which gets executed if there’s any problem
+                                                Log.d("TAG", "Data could not be added!" + e.toString());
+                                            }
+                                        });
+
+                                return;
+                            } else {
+                                Log.d("TAG", "Document does not exist!");
+                                Toast.makeText(MainActivity.this, "No such experiment exist!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } else {
+                            Log.d("TAG", "Failed with: ", task.getException());
+                        }
+                    }
+                });
+
+
+            }
+        });
+        adb.show();
+        return;
+    }
+  
     class UserLocationListenerMain implements LocationListener {
         @Override
         public void onLocationChanged(Location loc) {
@@ -629,5 +795,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {}
 
-    }
-}
+    }  
+  
+  
+  
+  
+  
+  
+}              
+              
+              
+              
+              
+              
