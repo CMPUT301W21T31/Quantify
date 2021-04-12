@@ -483,118 +483,90 @@ public class MainActivity extends AppCompatActivity {
             //when result content is not null
             //initialize alert dialog
             if (intentResult.getContents().contains(";")){
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                    MainActivity.this
-            );
-            String trialResultString;
-            String experimentIDString;
-            String experimentDesc;
-            UUID experimentID;
-            //set title
-            builder.setTitle("Notification");
-            //set message
-            builder.setMessage("Your trial has been added.");
-            experimentIDString = intentResult.getContents().split(";")[0];
-            trialResultString = intentResult.getContents().split(";")[2];
-            experimentDesc = intentResult.getContents().split(";")[1];
-            experimentID = UUID.fromString(experimentIDString);
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        MainActivity.this
+                );
+                String trialResultString;
+                String experimentIDString;
+                String experimentDesc;
+                UUID experimentID;
+                //set title
+                builder.setTitle("Notification");
+                //set message
+                builder.setMessage("Your trial has been added.");
+                experimentIDString = intentResult.getContents().split(";")[0];
+                trialResultString = intentResult.getContents().split(";")[2];
+                experimentDesc = intentResult.getContents().split(";")[1];
+                experimentID = UUID.fromString(experimentIDString);
 
 
-            FirebaseFirestore db;
-            db = FirebaseFirestore.getInstance();
-            //whereEqualTo() is from
-            //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection/53332591#53332591
-            db.collection("Experiments").whereEqualTo("Experiment ID", experimentID)
-                    .limit(1).get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                //Toast.makeText(getApplicationContext(),experimentDesc, Toast.LENGTH_SHORT).show();
-                                //Log.d("docsize", experimentDesc);
-                                //task.getResult().getDocuments().get(0).getId();
+                FirebaseFirestore db;
+                db = FirebaseFirestore.getInstance();
+                //whereEqualTo() is from
+                //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection/53332591#53332591
+                db.collection("Experiments").whereEqualTo("Experiment ID", experimentID)
+                        .limit(1).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    //Toast.makeText(getApplicationContext(),experimentDesc, Toast.LENGTH_SHORT).show();
+                                    //Log.d("docsize", experimentDesc);
+                                    //task.getResult().getDocuments().get(0).getId();
 
-                                final CollectionReference collectionReference_1 = db.collection("Experiments");
-                                final DocumentReference documentReference = collectionReference_1.document(experimentDesc);
-                                final CollectionReference collectionReference = documentReference.collection("Trials");
+                                    final CollectionReference collectionReference_1 = db.collection("Experiments");
+                                    final DocumentReference documentReference = collectionReference_1.document(experimentDesc);
+                                    final CollectionReference collectionReference = documentReference.collection("Trials");
 
-                                Date date;
-                                SimpleDateFormat currentDate;
-                                String formattedCurrentDate;
+                                    Date date;
+                                    SimpleDateFormat currentDate;
+                                    String formattedCurrentDate;
 
-                                date = Calendar.getInstance().getTime();
-                                currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-                                formattedCurrentDate = currentDate.format(date);
-                                String experimenterID = id;
+                                    date = Calendar.getInstance().getTime();
+                                    currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                                    formattedCurrentDate = currentDate.format(date);
+                                    String experimenterID = id;
 
-                                HashMap<String, String> data = new HashMap<>();
-                                data.put("Experimenter ID", experimenterID);
-                                data.put("Location Latitude", latitude);
-                                data.put("Location Longitude", longitude);
-                                data.put("Trial Date", formattedCurrentDate);
-                                data.put("Trial-Result", trialResultString);
+                                    HashMap<String, String> data = new HashMap<>();
+                                    data.put("Experimenter ID", experimenterID);
+                                    data.put("Location Latitude", latitude);
+                                    data.put("Location Longitude", longitude);
+                                    data.put("Trial Date", formattedCurrentDate);
+                                    data.put("Trial-Result", trialResultString);
 
-                                UUID trialID = UUID.randomUUID();
-                                collectionReference
-                                        .document(trialID.toString())
-                                        .set(data)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                // These are a method which gets executed when the task is succeeded
-                                                Log.d("TAG", "Data has been added successfully!");
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                // These are a method which gets executed if there’s any problem
-                                                Log.d("TAG", "Data could not be added!" + e.toString());
-                                            }
-                                        });
+                                    UUID trialID = UUID.randomUUID();
+                                    collectionReference
+                                            .document(trialID.toString())
+                                            .set(data)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // These are a method which gets executed when the task is succeeded
+                                                    Log.d("TAG", "Data has been added successfully!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // These are a method which gets executed if there’s any problem
+                                                    Log.d("TAG", "Data could not be added!" + e.toString());
+                                                }
+                                            });
+                                }
                             }
-                        }
-                    });
+                        });
 
-            /**final CollectionReference collectionReference_1 = db.collection("Experiments");
-            final DocumentReference documentReference = collectionReference_1.document(exp.getDescription());
-            final CollectionReference collectionReference = documentReference.collection("Trials");
-            HashMap<String, String> data = new HashMap<>();
-            data.put("Trial-Result", result.getText().toString());
-            data.put("Experimenter ID", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-            data.put("Trial Date", formattedCurrentDate);
-            data.put("Location Latitude", latitude);
-            data.put("Location Longitude", longitude);
-            UUID Trial_id = UUID.randomUUID();
-            collectionReference
-                    .document(Trial_id.toString())
-                    .set(data)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // These are a method which gets executed when the task is succeeded
-                            Log.d("TAG", "Data has been added successfully!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // These are a method which gets executed if there’s any problem
-                            Log.d("TAG", "Data could not be added!" + e.toString());
-                        }
-                    });**/
-            
 
-            //set positive button
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int which) {
-                    //dismiss dialog
-                    dialogInterface.dismiss();
-                }
-            });
-            //show alert dialog
-            builder.show();                
+                //set positive button
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        //dismiss dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+                //show alert dialog
+                builder.show();
               
               
             }
@@ -614,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
 
                             //recognize code
                             if (barcodeInfo.equals(barcodeID)){
-                                addBarcodeTrialResult(barcodeID);
+                                addBarcodeTrialResult(doc);
                                 return;
                             }
 
@@ -639,9 +611,116 @@ public class MainActivity extends AppCompatActivity {
     }              
               
 
-    private void addBarcodeTrialResult(String barcode){
-        Toast.makeText(MainActivity.this, "bar code is: " + barcode, Toast.LENGTH_SHORT).show();
-        return;
+    private void addBarcodeTrialResult(QueryDocumentSnapshot doc){
+//        Toast.makeText(MainActivity.this, "bar code is: " + barcode, Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                MainActivity.this
+        );
+        //set title
+        builder.setTitle("Notification");
+        //set message
+        builder.setMessage("Your trial has been added.");
+
+        String trialResultString;
+        String experimentIDString;
+        final String[] expestring = new String[1];
+        String experimentDesc;
+        UUID experimentID;
+
+
+
+
+        trialResultString = doc.get("Result").toString();
+        experimentDesc = doc.get("Associate Exp").toString();
+
+
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Experiments").child(experimentDesc);
+        final CollectionReference colla = db.collection("Experiments");
+        final DocumentReference exp_doc = colla.document(experimentDesc);
+
+        exp_doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    expestring[0] = document.get("Experiment ID").toString();
+                    return;
+                } else {
+                    Log.d("TAG", "Failed with: ", task.getException());
+                }
+            }
+        });
+
+        experimentIDString = expestring[0];
+        experimentID = UUID.fromString(experimentIDString);
+
+        //whereEqualTo() is from
+        //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection/53332591#53332591
+        db.collection("Experiments").whereEqualTo("Experiment ID", experimentID)
+                .limit(1).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            //Toast.makeText(getApplicationContext(),experimentDesc, Toast.LENGTH_SHORT).show();
+                            //Log.d("docsize", experimentDesc);
+                            //task.getResult().getDocuments().get(0).getId();
+
+                            final CollectionReference collectionReference_1 = db.collection("Experiments");
+                            final DocumentReference documentReference = collectionReference_1.document(experimentDesc);
+                            final CollectionReference collectionReference = documentReference.collection("Trials");
+
+                            Date date;
+                            SimpleDateFormat currentDate;
+                            String formattedCurrentDate;
+
+                            date = Calendar.getInstance().getTime();
+                            currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                            formattedCurrentDate = currentDate.format(date);
+                            String experimenterID = id;
+
+                            HashMap<String, String> data = new HashMap<>();
+                            data.put("Experimenter ID", experimenterID);
+                            data.put("Location Latitude", latitude);
+                            data.put("Location Longitude", longitude);
+                            data.put("Trial Date", formattedCurrentDate);
+                            data.put("Trial-Result", trialResultString);
+
+                            UUID trialID = UUID.randomUUID();
+                            collectionReference
+                                    .document(trialID.toString())
+                                    .set(data)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // These are a method which gets executed when the task is succeeded
+                                            Log.d("TAG", "Data has been added successfully!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // These are a method which gets executed if there’s any problem
+                                            Log.d("TAG", "Data could not be added!" + e.toString());
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+
+        //set positive button
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                //dismiss dialog
+                dialogInterface.dismiss();
+            }
+        });
+        //show alert dialog
+        builder.show();
     }
 
     private void initBarcode(String barcode){
@@ -753,12 +832,11 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                return;
                             } else {
                                 Log.d("TAG", "Document does not exist!");
                                 Toast.makeText(MainActivity.this, "No such experiment exist!", Toast.LENGTH_SHORT).show();
-                                return;
                             }
+                            return;
                         } else {
                             Log.d("TAG", "Failed with: ", task.getException());
                         }
