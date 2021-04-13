@@ -584,8 +584,11 @@ public class MainActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             String barcodeID = doc.getId();
 
+
                             //recognize code
                             if (barcodeInfo.equals(barcodeID)){
+                                Log.d("abcddd", barcodeInfo);
+                                Log.d("abcddd", barcodeID);
                                 addBarcodeTrialResult(doc);
                                 return;
                             }
@@ -623,19 +626,21 @@ public class MainActivity extends AppCompatActivity {
 
         String trialResultString;
         String experimentIDString;
-        final String[] expestring = new String[1];
+        //final String[] expestring = new String[1];
         String experimentDesc;
         UUID experimentID;
 
 
 
 
-        trialResultString = doc.get("Result").toString();
-        experimentDesc = doc.get("Associate Exp").toString();
+        trialResultString = doc.getString("Result");
+        experimentDesc = doc.getString("Associate Exp");
 
+        Log.d("OnComplete", "aaa");
 
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
+        /**
 //        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Experiments").child(experimentDesc);
         final CollectionReference colla = db.collection("Experiments");
         final DocumentReference exp_doc = colla.document(experimentDesc);
@@ -646,14 +651,16 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     expestring[0] = document.get("Experiment ID").toString();
+                    Log.d("OnComplete", expestring[0]);
                     return;
                 } else {
                     Log.d("TAG", "Failed with: ", task.getException());
                 }
             }
-        });
+        });**/
 
-        experimentIDString = expestring[0];
+        experimentIDString = doc.getString("Exp ID");
+        Log.d("Fail test", experimentIDString);
         experimentID = UUID.fromString(experimentIDString);
 
         //whereEqualTo() is from
@@ -808,6 +815,7 @@ public class MainActivity extends AppCompatActivity {
                                     data.put("Associate Exp", exp_description);
                                     data.put("Result", result[0]);
                                     data.put("Type", exp_type);
+                                    data.put("Exp ID", document.getString("Experiment ID"));
                                 }
                                 else{
                                     Toast.makeText(MainActivity.this, "Unable to create experiment.\nDescription empty!", Toast.LENGTH_SHORT).show();
