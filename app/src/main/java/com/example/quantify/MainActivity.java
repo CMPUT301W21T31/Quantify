@@ -567,6 +567,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 //show alert dialog
                 builder.show();
+                return;
               
               
             }
