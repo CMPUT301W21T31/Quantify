@@ -809,7 +809,10 @@ public class MainActivity extends AppCompatActivity {
                                     result[0] =  num_result;
                                 }
 
-                                final CollectionReference coll = db.collection("Barcodes");
+                                FirebaseFirestore dbc;
+                                dbc = FirebaseFirestore.getInstance();
+
+                                final CollectionReference coll_bar = dbc.collection("Barcodes");
 
                                 HashMap<String, String> data = new HashMap<>();
                                 if (exp_description.length() > 0) {
@@ -823,7 +826,7 @@ public class MainActivity extends AppCompatActivity {
                                     return;
                                 }
 
-                                coll
+                                coll_bar
                                         .document(barcode)
                                         .set(data)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
