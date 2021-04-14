@@ -568,9 +568,9 @@ public class MainActivity extends AppCompatActivity {
                 //show alert dialog
                 builder.show();
                 return;
-              
-              
+
             }
+
             else {
                 String barcodeInfo = intentResult.getContents();
 
@@ -741,12 +741,12 @@ public class MainActivity extends AppCompatActivity {
                 String num_result = expMinTrials.getText().toString();
                 final String[] result = new String[1];
 
-                FirebaseFirestore db;
-                db = FirebaseFirestore.getInstance();
-                final CollectionReference coll = db.collection("Experiments");
-                final DocumentReference doc = coll.document(exp_description);
+                FirebaseFirestore dbdbdb;
+                dbdbdb = FirebaseFirestore.getInstance();
+                final CollectionReference coll = dbdbdb.collection("Experiments");
+                final DocumentReference docdoc = coll.document(exp_description);
 
-                doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                docdoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
@@ -837,8 +837,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
         });
         adb.show();
