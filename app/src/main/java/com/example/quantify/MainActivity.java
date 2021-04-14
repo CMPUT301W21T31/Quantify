@@ -582,6 +582,7 @@ public class MainActivity extends AppCompatActivity {
                 barcodeCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        boolean checkExist = false;
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             String barcodeID = doc.getId();
 
@@ -590,19 +591,18 @@ public class MainActivity extends AppCompatActivity {
                             if (barcodeInfo.equals(barcodeID)){
                                 Log.d("abcddd", barcodeInfo);
                                 Log.d("abcddd", barcodeID);
+                                checkExist = true;
                                 addBarcodeTrialResult(doc);
-                                return;
+                                break;
                             }
-
                         }
 
-                        // new barcode
-                        initBarcode(barcodeInfo);
+                        if (!checkExist) {
+                            initBarcode(barcodeInfo);
+                        }
 
                     }
                 });
-
-
             }
      
         }else {
@@ -641,24 +641,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        /**
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Experiments").child(experimentDesc);
-        final CollectionReference colla = db.collection("Experiments");
-        final DocumentReference exp_doc = colla.document(experimentDesc);
 
-        exp_doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    expestring[0] = document.get("Experiment ID").toString();
-                    Log.d("OnComplete", expestring[0]);
-                    return;
-                } else {
-                    Log.d("TAG", "Failed with: ", task.getException());
-                }
-            }
-        });**/
 
         experimentIDString = doc.getString("Exp ID");
         Log.d("Fail test", experimentIDString);
@@ -892,7 +875,7 @@ public class MainActivity extends AppCompatActivity {
   
   
   
-}              
+}
               
               
               
