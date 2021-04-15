@@ -576,31 +576,23 @@ public class MainActivity extends AppCompatActivity {
 
                 FirebaseFirestore db;
                 db = FirebaseFirestore.getInstance();
-                final CollectionReference barcodeCollection = db.collection("Barcodes");
-
-
-                barcodeCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                //final CollectionReference barcodeCollection = db.collection("Barcodes");
+                DocumentReference docRef = db.collection("Barcodes").document(barcodeInfo);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                        boolean checkExist = false;
-                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                            String barcodeID = doc.getId();
-
-
-                            //recognize code
-                            if (barcodeInfo.equals(barcodeID)){
-                                Log.d("abcddd", barcodeInfo);
-                                Log.d("abcddd", barcodeID);
-                                checkExist = true;
-                                addBarcodeTrialResult(doc);
-                                break;
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+//                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                addBarcodeTrialResult(document);
+                            } else {
+//                                Log.d(TAG, "No such document");
+                                initBarcode(barcodeInfo);
                             }
+                        } else {
+//                            Log.d(TAG, "get failed with ", task.getException());
                         }
-
-                        if (!checkExist) {
-                            initBarcode(barcodeInfo);
-                        }
-
                     }
                 });
             }
@@ -615,7 +607,7 @@ public class MainActivity extends AppCompatActivity {
     }              
               
 
-    private void addBarcodeTrialResult(QueryDocumentSnapshot doc){
+    private void addBarcodeTrialResult(DocumentSnapshot doc){
 //        Toast.makeText(MainActivity.this, "bar code is: " + barcode, Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 MainActivity.this
