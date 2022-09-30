@@ -18,7 +18,6 @@
             android:background="@color/shrine_pink_100"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/top_app_bar"
-            app:navigationIcon="@drawable/ic_menu_24dp"
             app:title="@string/app_name"
             app:titleTextColor="@color/shrine_pink_900" />
 

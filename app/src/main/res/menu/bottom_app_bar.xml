@@ -12,19 +12,6 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/location"
-        android:contentDescription="@string/content_description_location"
-        android:icon="@drawable/ic_location_24dp"
-        android:title="@string/location"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/question_answer"
-        android:contentDescription="@string/content_description_question"
-        android:icon="@drawable/ic_question_24dp"
-        android:title="@string/question"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/qr_code"
         android:contentDescription="@string/content_description_qr_code"
         android:icon="@drawable/ic_qr_24dp"

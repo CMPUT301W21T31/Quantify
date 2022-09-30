@@ -68,21 +68,28 @@ public class SearchActivity extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 dataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
-                    UUID experiment_id = UUID.fromString((String) doc.getData().get("Experiment ID"));
-                    String experiment_description = doc.getId();
-                    String experiment_username = (String) doc.getData().get("Experiment User");
-                    String experiment_status = (String) doc.getData().get("Experiment Status");
-                    String experiment_type = (String) doc.getData().get("Experiment Type");
-                    String experiment_location = (String) doc.getData().get("Experiment Location");
-                    Integer experiment_min_trials = 1;
-                    try {
-                        experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
-                    } catch (Exception e) {
-                        experiment_min_trials = 0;
+                    if(doc.getData().get("Experiment ID") != null
+                            && doc.getData().get("Experiment User")!= null
+                            && doc.getData().get("Experiment Status")!= null
+                            && doc.getData().get("Experiment Type")!= null
+                            && doc.getData().get("Experiment Location")!= null
+                            && doc.getData().get("Min Trials")!= null) {
+                        //Log.d("TAG", String.valueOf(doc.getData().get("Province Name")));
+                        UUID experiment_id = UUID.fromString((String) doc.getData().get("Experiment ID"));
+                        String experiment_description = doc.getId();
+                        String experiment_username = (String) doc.getData().get("Experiment User");
+                        String experiment_status = (String) doc.getData().get("Experiment Status");
+                        String experiment_type = (String) doc.getData().get("Experiment Type");
+                        String experiment_location = (String) doc.getData().get("Experiment Location");
+                        Integer experiment_min_trials = 1;
+                        try {
+                            experiment_min_trials = Integer.valueOf((String) doc.getData().get("Min Trials"));
+                        } catch (Exception e) {
+                            experiment_min_trials = 0;
+                        }
+                        Log.d("TAG", experiment_username);
+                        dataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location)); // Adding the cities and provinces from FireStore
                     }
-                    Log.d("TAG", experiment_username);
-                    dataList.add(new Experiment(experiment_id, experiment_description, experiment_username, experiment_status, experiment_type, experiment_min_trials, experiment_location)); // Adding the cities and provinces from FireStore
                 }
 
             }
@@ -102,14 +109,14 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(SearchActivity.this, "SEARCH " + query, Toast.LENGTH_LONG).show();
+                //Toast.makeText(SearchActivity.this, "SEARCH " + query, Toast.LENGTH_LONG).show();
                 searchExps(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(SearchActivity.this, "SEARCH " + newText, Toast.LENGTH_LONG).show();
+                //Toast.makeText(SearchActivity.this, "SEARCH " + newText, Toast.LENGTH_LONG).show();
                 searchExps(newText);
                 return false;
             }
