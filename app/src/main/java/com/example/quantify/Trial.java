@@ -1,6 +1,8 @@
 package com.example.quantify;
 
-public class Trial {
+import android.app.Activity;
+
+public class Trial extends Activity {
     private String experimenterID;
     private String Date;
     private String result;

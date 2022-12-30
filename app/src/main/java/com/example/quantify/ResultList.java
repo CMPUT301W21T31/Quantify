@@ -37,10 +37,9 @@ public class ResultList extends ArrayAdapter<Trial> {
     ArrayList<String> result_date_list;
     ArrayList<Integer> result_count_list;
 
-    int success;
-    int failure;
+    ArrayList<Integer> booleanResults; // zero index is fail. one index is success
 
-    public ResultList(Context context, ArrayList<Trial> trials, ArrayList<Trial> ignoredTrials, ArrayList<String> Trial_list, ArrayList<Integer> Count_list, ArrayList<String> result_date_list, ArrayList<Integer> result_count_list, int success, int failure){
+    public ResultList(Context context, ArrayList<Trial> trials, ArrayList<Trial> ignoredTrials, ArrayList<String> Trial_list, ArrayList<Integer> Count_list, ArrayList<String> result_date_list, ArrayList<Integer> result_count_list, ArrayList<Integer> booleanResults){
         super(context, 0, trials);
         this.trials = trials;
         this.ignoredTrials = ignoredTrials;
@@ -48,8 +47,7 @@ public class ResultList extends ArrayAdapter<Trial> {
         this.Count_list = Count_list;
         this.result_date_list = result_date_list;
         this.result_count_list = result_count_list;
-        this.success = success;
-        this.failure = failure;
+        this.booleanResults = booleanResults;
         this.context = context;
     }
 
@@ -87,8 +85,8 @@ public class ResultList extends ArrayAdapter<Trial> {
                     Count_list.clear();
                     result_date_list.clear();
                     result_count_list.clear();
-                    success = 0;
-                    failure = 0;
+                    booleanResults.set(0,0); // zero index is fail
+                    booleanResults.set(1,0); // one index is success
 
                     for(int counter = 0; counter < trials.size(); counter++){
                         String Trial_result = trials.get(counter).getResult();
@@ -110,9 +108,20 @@ public class ResultList extends ArrayAdapter<Trial> {
                             result_date_list.add(Result_date);
                             result_count_list.add(1);
                         }
+
+                        if (Trial_result.equals("Success")) {
+                            booleanResults.set(1, booleanResults.get(1)+1);
+                            Log.d("TAG", "BOOM");
+                        }
+
+                        else if (Trial_result.equals("Fail")) {
+                            booleanResults.set(0, booleanResults.get(0)+1);
+                            Log.d("TAG", "BOOM2");
+                        }
                     }
 
-
+                Log.d("success",String.valueOf(booleanResults.get(1)));
+                Log.d("failure",String.valueOf(booleanResults.get(0)));
                 }
                 notifyDataSetChanged();
                 return false;

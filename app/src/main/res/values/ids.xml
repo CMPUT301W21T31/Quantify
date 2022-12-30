@@ -3,4 +3,6 @@
     <item name="topAppBar" type="id" />
     <item name="exp_list" type="id" />
     <item name="tabLayout" type="id" />
+    <item name="exp_user_fragment" type="id" />
+    <item name="exp_status_fragment" type="id" />
 </resources>
